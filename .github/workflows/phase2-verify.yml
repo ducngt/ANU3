@@ -38,6 +38,7 @@ jobs:
         shell: bash
         run: cd "$ANU_PROJECT_DIR" && python scripts/verify_p2t02_p3.py
       - name: Upload local evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: p2t02-p3-local-verification-evidence

@@ -142,6 +142,9 @@ def main() -> int:
         tests = run([sys.executable, "-m", "pytest", "-q"])
         checks["automated_tests"] = "PASS" if tests.returncode == 0 else "FAIL"
         details["automated_tests"] = (tests.stdout + tests.stderr).strip()
+        if tests.returncode != 0:
+            print("AUTOMATED_TEST_FAILURE_DETAILS", flush=True)
+            print(details["automated_tests"], flush=True)
 
         pilot = run_pilot(db_url, object_root)
         checks["aru01_multimodal_capability_pilot"] = "PASS" if pilot["pass"] else "FAIL"
