@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANU 4.0 — Trải nghiệm ARU-01</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f7f2;color:#193a2a;font:15px system-ui,sans-serif}
+header{background:#143826;color:white;padding:22px max(24px,calc((100vw - 1050px)/2))}
+header strong{font-size:25px;letter-spacing:.12em}main{max-width:1050px;margin:auto;padding:24px}
+.hero{background:#1b4932;color:white;border-radius:16px;padding:38px}
+.hero small{color:#c6e79b;letter-spacing:.16em;font-weight:700}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.15;margin:15px 0}
+.hero p{color:#d6e8d7}.notice{background:#e4f1e3;border-left:4px solid #6fae72;padding:16px;margin:22px 0;line-height:1.6}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}.card{background:white;border:1px solid #dce8dc;border-radius:12px;padding:22px;margin-bottom:16px}
+h2{font-size:21px}h3{margin-top:0}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0;list-style:none}
+.steps li{border-top:3px solid #d7e4d8;padding:12px 4px;color:#7b8c80;font-size:12px}.steps li.on{border-color:#62a16e;color:#194a2e;font-weight:700}
+.steps b{display:block;font-size:20px}button{border:0;border-radius:7px;background:#286042;color:white;padding:11px 14px;margin:4px 5px 4px 0;cursor:pointer;font-weight:700}
+button:focus-visible{outline:3px solid orange}button:disabled{opacity:.4}.danger{background:#fff0dd;color:#805226;border:1px solid #e9cba6}
+dl div{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #e7eee7;font-size:12px}
+dt{color:#748779}dd{margin:0;text-align:right;font-weight:700}.log{padding-left:24px}.log li{padding:7px}.stopped{background:#fff0dd;color:#82502a;padding:12px;border-radius:7px}
+#status{display:inline-block;background:#e3efde;padding:9px;border-radius:20px;font-size:12px;font-weight:700}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><strong>ANU ✳</strong> &nbsp; Không gian trải nghiệm</header>
+<main>
+<section class="hero">
+<small>TUYÊN NGÔN ANU 4.0 · THỰC HÀNH</small>
+<h1>Một trường đại học<br>biết mình đang làm gì.</h1>
+<p>AI chuẩn bị đề xuất. Dữ liệu đi cùng chứng cứ. Human giữ quyền quyết định học thuật.</p>
+</section>
+<p class="notice"><b>Mô phỏng ARU-01 bằng dữ liệu synthetic.</b> Các thao tác chỉ đổi trạng thái trong trình duyệt; không gọi AI thật, không đăng nhập, ký số hoặc ghi quyết định vào ANU. P4 đã được Human chấp nhận G3; giao diện này không chứng nhận nghiệm thu P5.</p>
+<h2>Hồ sơ công việc ARU-01 <span id="status">CHỜ XÁC MINH</span></h2>
+<div class="grid">
+<div>
+<section class="card">
+<h3>Luồng công việc Human–AI</h3>
+<ol class="steps" id="steps">
+<li><b>01</b>Tiếp nhận</li><li><b>02</b>Chứng cứ</li>
+<li><b>03</b>Bản nháp AI</li><li><b>04</b>Human xem xét</li>
+</ol>
+<div id="action"></div><p id="message" role="status" aria-live="polite"></p>
+</section>
+<section class="card">
+<h3>Thử tình huống phải dừng</h3>
+<button class="danger" data-fail="Thiếu chứng cứ nguồn">Thiếu evidence</button>
+<button class="danger" data-fail="Agent không có thẩm quyền học thuật">Agent tự phê duyệt</button>
+<button class="danger" data-fail="Delegation hết hạn">Delegation hết hạn</button>
+</section>
+</div>
+<section class="card">
+<h3>Nguồn và trách nhiệm</h3>
+<dl>
+<div><dt>Chương trình</dt><dd>Kỹ thuật phần mềm</dd></div>
+<div><dt>Policy tình huống</dt><dd>Academic approval v1.0</dd></div>
+<div><dt>Agent chuẩn bị</dt><dd>qa-01 · phạm vi bản nháp</dd></div>
+<div><dt>Human xem xét</dt><dd>h-003 · authority</dd></div>
+</dl>
+<p><b>CAPABILITY ≠ AUTHORITY</b></p>
+<p>AI có thể đề xuất. Thay đổi học thuật chính thức phải theo authority, policy và yêu cầu chữ ký tương ứng.</p>
+</section>
+</div>
+<section class="card"><h3>Dấu vết công việc</h3><ol class="log" id="log"></ol><button id="reset">Bắt đầu lại ↺</button></section>
+</main>
+<script>
+const labels=["CHỜ XÁC MINH","ĐÃ XÁC MINH","BẢN NHÁP AI","CHỜ HUMAN","KẾT THÚC MÔ PHỎNG"];
+const actions=["Xác minh nguồn","AI tạo bản nháp","Bàn giao Human","Human xem xét (mô phỏng)"];
+let stage=0,blocked="";
+const $=s=>document.querySelector(s);
+function log(message){const li=document.createElement("li");li.textContent=message;$("#log").append(li)}
+function render(){
+ $("#status").textContent=blocked?"ĐÃ DỪNG · CHỜ HUMAN":labels[stage];
+ document.querySelectorAll("#steps li").forEach((li,i)=>li.classList.toggle("on",i<=stage));
+ $("#action").replaceChildren();
+ if(blocked){
+  const p=document.createElement("p");p.className="stopped";
+  p.textContent="DETECT → STOP → PRESERVE → HANDOVER: "+blocked;
+  const b=document.createElement("button");b.textContent="Human điều phối khôi phục";
+  b.onclick=()=>{log("Human khôi phục từ trạng thái đã bảo toàn");blocked="";render()};
+  $("#action").append(p,b);
+ }else if(stage<4){
+  const b=document.createElement("button");b.textContent=actions[stage]+" ↗";
+  b.onclick=()=>{log(actions[stage]);stage++;render()};
+  $("#action").append(b);
+ }else $("#action").textContent="Hoàn tất mô phỏng. Không tạo phê duyệt thật.";
+ $("#message").textContent=blocked?"Đã dừng và bảo toàn trạng thái.":"Chọn bước tiếp theo hoặc thử tình huống lỗi.";
+ document.querySelectorAll("[data-fail]").forEach(b=>b.disabled=!!blocked||stage===4);
+}
+document.querySelectorAll("[data-fail]").forEach(b=>b.onclick=()=>{
+ if(blocked||stage===4)return;
+ blocked=b.dataset.fail;log("DỪNG: "+blocked);render();
+});
+$("#reset").onclick=()=>{stage=0;blocked="";$("#log").replaceChildren();log("Tạo hồ sơ ARU-01 synthetic");render()};
+log("Tạo hồ sơ ARU-01 synthetic");render();
+</script>
+</body>
+</html>
