@@ -1,0 +1,18 @@
+{
+  "decision_id": "ANU-P4-G3-2026-09-25",
+  "phase": 4,
+  "gate": "G3",
+  "decision": "ACCEPT",
+  "decision_channel": "ANU project conversation",
+  "decision_date_local": "2026-09-25T16:57:04+07:00",
+  "accepted_version": "0.7.0",
+  "accepted_migration": "0006",
+  "evidence_commit": "a9ec1f9",
+  "scope": "ARU-01 synthetic E1/E2/E3 reference pilot",
+  "record_ref": "docs/human-decisions/P4-G3-ACCEPTED.md",
+  "limits": [
+    "No G4 production institutionalization",
+    "No real learner PII or live SIS/LMS/HR integrations",
+    "No Agent standing authority or pilot promotion to A3-A5"
+  ]
+}

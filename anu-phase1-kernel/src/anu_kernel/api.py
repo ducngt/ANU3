@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from html import escape
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
@@ -147,31 +148,65 @@ def _load_release_status() -> dict:
     }
 
 
+def _load_accepted_baseline() -> dict | None:
+    relative = Path("docs/human-decisions/P4-G3-ACCEPTED.json")
+    candidates = [relative, Path(__file__).resolve().parents[2] / relative]
+    for path in candidates:
+        if path.is_file():
+            try:
+                record = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            if record.get("phase") == 4 and record.get("gate") == "G3" and record.get("decision") == "ACCEPT":
+                return record
+    return None
+
+
 @app.get("/human/status")
 def human_status():
-    return _load_release_status()
+    status = _load_release_status()
+    accepted = _load_accepted_baseline()
+    if accepted:
+        status["accepted_baseline"] = accepted
+    return status
 
 
 @app.get("/human", response_class=HTMLResponse, include_in_schema=False)
 def human_dashboard():
-    status = _load_release_status()
+    status = human_status()
     checks = status.get("checks", {})
     rows = "".join(
-        f"<tr><td>{name}</td><td><strong>{value}</strong></td></tr>"
+        f"<tr><td>{escape(str(name))}</td><td><strong>{escape(str(value))}</strong></td></tr>"
         for name, value in checks.items()
     )
-    limitations = "".join(f"<li>{item}</li>" for item in status.get("known_limitations", [])) or "<li>None recorded</li>"
+    limitations = "".join(f"<li>{escape(str(item))}</li>" for item in status.get("known_limitations", [])) or "<li>None recorded</li>"
+    accepted = status.get("accepted_baseline")
+    accepted_banner = (
+        "<h2>Human-accepted baseline</h2><p class='gate'>"
+        f"P4 G3 ACCEPT · version {escape(str(accepted['accepted_version']))} · "
+        f"commit {escape(str(accepted['evidence_commit']))} · {escape(str(accepted['scope']))}"
+        "</p><p>This reference-pilot decision does not approve a later candidate or production use.</p>"
+        if accepted else "<h2>Human-accepted baseline</h2><p>No P4 G3 decision record published.</p>"
+    )
+    show = lambda key, default="": escape(str(status.get(key, default)))
+    accepted_p4_snapshot = accepted and status.get("work_id") == "P4-GOVERNED-HUMAN-AI-WORK-RUNTIME"
+    human_action = (
+        "P4 G3 has been accepted for the synthetic pilot. Later changes require their own evidence and gates."
+        if accepted_p4_snapshot else show("human_action", "Review the current candidate outcome and evidence.")
+    )
     return f"""
     <!doctype html><html><head><meta charset='utf-8'><title>ANU Human Dashboard</title>
     <style>body{{font-family:system-ui;max-width:920px;margin:40px auto;padding:0 20px;line-height:1.5}}
     table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ddd;padding:10px;text-align:left}}
     .gate{{font-size:1.2rem;padding:12px;background:#f3f4f6;border-radius:8px}}</style></head><body>
     <h1>ANU — Human Dashboard</h1>
-    <p class='gate'><b>Work:</b> {status.get('work_id','P1-T02')} · <b>Status:</b> {status.get('status')} · <b>Human Gate:</b> {status.get('human_gate')}</p>
-    <p>{status.get('summary','Technical work is executed and verified by AI/CI. Human reviews meaning, authority, evidence, outcome and residual risk.')}</p>
-    <h2>Verification evidence</h2><table><tr><th>Check</th><th>Result</th></tr>{rows}</table>
+    {accepted_banner}
+    <h2>Current candidate verification</h2>
+    <p class='gate'><b>Work:</b> {show('work_id', 'P1-T02')} · <b>Verifier status:</b> {show('status')} · <b>Verifier snapshot gate:</b> {show('human_gate')}</p>
+    <p>{show('summary', 'Technical work is executed and verified by AI/CI. Human reviews meaning, authority, evidence, outcome and residual risk.')}</p>
+    <h2>Candidate verification evidence</h2><table><tr><th>Check</th><th>Result</th></tr>{rows}</table>
     <h2>Known limitations</h2><ul>{limitations}</ul>
-    <h2>Human action</h2><p>{status.get('human_action','Review the G3 acceptance packet. Do not review code or run technical tests by default.')}</p>
+    <h2>Human action</h2><p>{human_action}</p>
     <p><a href='/human/status'>Machine-readable status</a> · <a href='/health'>Runtime health</a></p>
     </body></html>
     """
