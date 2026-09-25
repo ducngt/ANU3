@@ -1,0 +1,16 @@
+{
+  "institution": {"id": "urn:anu:org:aru", "name": "Artificial Reference University"},
+  "units": [
+    {"id": "urn:anu:org:aru:rectorate", "name": "Rectorate"},
+    {"id": "urn:anu:org:aru:school-computing", "name": "School of Computing"},
+    {"id": "urn:anu:org:aru:school-business", "name": "School of Business"},
+    {"id": "urn:anu:org:aru:academic-affairs", "name": "Academic Affairs Office"},
+    {"id": "urn:anu:org:aru:quality", "name": "Quality Assurance Office"},
+    {"id": "urn:anu:org:aru:research", "name": "Research Office"}
+  ],
+  "programmes": [
+    {"id": "urn:anu:programme:software-engineering", "name": "Software Engineering"},
+    {"id": "urn:anu:programme:data-science", "name": "Data Science"},
+    {"id": "urn:anu:programme:business-administration", "name": "Business Administration"}
+  ]
+}

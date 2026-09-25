@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+anu_kernel.db
+build/
+dist/
+*.egg-info/

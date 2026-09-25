@@ -1,0 +1,116 @@
+{
+  "$defs": {
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "assertion_id": {
+      "title": "Assertion Id",
+      "type": "string"
+    },
+    "subject_ref": {
+      "title": "Subject Ref",
+      "type": "string"
+    },
+    "competence_ref": {
+      "title": "Competence Ref",
+      "type": "string"
+    },
+    "level": {
+      "title": "Level",
+      "type": "string"
+    },
+    "scope": {
+      "additionalProperties": true,
+      "title": "Scope",
+      "type": "object"
+    },
+    "evidence_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "asserted_by": {
+      "title": "Asserted By",
+      "type": "string"
+    },
+    "validation_state": {
+      "default": "VALIDATED",
+      "title": "Validation State",
+      "type": "string"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    }
+  },
+  "required": [
+    "assertion_id",
+    "subject_ref",
+    "competence_ref",
+    "level",
+    "asserted_by",
+    "effective_period"
+  ],
+  "title": "CompetenceAssertionContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.competence-assertion.v1"
+}

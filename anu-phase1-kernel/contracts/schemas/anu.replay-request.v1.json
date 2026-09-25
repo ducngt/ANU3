@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "target_ref": {
+      "title": "Target Ref",
+      "type": "string"
+    },
+    "perspective": {
+      "default": "AS_EFFECTIVE_AT",
+      "enum": [
+        "AS_EFFECTIVE_AT",
+        "AS_KNOWN_AT"
+      ],
+      "title": "Perspective",
+      "type": "string"
+    },
+    "effective_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Effective At"
+    },
+    "recorded_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recorded At"
+    }
+  },
+  "required": [
+    "target_ref"
+  ],
+  "title": "ReplayRequestContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.replay-request.v1"
+}

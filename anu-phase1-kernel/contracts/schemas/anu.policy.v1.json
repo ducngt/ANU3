@@ -1,0 +1,140 @@
+{
+  "$defs": {
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "policy_id": {
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "policy_type": {
+      "title": "Policy Type",
+      "type": "string"
+    },
+    "issuer_ref": {
+      "title": "Issuer Ref",
+      "type": "string"
+    },
+    "authority_basis_ref": {
+      "title": "Authority Basis Ref",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "scope": {
+      "additionalProperties": true,
+      "title": "Scope",
+      "type": "object"
+    },
+    "conditions": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Conditions",
+      "type": "array"
+    },
+    "effects": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Effects",
+      "type": "array"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "supersedes_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Supersedes Ref"
+    },
+    "exception_rules": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Exception Rules",
+      "type": "array"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    }
+  },
+  "required": [
+    "policy_id",
+    "policy_type",
+    "issuer_ref",
+    "authority_basis_ref",
+    "version",
+    "effective_period"
+  ],
+  "title": "PolicyContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.policy.v1"
+}

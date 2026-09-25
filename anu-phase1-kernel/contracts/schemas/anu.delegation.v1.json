@@ -1,0 +1,180 @@
+{
+  "$defs": {
+    "AuthorityScope": {
+      "additionalProperties": false,
+      "properties": {
+        "institution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Institution"
+        },
+        "domain": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Domain"
+        },
+        "resource": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resource"
+        },
+        "action": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action"
+        },
+        "context": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Context"
+        }
+      },
+      "title": "AuthorityScope",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "delegation_id": {
+      "title": "Delegation Id",
+      "type": "string"
+    },
+    "delegator_ref": {
+      "title": "Delegator Ref",
+      "type": "string"
+    },
+    "delegatee_ref": {
+      "title": "Delegatee Ref",
+      "type": "string"
+    },
+    "authority_ref": {
+      "title": "Authority Ref",
+      "type": "string"
+    },
+    "delegated_scope": {
+      "$ref": "#/$defs/AuthorityScope"
+    },
+    "purpose": {
+      "title": "Purpose",
+      "type": "string"
+    },
+    "conditions": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Conditions",
+      "type": "array"
+    },
+    "valid_from": {
+      "format": "date-time",
+      "title": "Valid From",
+      "type": "string"
+    },
+    "valid_until": {
+      "format": "date-time",
+      "title": "Valid Until",
+      "type": "string"
+    },
+    "redelegation_allowed": {
+      "default": false,
+      "title": "Redelegation Allowed",
+      "type": "boolean"
+    },
+    "revocation_policy_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Revocation Policy Ref"
+    },
+    "issued_under_policy": {
+      "title": "Issued Under Policy",
+      "type": "string"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    }
+  },
+  "required": [
+    "delegation_id",
+    "delegator_ref",
+    "delegatee_ref",
+    "authority_ref",
+    "delegated_scope",
+    "purpose",
+    "valid_from",
+    "valid_until",
+    "issued_under_policy"
+  ],
+  "title": "DelegationGrantContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.delegation.v1"
+}

@@ -1,0 +1,12 @@
+{
+  "scenario": "Programme Revision Approval",
+  "human_subject": "urn:anu:human:h-003",
+  "programme": "urn:anu:programme:software-engineering",
+  "agent": "urn:anu:agent:qa-01",
+  "decision": "urn:anu:decision:programme-revision-001",
+  "authority": "urn:anu:authority:programme-owner-approve",
+  "policy_id": "urn:anu:policy:academic-approval",
+  "policy_v1": {"version": "1.0.0", "effective": "2026-01-01/2027-01-01"},
+  "policy_v2": {"version": "2.0.0", "effective": "2027-01-01/open"},
+  "expected_replay": "A decision effective 2026-10-15 resolves policy v1, not current v2."
+}

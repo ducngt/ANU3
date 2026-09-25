@@ -1,0 +1,118 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "target_ref": {
+      "title": "Target Ref",
+      "type": "string"
+    },
+    "perspective": {
+      "title": "Perspective",
+      "type": "string"
+    },
+    "reconstructed_state": {
+      "additionalProperties": true,
+      "title": "Reconstructed State",
+      "type": "object"
+    },
+    "identity_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Identity Refs",
+      "type": "array"
+    },
+    "role_assignments": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Role Assignments",
+      "type": "array"
+    },
+    "competence_assertions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Competence Assertions",
+      "type": "array"
+    },
+    "authority_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Authority Refs",
+      "type": "array"
+    },
+    "delegation_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Delegation Refs",
+      "type": "array"
+    },
+    "policy_versions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Policy Versions",
+      "type": "array"
+    },
+    "evidence_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "lifecycle_state": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Lifecycle State"
+    },
+    "provenance_chain": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Provenance Chain",
+      "type": "array"
+    },
+    "source_event_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Event Refs",
+      "type": "array"
+    },
+    "integrity_status": {
+      "default": "NOT_VERIFIED",
+      "title": "Integrity Status",
+      "type": "string"
+    },
+    "completeness_status": {
+      "default": "COMPLETE",
+      "title": "Completeness Status",
+      "type": "string"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "target_ref",
+    "perspective",
+    "reconstructed_state"
+  ],
+  "title": "ReplayResultContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.replay-result.v1"
+}

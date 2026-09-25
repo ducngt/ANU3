@@ -1,0 +1,64 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "title": "Action",
+      "type": "string"
+    },
+    "resource": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resource"
+    },
+    "context": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Context"
+    },
+    "risk": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Risk"
+    },
+    "at": {
+      "format": "date-time",
+      "title": "At",
+      "type": "string"
+    },
+    "competence_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Competence Refs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "action",
+    "at"
+  ],
+  "title": "GovernedActionRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.governed-action-request.v1"
+}

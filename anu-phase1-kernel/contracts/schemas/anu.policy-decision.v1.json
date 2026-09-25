@@ -1,0 +1,138 @@
+{
+  "$defs": {
+    "Effect": {
+      "enum": [
+        "ALLOW",
+        "DENY",
+        "REQUIRE_REVIEW",
+        "REQUIRE_SIGNATURE"
+      ],
+      "title": "Effect",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "decision_id": {
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "policy_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Policy Refs",
+      "type": "array"
+    },
+    "evaluated_at": {
+      "format": "date-time",
+      "title": "Evaluated At",
+      "type": "string"
+    },
+    "subject_ref": {
+      "title": "Subject Ref",
+      "type": "string"
+    },
+    "role_context": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Role Context",
+      "type": "array"
+    },
+    "authority_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Authority Refs",
+      "type": "array"
+    },
+    "delegation_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Delegation Refs",
+      "type": "array"
+    },
+    "resource": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resource"
+    },
+    "action": {
+      "title": "Action",
+      "type": "string"
+    },
+    "context": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Context"
+    },
+    "risk": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Risk"
+    },
+    "effect": {
+      "$ref": "#/$defs/Effect"
+    },
+    "obligations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Obligations",
+      "type": "array"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "trace_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Trace Ref"
+    }
+  },
+  "required": [
+    "decision_id",
+    "policy_refs",
+    "evaluated_at",
+    "subject_ref",
+    "action",
+    "effect"
+  ],
+  "title": "PolicyDecisionContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.policy-decision.v1"
+}

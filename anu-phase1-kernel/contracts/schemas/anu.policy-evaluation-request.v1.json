@@ -1,0 +1,83 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "subject_ref": {
+      "title": "Subject Ref",
+      "type": "string"
+    },
+    "role_context": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Role Context",
+      "type": "array"
+    },
+    "authority_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Authority Refs",
+      "type": "array"
+    },
+    "delegation_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Delegation Refs",
+      "type": "array"
+    },
+    "resource": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resource"
+    },
+    "action": {
+      "title": "Action",
+      "type": "string"
+    },
+    "context": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Context"
+    },
+    "risk": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Risk"
+    },
+    "at": {
+      "format": "date-time",
+      "title": "At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "subject_ref",
+    "action",
+    "at"
+  ],
+  "title": "PolicyEvaluationRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.policy-evaluation-request.v1"
+}

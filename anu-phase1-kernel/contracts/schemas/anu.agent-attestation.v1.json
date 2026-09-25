@@ -1,0 +1,146 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "attestation_id": {
+      "title": "Attestation Id",
+      "type": "string"
+    },
+    "agent_ref": {
+      "title": "Agent Ref",
+      "type": "string"
+    },
+    "agent_version": {
+      "title": "Agent Version",
+      "type": "string"
+    },
+    "owner_ref": {
+      "title": "Owner Ref",
+      "type": "string"
+    },
+    "runtime_ref": {
+      "title": "Runtime Ref",
+      "type": "string"
+    },
+    "model_dependency": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model Dependency"
+    },
+    "purpose": {
+      "title": "Purpose",
+      "type": "string"
+    },
+    "work_ref": {
+      "title": "Work Ref",
+      "type": "string"
+    },
+    "action": {
+      "title": "Action",
+      "type": "string"
+    },
+    "capability_ref": {
+      "title": "Capability Ref",
+      "type": "string"
+    },
+    "tool_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tool Ref"
+    },
+    "delegation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Delegation Ref"
+    },
+    "policy_version": {
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "artifact_ref": {
+      "title": "Artifact Ref",
+      "type": "string"
+    },
+    "artifact_hash": {
+      "title": "Artifact Hash",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "credential_ref": {
+      "title": "Credential Ref",
+      "type": "string"
+    },
+    "attestation_signature": {
+      "title": "Attestation Signature",
+      "type": "string"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    },
+    "consequential": {
+      "default": true,
+      "title": "Consequential",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "attestation_id",
+    "agent_ref",
+    "agent_version",
+    "owner_ref",
+    "runtime_ref",
+    "purpose",
+    "work_ref",
+    "action",
+    "capability_ref",
+    "policy_version",
+    "artifact_ref",
+    "artifact_hash",
+    "timestamp",
+    "credential_ref",
+    "attestation_signature"
+  ],
+  "title": "AgentAttestationContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.agent-attestation.v1"
+}

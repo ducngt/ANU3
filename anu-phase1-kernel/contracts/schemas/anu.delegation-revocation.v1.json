@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "revocation_id": {
+      "title": "Revocation Id",
+      "type": "string"
+    },
+    "delegation_id": {
+      "title": "Delegation Id",
+      "type": "string"
+    },
+    "effective_time": {
+      "format": "date-time",
+      "title": "Effective Time",
+      "type": "string"
+    },
+    "recorded_at": {
+      "format": "date-time",
+      "title": "Recorded At",
+      "type": "string"
+    },
+    "actor_ref": {
+      "title": "Actor Ref",
+      "type": "string"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    }
+  },
+  "required": [
+    "revocation_id",
+    "delegation_id",
+    "effective_time",
+    "recorded_at",
+    "actor_ref",
+    "reason"
+  ],
+  "title": "DelegationRevocationContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.delegation-revocation.v1"
+}

@@ -1,0 +1,104 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "decision_id": {
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "subject_ref": {
+      "title": "Subject Ref",
+      "type": "string"
+    },
+    "role_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Role Refs",
+      "type": "array"
+    },
+    "authority_ref": {
+      "title": "Authority Ref",
+      "type": "string"
+    },
+    "delegation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Delegation Ref"
+    },
+    "policy_ref": {
+      "title": "Policy Ref",
+      "type": "string"
+    },
+    "evidence_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "artifact_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Artifact Ref"
+    },
+    "signature_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Signature Ref"
+    },
+    "outcome": {
+      "title": "Outcome",
+      "type": "string"
+    },
+    "effective_time": {
+      "format": "date-time",
+      "title": "Effective Time",
+      "type": "string"
+    },
+    "recorded_time": {
+      "format": "date-time",
+      "title": "Recorded Time",
+      "type": "string"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decision_id",
+    "subject_ref",
+    "role_refs",
+    "authority_ref",
+    "policy_ref",
+    "evidence_refs",
+    "outcome",
+    "effective_time",
+    "recorded_time",
+    "provenance_ref"
+  ],
+  "title": "DecisionRecordContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.decision-record.v1"
+}

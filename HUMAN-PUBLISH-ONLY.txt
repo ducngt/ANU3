@@ -1,0 +1,14 @@
+ANU Phase 1 Tranche 03 - CI Activation
+
+Human role: publish this prepared update to the ANU3 repository main branch.
+Human does NOT run pytest, Alembic, PostgreSQL, backup/restore, or Swagger manually.
+
+After publication, GitHub Actions automatically runs:
+- local contract/migration/conformance verification
+- PostgreSQL 16 clean migration
+- ARU-01 trust pilot
+- PostgreSQL backup/restore and history recovery
+- independent verification and evidence qualification
+
+The workflow may be re-run from GitHub Actions > ANU Phase 1 Verification > Run workflow.
+G3 is not automatically granted by CI; Human G3 remains a separate acceptance decision.

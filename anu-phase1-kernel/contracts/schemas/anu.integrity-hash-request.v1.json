@@ -1,0 +1,14 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "artifact": {
+      "title": "Artifact"
+    }
+  },
+  "required": [
+    "artifact"
+  ],
+  "title": "IntegrityHashRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.integrity-hash-request.v1"
+}

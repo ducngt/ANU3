@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "signature_id": {
+      "title": "Signature Id",
+      "type": "string"
+    },
+    "cryptographically_valid": {
+      "title": "Cryptographically Valid",
+      "type": "boolean"
+    },
+    "credential_valid": {
+      "title": "Credential Valid",
+      "type": "boolean"
+    },
+    "role_valid": {
+      "title": "Role Valid",
+      "type": "boolean"
+    },
+    "authority_valid": {
+      "title": "Authority Valid",
+      "type": "boolean"
+    },
+    "institutional_valid": {
+      "title": "Institutional Valid",
+      "type": "boolean"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "signature_id",
+    "cryptographically_valid",
+    "credential_valid",
+    "role_valid",
+    "authority_valid",
+    "institutional_valid"
+  ],
+  "title": "SignatureVerificationResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.signature-verification-result.v1"
+}

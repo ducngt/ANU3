@@ -1,0 +1,86 @@
+{
+  "$defs": {
+    "Effect": {
+      "enum": [
+        "ALLOW",
+        "DENY",
+        "REQUIRE_REVIEW",
+        "REQUIRE_SIGNATURE"
+      ],
+      "title": "Effect",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "subject_ref": {
+      "title": "Subject Ref",
+      "type": "string"
+    },
+    "authenticated": {
+      "title": "Authenticated",
+      "type": "boolean"
+    },
+    "authorized": {
+      "title": "Authorized",
+      "type": "boolean"
+    },
+    "authority_valid": {
+      "title": "Authority Valid",
+      "type": "boolean"
+    },
+    "policy_effect": {
+      "$ref": "#/$defs/Effect"
+    },
+    "allowed_to_proceed": {
+      "title": "Allowed To Proceed",
+      "type": "boolean"
+    },
+    "authority_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Authority Refs",
+      "type": "array"
+    },
+    "delegation_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Delegation Refs",
+      "type": "array"
+    },
+    "policy_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Policy Refs",
+      "type": "array"
+    },
+    "obligations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Obligations",
+      "type": "array"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "subject_ref",
+    "authenticated",
+    "authorized",
+    "authority_valid",
+    "policy_effect",
+    "allowed_to_proceed"
+  ],
+  "title": "EnforcementDecisionContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.enforcement-decision.v1"
+}

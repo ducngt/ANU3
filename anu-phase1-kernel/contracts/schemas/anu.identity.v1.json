@@ -1,0 +1,130 @@
+{
+  "$defs": {
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "SubjectType": {
+      "enum": [
+        "HUMAN",
+        "AGENT",
+        "ORGANIZATION",
+        "SERVICE",
+        "DEVICE",
+        "CAPABILITY",
+        "WORK",
+        "EVIDENCE",
+        "POLICY",
+        "DECISION",
+        "ARTIFACT",
+        "DATA"
+      ],
+      "title": "SubjectType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "identity_id": {
+      "title": "Identity Id",
+      "type": "string"
+    },
+    "subject_id": {
+      "title": "Subject Id",
+      "type": "string"
+    },
+    "subject_type": {
+      "$ref": "#/$defs/SubjectType"
+    },
+    "assurance_level": {
+      "default": "BASIC",
+      "title": "Assurance Level",
+      "type": "string"
+    },
+    "status": {
+      "default": "ACTIVE",
+      "title": "Status",
+      "type": "string"
+    },
+    "credential_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Credential Refs",
+      "type": "array"
+    },
+    "aliases": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Aliases",
+      "type": "array"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    }
+  },
+  "required": [
+    "identity_id",
+    "subject_id",
+    "subject_type",
+    "effective_period"
+  ],
+  "title": "IdentityContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.identity.v1"
+}

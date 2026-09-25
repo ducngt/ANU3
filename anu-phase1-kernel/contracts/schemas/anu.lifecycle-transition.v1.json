@@ -1,0 +1,114 @@
+{
+  "$defs": {
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "transition_id": {
+      "title": "Transition Id",
+      "type": "string"
+    },
+    "object_ref": {
+      "title": "Object Ref",
+      "type": "string"
+    },
+    "from_state": {
+      "$ref": "#/$defs/LifecycleState"
+    },
+    "to_state": {
+      "$ref": "#/$defs/LifecycleState"
+    },
+    "effective_time": {
+      "format": "date-time",
+      "title": "Effective Time",
+      "type": "string"
+    },
+    "recorded_time": {
+      "format": "date-time",
+      "title": "Recorded Time",
+      "type": "string"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    },
+    "actor_ref": {
+      "title": "Actor Ref",
+      "type": "string"
+    },
+    "authority_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Authority Ref"
+    },
+    "policy_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Policy Ref"
+    },
+    "superseded_by_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Superseded By Ref"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    }
+  },
+  "required": [
+    "transition_id",
+    "object_ref",
+    "from_state",
+    "to_state",
+    "effective_time",
+    "recorded_time",
+    "reason",
+    "actor_ref"
+  ],
+  "title": "LifecycleTransitionContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.lifecycle-transition.v1"
+}

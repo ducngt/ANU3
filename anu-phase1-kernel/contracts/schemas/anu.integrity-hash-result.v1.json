@@ -1,0 +1,21 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "algorithm": {
+      "const": "SHA-256",
+      "default": "SHA-256",
+      "title": "Algorithm",
+      "type": "string"
+    },
+    "integrity_ref": {
+      "title": "Integrity Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "integrity_ref"
+  ],
+  "title": "IntegrityHashResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.integrity-hash-result.v1"
+}

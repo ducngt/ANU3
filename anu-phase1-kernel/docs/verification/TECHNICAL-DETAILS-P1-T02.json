@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "clean_migration_cycle": "PASS",
+    "automated_tests": "PASS",
+    "aru01_end_to_end_pilot": "PASS",
+    "contract_schema_export": "PASS"
+  },
+  "details": {
+    "clean_migration_cycle": "upgrade -> downgrade -> upgrade PASS",
+    "automated_tests": "..............                                                           [100%]",
+    "aru01_end_to_end_pilot": "{\n  \"scenario\": \"ARU-01 Programme Revision Approval\",\n  \"checks\": {\n    \"human_authority_valid\": true,\n    \"agent_no_standing_authority\": true,\n    \"bounded_delegation_works\": true,\n    \"revocation_stops_future_use\": true,\n    \"historical_replay_uses_policy_v1\": true,\n    \"historical_replay_complete\": true\n  },\n  \"pass\": true,\n  \"replay\": {\n    \"target_ref\": \"urn:anu:decision:programme-revision-001\",\n    \"perspective\": \"AS_EFFECTIVE_AT\",\n    \"reconstructed_state\": {\n      \"outcome\": \"APPROVED\",\n      \"effective_time\": \"2026-10-15T10:00:00\",\n      \"recorded_time\": \"2026-10-15T10:00:01\",\n      \"artifact_ref\": \"urn:anu:artifact:programme-proposal@1.3\",\n      \"signature_ref\": \"urn:anu:signature:sig001\"\n    },\n    \"identity_refs\": [],\n    \"role_assignments\": [\n      \"aru-role-h003-programme-owner\"\n    ],\n    \"competence_assertions\": [\n      \"urn:anu:competence:programme-governance\"\n    ],\n    \"authority_refs\": [\n      \"urn:anu:authority:programme-owner-approve\"\n    ],\n    \"delegation_refs\": [],\n    \"policy_versions\": [\n      \"urn:anu:policy:academic-approval@1.0.0\"\n    ],\n    \"evidence_refs\": [\n      \"urn:anu:evidence:ev101\",\n      \"urn:anu:evidence:ev102\"\n    ],\n    \"lifecycle_state\": \"ACTIVE\",\n    \"provenance_chain\": [\n      \"urn:anu:provenance:programme-revision-001\"\n    ],\n    \"source_event_refs\": [\n      \"urn:anu:event:programme-revision-001-approved\"\n    ],\n    \"integrity_status\": \"NOT_VERIFIED\",\n    \"completeness_status\": \"COMPLETE\",\n    \"warnings\": []\n  }\n}",
+    "contract_schema_export": "exported 17 schemas to /mnt/data/anu-phase1-work/anu-phase1-kernel/contracts/schemas"
+  }
+}

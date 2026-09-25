@@ -1,0 +1,149 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "provenance_id": {
+      "title": "Provenance Id",
+      "type": "string"
+    },
+    "entity_ref": {
+      "title": "Entity Ref",
+      "type": "string"
+    },
+    "activity_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Activity Ref"
+    },
+    "actor_ref": {
+      "title": "Actor Ref",
+      "type": "string"
+    },
+    "work_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Work Ref"
+    },
+    "capability_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Capability Ref"
+    },
+    "tool_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tool Ref"
+    },
+    "model_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model Ref"
+    },
+    "source_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Refs",
+      "type": "array"
+    },
+    "input_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "output_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Output Refs",
+      "type": "array"
+    },
+    "transformation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Transformation Ref"
+    },
+    "effective_time": {
+      "format": "date-time",
+      "title": "Effective Time",
+      "type": "string"
+    },
+    "recorded_time": {
+      "format": "date-time",
+      "title": "Recorded Time",
+      "type": "string"
+    },
+    "integrity_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Integrity Ref"
+    },
+    "previous_provenance_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Previous Provenance Refs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "provenance_id",
+    "entity_ref",
+    "actor_ref",
+    "effective_time",
+    "recorded_time"
+  ],
+  "title": "ProvenanceRecordContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.provenance-record.v1"
+}

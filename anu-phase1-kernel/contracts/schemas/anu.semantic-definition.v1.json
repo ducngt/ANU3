@@ -1,0 +1,137 @@
+{
+  "$defs": {
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "semantic_id": {
+      "title": "Semantic Id",
+      "type": "string"
+    },
+    "canonical_name": {
+      "title": "Canonical Name",
+      "type": "string"
+    },
+    "definition": {
+      "title": "Definition",
+      "type": "string"
+    },
+    "namespace": {
+      "default": "urn:anu:semantic",
+      "title": "Namespace",
+      "type": "string"
+    },
+    "semantic_kind": {
+      "title": "Semantic Kind",
+      "type": "string"
+    },
+    "owner_ref": {
+      "title": "Owner Ref",
+      "type": "string"
+    },
+    "context_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Context Ref"
+    },
+    "relations": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Relations",
+      "type": "array"
+    },
+    "mappings": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Mappings",
+      "type": "array"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    }
+  },
+  "required": [
+    "semantic_id",
+    "canonical_name",
+    "definition",
+    "semantic_kind",
+    "owner_ref",
+    "version",
+    "effective_period"
+  ],
+  "title": "SemanticDefinitionContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.semantic-definition.v1"
+}

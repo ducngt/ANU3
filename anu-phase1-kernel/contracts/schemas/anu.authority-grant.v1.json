@@ -1,0 +1,221 @@
+{
+  "$defs": {
+    "AuthorityScope": {
+      "additionalProperties": false,
+      "properties": {
+        "institution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Institution"
+        },
+        "domain": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Domain"
+        },
+        "resource": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resource"
+        },
+        "action": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action"
+        },
+        "context": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Context"
+        }
+      },
+      "title": "AuthorityScope",
+      "type": "object"
+    },
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "SubjectType": {
+      "enum": [
+        "HUMAN",
+        "AGENT",
+        "ORGANIZATION",
+        "SERVICE",
+        "DEVICE",
+        "CAPABILITY",
+        "WORK",
+        "EVIDENCE",
+        "POLICY",
+        "DECISION",
+        "ARTIFACT",
+        "DATA"
+      ],
+      "title": "SubjectType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "authority_id": {
+      "title": "Authority Id",
+      "type": "string"
+    },
+    "subject_ref": {
+      "title": "Subject Ref",
+      "type": "string"
+    },
+    "subject_type": {
+      "$ref": "#/$defs/SubjectType"
+    },
+    "authority_type": {
+      "title": "Authority Type",
+      "type": "string"
+    },
+    "basis_ref": {
+      "title": "Basis Ref",
+      "type": "string"
+    },
+    "issuer_ref": {
+      "title": "Issuer Ref",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/AuthorityScope"
+    },
+    "consequence_class": {
+      "title": "Consequence Class",
+      "type": "string"
+    },
+    "competence_requirements": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Competence Requirements",
+      "type": "array"
+    },
+    "delegation_allowed": {
+      "default": false,
+      "title": "Delegation Allowed",
+      "type": "boolean"
+    },
+    "delegation_constraints": {
+      "additionalProperties": true,
+      "title": "Delegation Constraints",
+      "type": "object"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "policy_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Policy Refs",
+      "type": "array"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    }
+  },
+  "required": [
+    "authority_id",
+    "subject_ref",
+    "subject_type",
+    "authority_type",
+    "basis_ref",
+    "issuer_ref",
+    "scope",
+    "consequence_class",
+    "effective_period"
+  ],
+  "title": "AuthorityGrantContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.authority-grant.v1"
+}

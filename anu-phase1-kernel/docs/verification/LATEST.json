@@ -1,0 +1,33 @@
+{
+  "work_id": "P1-T03-TRUST-AUTHN-HARDENING",
+  "status": "LOCAL_VERIFIED_AWAITING_LIVE_POSTGRES",
+  "human_gate": "G3_NOT_READY",
+  "summary": "Tranche 03 implementation and local verification are complete. Live PostgreSQL migration/backup/restore verification is configured for CI but cannot be executed in the current isolated runtime, so no Human acceptance decision is requested yet.",
+  "checks": {
+    "clean_migration_cycle": "PASS",
+    "automated_tests": "PASS",
+    "aru01_trust_chain_pilot": "PASS",
+    "contract_schema_export": "PASS",
+    "postgresql_offline_migration_compile": "PASS",
+    "backup_restore_reference": "PASS"
+  },
+  "external_checks": {
+    "live_postgresql_migration": "PENDING_EXTERNAL_CI",
+    "live_postgresql_aru01_trust_pilot": "PENDING_EXTERNAL_CI",
+    "live_postgresql_backup_restore": "PENDING_EXTERNAL_CI"
+  },
+  "known_limitations": [
+    "The JWT-HS256 authentication adapter is a reference IdP adapter boundary, not an institutional production IdP configuration.",
+    "Trust Registry currently validates Ed25519 public-key credentials; certificate-chain, qualified signature and legal-signature profiles remain specification/provider concerns.",
+    "Live PostgreSQL runtime evidence requires an environment with PostgreSQL and psycopg; the release includes CI automation for that check, but this isolated build environment has no PostgreSQL runtime/client.",
+    "Tranche 03 is not ready for Human G3 until the external PostgreSQL CI evidence is attached and independently verified."
+  ],
+  "human_action": "Publish the prepared Tranche 03 CI activation update to ANU3 main. GitHub Actions will then run the live PostgreSQL verification automatically; no manual technical testing is required.",
+  "ci_activation": {
+    "status": "READY_TO_PUBLISH",
+    "workflow": ".github/workflows/phase1-verify.yml",
+    "live_postgresql": "CONFIGURED",
+    "independent_evidence_qualification": "CONFIGURED",
+    "github_actions_permission_observed": "ENABLED_BY_HUMAN_SCREENSHOT"
+  }
+}

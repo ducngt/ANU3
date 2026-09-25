@@ -1,0 +1,42 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "attestation_id": {
+      "title": "Attestation Id",
+      "type": "string"
+    },
+    "cryptographically_valid": {
+      "title": "Cryptographically Valid",
+      "type": "boolean"
+    },
+    "credential_valid": {
+      "title": "Credential Valid",
+      "type": "boolean"
+    },
+    "delegation_valid": {
+      "title": "Delegation Valid",
+      "type": "boolean"
+    },
+    "attestation_valid": {
+      "title": "Attestation Valid",
+      "type": "boolean"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "attestation_id",
+    "cryptographically_valid",
+    "credential_valid",
+    "delegation_valid",
+    "attestation_valid"
+  ],
+  "title": "AttestationVerificationResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.attestation-verification-result.v1"
+}

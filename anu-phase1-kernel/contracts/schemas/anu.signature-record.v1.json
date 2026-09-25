@@ -1,0 +1,131 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "signature_id": {
+      "title": "Signature Id",
+      "type": "string"
+    },
+    "signer_identity_ref": {
+      "title": "Signer Identity Ref",
+      "type": "string"
+    },
+    "signer_type": {
+      "const": "HUMAN",
+      "default": "HUMAN",
+      "title": "Signer Type",
+      "type": "string"
+    },
+    "signer_role_ref": {
+      "title": "Signer Role Ref",
+      "type": "string"
+    },
+    "authority_ref": {
+      "title": "Authority Ref",
+      "type": "string"
+    },
+    "credential_ref": {
+      "title": "Credential Ref",
+      "type": "string"
+    },
+    "signature_method": {
+      "const": "ED25519",
+      "default": "ED25519",
+      "title": "Signature Method",
+      "type": "string"
+    },
+    "intent": {
+      "title": "Intent",
+      "type": "string"
+    },
+    "artifact_ref": {
+      "title": "Artifact Ref",
+      "type": "string"
+    },
+    "artifact_version": {
+      "title": "Artifact Version",
+      "type": "string"
+    },
+    "artifact_hash": {
+      "title": "Artifact Hash",
+      "type": "string"
+    },
+    "work_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Work Ref"
+    },
+    "decision_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Decision Ref"
+    },
+    "policy_version": {
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "delegation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Delegation Ref"
+    },
+    "signed_at": {
+      "format": "date-time",
+      "title": "Signed At",
+      "type": "string"
+    },
+    "signature_value": {
+      "title": "Signature Value",
+      "type": "string"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    }
+  },
+  "required": [
+    "signature_id",
+    "signer_identity_ref",
+    "signer_role_ref",
+    "authority_ref",
+    "credential_ref",
+    "intent",
+    "artifact_ref",
+    "artifact_version",
+    "artifact_hash",
+    "policy_version",
+    "signed_at",
+    "signature_value"
+  ],
+  "title": "SignatureRecordContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.signature-record.v1"
+}

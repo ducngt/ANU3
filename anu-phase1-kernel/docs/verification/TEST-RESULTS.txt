@@ -1,0 +1,10 @@
+TRANCHE-01 VERIFICATION
+=======================
+Schema export: PASS (15 JSON Schemas)
+Python compileall: PASS
+Pytest: PASS (8 tests)
+Alembic upgrade: PASS
+Alembic downgrade: PASS
+FastAPI health smoke: PASS (HTTP 200)
+
+Important: this verifies the first implementation tranche, not complete Phase 1 acceptance.
