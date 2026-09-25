@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "work_id": {
+      "title": "Work Id",
+      "type": "string"
+    },
+    "actor_ref": {
+      "title": "Actor Ref",
+      "type": "string"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "human_target_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Human Target Ref"
+    },
+    "preserved_state": {
+      "default": true,
+      "title": "Preserved State",
+      "type": "boolean"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "work_id",
+    "actor_ref",
+    "reason_codes",
+    "provenance_ref"
+  ],
+  "title": "HandoverRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.handover-request.v1"
+}

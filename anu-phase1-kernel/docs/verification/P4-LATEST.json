@@ -1,0 +1,30 @@
+{
+  "work_id": "P4-GOVERNED-HUMAN-AI-WORK-RUNTIME",
+  "status": "LOCAL_VERIFIED_AWAITING_LIVE_POSTGRES",
+  "human_gate": "G3_NOT_READY",
+  "phase": "Phase 4 Governed Human-AI Work Runtime",
+  "baseline": "P3-RUNTIME-G3-ACCEPTED",
+  "summary": "Work Contract, Governed Work Graph, Execution Planner, Human/Agent/Capability tasks, authority/policy gates, Human signature, handover/recovery, state persistence and responsibility replay are implemented for ARU-01 E1/E2/E3.",
+  "checks": {
+    "clean_migration_cycle": "PASS",
+    "automated_tests": "PASS",
+    "aru01_e1_e2_e3_pilot": "PASS",
+    "contract_schema_export": "PASS",
+    "independent_boundary_verifier": "PASS",
+    "postgresql_offline_migration_compile": "PASS",
+    "work_state_recovery_and_replay": "PASS"
+  },
+  "external_checks": {
+    "live_postgresql_revision_0006": "PENDING_EXTERNAL_CI",
+    "live_postgresql_e1_e2_e3_pilot": "PENDING_EXTERNAL_CI",
+    "live_postgresql_backup_restore_replay": "PENDING_EXTERNAL_CI",
+    "independent_live_evidence_qualification": "PENDING_EXTERNAL_CI"
+  },
+  "known_limitations": [
+    "ARU-01 remains synthetic; no real learner PII is used.",
+    "E1/E2/E3 pilot contracts use A1/A2 before consequential Human decisions. Higher delegated autonomy remains contract/policy-context dependent and is not promoted by this pilot.",
+    "Timer/Event-Wait are deterministic runtime primitives in this tranche; distributed queue/scheduler providers remain replaceable adapters.",
+    "Phase 5 Academic Reference Vertical is not included in this tranche."
+  ],
+  "human_action": "None for technical verification. Publish the CI activation package because this session has no GitHub write connector; GitHub Actions owns live PostgreSQL verification."
+}

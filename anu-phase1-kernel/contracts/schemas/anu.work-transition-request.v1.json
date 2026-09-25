@@ -1,0 +1,150 @@
+{
+  "$defs": {
+    "WorkState": {
+      "enum": [
+        "CREATED",
+        "CONTEXT_READY",
+        "IN_PROGRESS",
+        "PROPOSAL_READY",
+        "REVIEW_REQUIRED",
+        "APPROVED",
+        "REJECTED",
+        "REVISION_REQUIRED",
+        "ACTION_AUTHORIZED",
+        "EXECUTING",
+        "EXECUTED",
+        "EVIDENCE_CAPTURED",
+        "OUTCOME_OBSERVED",
+        "CLOSED",
+        "BLOCKED",
+        "ESCALATED",
+        "CANCELLED",
+        "FAILED",
+        "RECOVERING"
+      ],
+      "title": "WorkState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "work_id": {
+      "title": "Work Id",
+      "type": "string"
+    },
+    "actor_ref": {
+      "title": "Actor Ref",
+      "type": "string"
+    },
+    "actor_kind": {
+      "enum": [
+        "HUMAN",
+        "AGENT",
+        "SYSTEM"
+      ],
+      "title": "Actor Kind",
+      "type": "string"
+    },
+    "to_state": {
+      "$ref": "#/$defs/WorkState"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    },
+    "evidence_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "authority_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Authority Ref"
+    },
+    "delegation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Delegation Ref"
+    },
+    "policy_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Policy Ref"
+    },
+    "signature_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Signature Ref"
+    },
+    "attestation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Attestation Ref"
+    },
+    "artifact_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Artifact Ref"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "work_id",
+    "actor_ref",
+    "actor_kind",
+    "to_state",
+    "reason",
+    "provenance_ref"
+  ],
+  "title": "WorkTransitionRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.work-transition-request.v1"
+}

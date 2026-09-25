@@ -1,0 +1,129 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "work_id": {
+      "title": "Work Id",
+      "type": "string"
+    },
+    "node_id": {
+      "title": "Node Id",
+      "type": "string"
+    },
+    "actor_ref": {
+      "title": "Actor Ref",
+      "type": "string"
+    },
+    "actor_kind": {
+      "enum": [
+        "HUMAN",
+        "AGENT",
+        "CAPABILITY"
+      ],
+      "title": "Actor Kind",
+      "type": "string"
+    },
+    "action": {
+      "title": "Action",
+      "type": "string"
+    },
+    "input_payload": {
+      "additionalProperties": true,
+      "title": "Input Payload",
+      "type": "object"
+    },
+    "evidence_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "authority_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Authority Ref"
+    },
+    "delegation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Delegation Ref"
+    },
+    "policy_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Policy Ref"
+    },
+    "signature_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Signature Ref"
+    },
+    "attestation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Attestation Ref"
+    },
+    "artifact_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Artifact Ref"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "work_id",
+    "node_id",
+    "actor_ref",
+    "actor_kind",
+    "action",
+    "provenance_ref"
+  ],
+  "title": "WorkTaskRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.work-task-request.v1"
+}

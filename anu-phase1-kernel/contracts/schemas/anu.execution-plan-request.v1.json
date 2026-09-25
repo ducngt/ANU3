@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "goal": {
+      "title": "Goal",
+      "type": "string"
+    },
+    "context": {
+      "additionalProperties": true,
+      "title": "Context",
+      "type": "object"
+    },
+    "requester_ref": {
+      "title": "Requester Ref",
+      "type": "string"
+    },
+    "role_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Role Refs",
+      "type": "array"
+    },
+    "work_type_ref": {
+      "title": "Work Type Ref",
+      "type": "string"
+    },
+    "risk_class": {
+      "title": "Risk Class",
+      "type": "string"
+    },
+    "requested_capability_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Requested Capability Refs",
+      "type": "array"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "goal",
+    "requester_ref",
+    "work_type_ref",
+    "risk_class",
+    "provenance_ref"
+  ],
+  "title": "ExecutionPlanRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.execution-plan-request.v1"
+}

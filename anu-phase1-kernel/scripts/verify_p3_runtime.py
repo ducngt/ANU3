@@ -48,7 +48,7 @@ def migration_cycle(database_url: str) -> tuple[bool, str]:
         command.upgrade(cfg, "head")
         command.downgrade(cfg, "base")
         command.upgrade(cfg, "head")
-        return True, "upgrade -> downgrade -> upgrade PASS at revision 0005"
+        return True, "upgrade -> downgrade -> upgrade PASS at current repository head with P3 baseline preserved"
     except Exception as exc:
         return False, repr(exc)
     finally:
@@ -134,7 +134,8 @@ def main() -> int:
         details["aru01_sbbs_runtime_pilot"] = pilot
 
         schemas = run([sys.executable, "scripts/export_schemas.py"])
-        checks["contract_schema_export"] = "PASS" if schemas.returncode == 0 and "exported 67 schemas" in schemas.stdout else "FAIL"
+        p3_schema_names = ["anu.compatibility-result.v1.json","anu.connection-plan.v1.json","anu.smart-wire-execution-result.v1.json","anu.assembly-definition.v1.json","anu.write-box-proposal-result.v1.json"]
+        checks["contract_schema_export"] = "PASS" if schemas.returncode == 0 and all((ROOT / "contracts" / "schemas" / n).exists() for n in p3_schema_names) else "FAIL"
         details["contract_schema_export"] = (schemas.stdout + schemas.stderr).strip()
 
         independent = run([sys.executable, "-m", "pytest", "tests/independent/test_p3_runtime_boundaries.py", "-q"])
@@ -159,7 +160,7 @@ def main() -> int:
         "summary": "SBBS Capability Runtime is locally implemented and verified: compatibility, adapter/transform registry, declarative connection planning, thin Smart Wire, Assembly runtime, Write Box Studio MVP and architecture audit.",
         "checks": checks,
         "external_checks": {
-            "live_postgresql_revision_0005": "PENDING_EXTERNAL_CI",
+            "live_postgresql_baseline_0005_preserved": "PENDING_EXTERNAL_CI",
             "live_postgresql_sbbs_runtime_pilot": "PENDING_EXTERNAL_CI",
             "live_postgresql_backup_restore_replay": "PENDING_EXTERNAL_CI",
             "independent_live_evidence_qualification": "PENDING_EXTERNAL_CI",

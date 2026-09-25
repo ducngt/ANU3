@@ -1,0 +1,117 @@
+{
+  "$defs": {
+    "AutonomyLevel": {
+      "enum": [
+        "A0",
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "title": "AutonomyLevel",
+      "type": "string"
+    },
+    "ExecutionClass": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "title": "ExecutionClass",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "plan_id": {
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "work_type_ref": {
+      "title": "Work Type Ref",
+      "type": "string"
+    },
+    "work_graph_ref": {
+      "title": "Work Graph Ref",
+      "type": "string"
+    },
+    "goal": {
+      "title": "Goal",
+      "type": "string"
+    },
+    "execution_class": {
+      "$ref": "#/$defs/ExecutionClass"
+    },
+    "autonomy_level": {
+      "$ref": "#/$defs/AutonomyLevel"
+    },
+    "required_capability_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Capability Refs",
+      "type": "array"
+    },
+    "required_checks": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Checks",
+      "type": "array"
+    },
+    "decision_points": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Decision Points",
+      "type": "array"
+    },
+    "signature_points": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Signature Points",
+      "type": "array"
+    },
+    "fallback": {
+      "additionalProperties": true,
+      "title": "Fallback",
+      "type": "object"
+    },
+    "trace_policy": {
+      "additionalProperties": true,
+      "title": "Trace Policy",
+      "type": "object"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "plan_id",
+    "work_type_ref",
+    "work_graph_ref",
+    "goal",
+    "execution_class",
+    "autonomy_level",
+    "required_capability_refs",
+    "required_checks",
+    "decision_points",
+    "signature_points",
+    "fallback",
+    "trace_policy",
+    "provenance_ref",
+    "created_at"
+  ],
+  "title": "ExecutionPlan",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.execution-plan.v1"
+}

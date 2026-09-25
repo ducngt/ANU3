@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from anu_kernel import contracts, reality_contracts, ingestion_contracts, capability_contracts, sbbs_runtime_contracts
+from anu_kernel import contracts, reality_contracts, ingestion_contracts, capability_contracts, sbbs_runtime_contracts, work_contracts
 
 MODELS = {
     "anu.identity.v1": contracts.IdentityContract,
@@ -73,6 +73,20 @@ MODELS = {
     "anu.write-box-proposal-result.v1": sbbs_runtime_contracts.WriteBoxProposalResult,
     "anu.write-box-promotion-request.v1": sbbs_runtime_contracts.WriteBoxPromotionRequest,
     "anu.write-box-promotion-result.v1": sbbs_runtime_contracts.WriteBoxPromotionResult,
+    "anu.work-contract.v1": work_contracts.WorkContract,
+    "anu.governed-work-graph.v1": work_contracts.GovernedWorkGraph,
+    "anu.execution-plan-request.v1": work_contracts.ExecutionPlanRequest,
+    "anu.execution-plan.v1": work_contracts.ExecutionPlan,
+    "anu.work-start-request.v1": work_contracts.WorkStartRequest,
+    "anu.work-instance.v1": work_contracts.WorkInstanceView,
+    "anu.work-task-request.v1": work_contracts.WorkTaskRequest,
+    "anu.work-task-result.v1": work_contracts.WorkTaskResult,
+    "anu.work-transition-request.v1": work_contracts.WorkTransitionRequest,
+    "anu.work-transition-result.v1": work_contracts.WorkTransitionResult,
+    "anu.handover-request.v1": work_contracts.HandoverRequest,
+    "anu.handover-result.v1": work_contracts.HandoverResult,
+    "anu.responsibility-trace-item.v1": work_contracts.ResponsibilityTraceItem,
+    "anu.work-replay-result.v1": work_contracts.WorkReplayResult,
 }
 
 out = Path(__file__).resolve().parents[1] / "contracts" / "schemas"

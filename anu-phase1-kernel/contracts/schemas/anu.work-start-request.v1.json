@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "plan_ref": {
+      "title": "Plan Ref",
+      "type": "string"
+    },
+    "requester_ref": {
+      "title": "Requester Ref",
+      "type": "string"
+    },
+    "context": {
+      "additionalProperties": true,
+      "title": "Context",
+      "type": "object"
+    },
+    "trace_id": {
+      "title": "Trace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "plan_ref",
+    "requester_ref",
+    "trace_id"
+  ],
+  "title": "WorkStartRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.work-start-request.v1"
+}

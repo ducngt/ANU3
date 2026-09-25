@@ -15,7 +15,7 @@
     "database_object_store_recovery_reference": "PASS"
   },
   "external_checks": {
-    "live_postgresql_revision_0004": "PENDING_EXTERNAL_CI",
+    "live_postgresql_baseline_0004_preserved": "PENDING_EXTERNAL_CI",
     "live_postgresql_multimodal_pilot": "PENDING_EXTERNAL_CI",
     "live_postgresql_db_object_store_recovery": "PENDING_EXTERNAL_CI",
     "independent_live_evidence_qualification": "PENDING_EXTERNAL_CI"
@@ -24,7 +24,7 @@
     "ARU-01 remains synthetic; no real learner PII is used.",
     "PDF and DOCX have deterministic text extraction; image/audio/video are ingested as immutable governed artifacts with media metadata. OCR, speech transcription and video semantic analysis remain provider adapters for later versioned upgrades.",
     "Vector retrieval is a provider-neutral deterministic hashing baseline, not a production embedding model; provider implementation is replaceable behind the retrieval boundary.",
-    "P3 scope is contract/registry/Smart Box manifest/discovery only. Connection Planner, Assembly runtime and Write Box Studio are intentionally not opened in this tranche.",
+    "This verifier qualifies the accepted P2-T02/P3-01 baseline. Later P3 runtime revisions may coexist and are verified by their own release gate.",
     "Connecting real SIS/LMS/HR or personal data requires a separate Human G2 privacy/retention/access decision."
   ],
   "human_action": "None for verification. Publish the prepared CI activation package only because this session has no GitHub write connector; GitHub Actions then owns live PostgreSQL verification."

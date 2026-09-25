@@ -1,4 +1,4 @@
-# ANU Kernel + P2 Reality/Memory + P3 SBBS Capability Runtime
+# ANU Kernel + Reality/Memory + SBBS + Governed Human-AI Work Runtime
 
 Executable reference implementation under ANU-URA-1.0, ANU-HB-1.2 and SBBS 2.0.
 
@@ -11,6 +11,22 @@ Human owns purpose, meaning, institutional authority, standards, responsibility 
 - Phase 1 Tranche 03: G3 accepted; G4 pilot-institutionalized.
 - Phase 2 Tranche 01: G3 accepted.
 - P2-T02 + P3-01: G3 accepted.
+- P3 Runtime P3-02..P3-07: G3 accepted.
+
+## Phase 4 scope
+
+- machine-readable Work Contract and Governed Work Graph;
+- Execution Planner that cannot synthesize Authority, Policy, DataScope or Signature requirements;
+- Human Task, Agent Task and Capability Task in one persisted runtime;
+- policy/authority gates and Human approval/signature integration;
+- handover/escalation/failure recovery with state preservation;
+- timer/event-wait primitives;
+- responsibility trace and historical replay;
+- ARU-01 E1/E2/E3 end-to-end pilots;
+- Alembic revision `0006`;
+- 81 executable JSON Schemas.
+
+Local Phase 4 verification passes; live PostgreSQL 16 + backup/restore/replay remains the external CI gate before Human G3.
 
 ## P3-02..P3-07 scope
 
@@ -26,7 +42,7 @@ Human owns purpose, meaning, institutional authority, standards, responsibility 
 
 ## Verification state
 
-Local verification for version `0.6.0` passes:
+Accepted P3 baseline remains regression-tested. Current runtime version is `0.7.0`; Phase 4 local verification passes:
 
 - Alembic `0001 -> ... -> 0005`, downgrade to base, re-upgrade;
 - full automated test suite;
@@ -38,7 +54,7 @@ Local verification for version `0.6.0` passes:
 - backup/restore + post-restore Assembly replay;
 - independent Thin Wire / authority / compatibility-evidence boundary audit.
 
-Live PostgreSQL revision `0005` runtime/recovery evidence remains the external GitHub Actions gate before Human G3.
+Live PostgreSQL revision `0006` Phase 4 runtime/recovery evidence remains the external GitHub Actions gate before Human G3.
 
 ## Runtime boundary
 
@@ -47,7 +63,7 @@ Live PostgreSQL revision `0005` runtime/recovery evidence remains the external G
 ## AI/CI verification
 
 ```bash
-python scripts/verify_p3_runtime.py
+python scripts/verify_phase4.py
 ```
 
 ## Runtime

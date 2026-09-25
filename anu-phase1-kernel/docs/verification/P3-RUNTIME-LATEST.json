@@ -15,7 +15,7 @@
     "runtime_recovery_and_replay": "PASS"
   },
   "external_checks": {
-    "live_postgresql_revision_0005": "PENDING_EXTERNAL_CI",
+    "live_postgresql_baseline_0005_preserved": "PENDING_EXTERNAL_CI",
     "live_postgresql_sbbs_runtime_pilot": "PENDING_EXTERNAL_CI",
     "live_postgresql_backup_restore_replay": "PENDING_EXTERNAL_CI",
     "independent_live_evidence_qualification": "PENDING_EXTERNAL_CI"

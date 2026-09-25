@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "AutonomyLevel": {
+      "enum": [
+        "A0",
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "title": "AutonomyLevel",
+      "type": "string"
+    },
+    "ExecutionClass": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "title": "ExecutionClass",
+      "type": "string"
+    },
+    "WorkState": {
+      "enum": [
+        "CREATED",
+        "CONTEXT_READY",
+        "IN_PROGRESS",
+        "PROPOSAL_READY",
+        "REVIEW_REQUIRED",
+        "APPROVED",
+        "REJECTED",
+        "REVISION_REQUIRED",
+        "ACTION_AUTHORIZED",
+        "EXECUTING",
+        "EXECUTED",
+        "EVIDENCE_CAPTURED",
+        "OUTCOME_OBSERVED",
+        "CLOSED",
+        "BLOCKED",
+        "ESCALATED",
+        "CANCELLED",
+        "FAILED",
+        "RECOVERING"
+      ],
+      "title": "WorkState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "work_id": {
+      "title": "Work Id",
+      "type": "string"
+    },
+    "plan_ref": {
+      "title": "Plan Ref",
+      "type": "string"
+    },
+    "work_type_ref": {
+      "title": "Work Type Ref",
+      "type": "string"
+    },
+    "execution_class": {
+      "$ref": "#/$defs/ExecutionClass"
+    },
+    "autonomy_level": {
+      "$ref": "#/$defs/AutonomyLevel"
+    },
+    "state": {
+      "$ref": "#/$defs/WorkState"
+    },
+    "requester_ref": {
+      "title": "Requester Ref",
+      "type": "string"
+    },
+    "context": {
+      "additionalProperties": true,
+      "title": "Context",
+      "type": "object"
+    },
+    "trace_id": {
+      "title": "Trace Id",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "work_id",
+    "plan_ref",
+    "work_type_ref",
+    "execution_class",
+    "autonomy_level",
+    "state",
+    "requester_ref",
+    "trace_id",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "WorkInstanceView",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.work-instance.v1"
+}

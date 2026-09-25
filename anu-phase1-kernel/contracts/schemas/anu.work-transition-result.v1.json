@@ -1,0 +1,78 @@
+{
+  "$defs": {
+    "WorkState": {
+      "enum": [
+        "CREATED",
+        "CONTEXT_READY",
+        "IN_PROGRESS",
+        "PROPOSAL_READY",
+        "REVIEW_REQUIRED",
+        "APPROVED",
+        "REJECTED",
+        "REVISION_REQUIRED",
+        "ACTION_AUTHORIZED",
+        "EXECUTING",
+        "EXECUTED",
+        "EVIDENCE_CAPTURED",
+        "OUTCOME_OBSERVED",
+        "CLOSED",
+        "BLOCKED",
+        "ESCALATED",
+        "CANCELLED",
+        "FAILED",
+        "RECOVERING"
+      ],
+      "title": "WorkState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "transition_id": {
+      "title": "Transition Id",
+      "type": "string"
+    },
+    "work_id": {
+      "title": "Work Id",
+      "type": "string"
+    },
+    "from_state": {
+      "$ref": "#/$defs/WorkState"
+    },
+    "to_state": {
+      "$ref": "#/$defs/WorkState"
+    },
+    "status": {
+      "enum": [
+        "APPLIED",
+        "BLOCKED",
+        "HANDOVER_REQUIRED"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "recorded_at": {
+      "format": "date-time",
+      "title": "Recorded At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "transition_id",
+    "work_id",
+    "from_state",
+    "to_state",
+    "status",
+    "recorded_at"
+  ],
+  "title": "WorkTransitionResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.work-transition-result.v1"
+}

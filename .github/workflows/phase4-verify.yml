@@ -1,4 +1,4 @@
-name: ANU Phase 3 SBBS Capability Runtime Verification
+name: ANU Phase 4 Governed Human-AI Work Runtime Verification
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: anu-p3-runtime-${{ github.ref }}
+  group: anu-p4-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   build-test:
-    name: P3 contracts, runtime, replay and conformance
+    name: P4 contracts, runtime, replay and conformance
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,20 +34,23 @@ jobs:
       - name: Install verification dependencies
         shell: bash
         run: cd "$ANU_PROJECT_DIR" && python -m pip install -e '.[test]'
-      - name: Run complete P3 verifier
+      - name: Run complete Phase 4 local verifier
+        shell: bash
+        run: cd "$ANU_PROJECT_DIR" && python scripts/verify_phase4.py
+      - name: Run accepted P3 regression verifier
         shell: bash
         run: cd "$ANU_PROJECT_DIR" && python scripts/verify_p3_runtime.py
       - name: Upload local evidence
         uses: actions/upload-artifact@v4
         with:
-          name: p3-runtime-local-verification-evidence
+          name: p4-local-verification-evidence
           path: |
-            ${{ env.ANU_PROJECT_DIR }}/docs/verification/P3-RUNTIME-LATEST.json
-            ${{ env.ANU_PROJECT_DIR }}/docs/verification/TECHNICAL-DETAILS-P3-RUNTIME.json
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/P4-LATEST.json
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/TECHNICAL-DETAILS-P4.json
           if-no-files-found: error
 
   postgres-live:
-    name: PostgreSQL 16 SBBS runtime and recovery proof
+    name: PostgreSQL 16 E1-E3 work runtime and recovery proof
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -55,17 +58,17 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: anu_p3
+          POSTGRES_DB: anu_p4
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U postgres -d anu_p3"
+          --health-cmd "pg_isready -U postgres -d anu_p4"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 10
     env:
-      ANU_DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/anu_p3
-      ANU_POSTGRES_RESTORE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/anu_p3_restore
+      ANU_DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/anu_p4
+      ANU_POSTGRES_RESTORE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/anu_p4_restore
       PGPASSWORD: postgres
     steps:
       - uses: actions/checkout@v4
@@ -90,7 +93,7 @@ jobs:
       - name: Install PostgreSQL client tools
         shell: bash
         run: sudo apt-get update && sudo apt-get install -y postgresql-client
-      - name: Clean live migration through current repository head
+      - name: Clean live migration through current head
         shell: bash
         run: cd "$ANU_PROJECT_DIR" && alembic upgrade head
       - name: Assert live revision equals repository head
@@ -104,25 +107,25 @@ jobs:
           test "$CURRENT" = "$HEAD"
       - name: Create isolated restore database
         shell: bash
-        run: createdb -h localhost -U postgres anu_p3_restore
-      - name: Run live ARU-01 P3 runtime and recovery
+        run: createdb -h localhost -U postgres anu_p4_restore
+      - name: Run live ARU-01 E1/E2/E3 pilot and recovery
         shell: bash
         run: |
           cd "$ANU_PROJECT_DIR"
-          python scripts/postgres_p3_runtime_live_verify.py \
+          python scripts/postgres_phase4_live_verify.py \
             --database-url "$ANU_DATABASE_URL" \
             --restore-url "$ANU_POSTGRES_RESTORE_URL" \
-            --backup /tmp/anu-p3-postgres.dump \
-            --output docs/verification/POSTGRES-P3-RUNTIME-LIVE.json
+            --backup /tmp/anu-p4-postgres.dump \
+            --output docs/verification/POSTGRES-P4-LIVE.json
       - name: Upload PostgreSQL live evidence
         uses: actions/upload-artifact@v4
         with:
-          name: p3-runtime-postgresql-live-evidence
-          path: ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P3-RUNTIME-LIVE.json
+          name: p4-postgresql-live-evidence
+          path: ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P4-LIVE.json
           if-no-files-found: error
 
   independent-verify:
-    name: Independent P3 evidence qualification
+    name: Independent Phase 4 evidence qualification
     needs: [build-test, postgres-live]
     runs-on: ubuntu-latest
     steps:
@@ -148,40 +151,39 @@ jobs:
       - name: Download live PostgreSQL evidence
         uses: actions/download-artifact@v4
         with:
-          name: p3-runtime-postgresql-live-evidence
+          name: p4-postgresql-live-evidence
           path: ${{ env.ANU_PROJECT_DIR }}/docs/verification/
-      - name: Verify Thin Wire / Authority / Evidence boundaries
+      - name: Run independent authority/autonomy/handover boundaries
         shell: bash
-        run: cd "$ANU_PROJECT_DIR" && python -m pytest tests/independent/test_p3_runtime_boundaries.py -q
+        run: cd "$ANU_PROJECT_DIR" && python -m pytest tests/independent/test_phase4_boundaries.py -q
       - name: Independently qualify PostgreSQL evidence
         shell: bash
         run: |
           cd "$ANU_PROJECT_DIR"
-          python scripts/verify_p3_runtime_postgres_evidence.py \
-            --input docs/verification/POSTGRES-P3-RUNTIME-LIVE.json \
-            --output docs/verification/POSTGRES-P3-RUNTIME-LIVE-QUALIFIED.json
+          python scripts/verify_phase4_postgres_evidence.py \
+            --input docs/verification/POSTGRES-P4-LIVE.json \
+            --output docs/verification/POSTGRES-P4-LIVE-QUALIFIED.json
       - name: Publish Human-readable CI summary
         shell: bash
         run: |
-          echo "## ANU Phase 3 SBBS Capability Runtime Evidence" >> "$GITHUB_STEP_SUMMARY"
+          echo "## ANU Phase 4 Governed Human-AI Work Runtime Evidence" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Accepted revision 0005 baseline preserved under current PostgreSQL 16 head: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Compatibility Engine + evidence: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Transform/Adapter Registry: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Declarative Connection Planner: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Thin Smart Wire: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Assembly Registry/Runtime: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Write Box Studio architecture audit + promotion: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Provider replacement without consumer-contract break: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- PostgreSQL backup/restore + Assembly replay: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Revision 0006 live PostgreSQL migration: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- E1 Human + Capability + Agent assist work: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- E2 Agent prepare + Human review/authority: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- E3 Human Authority + Policy + Signature decision: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Agent approval / canonical publication fail closed: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Stop + preserve state + handover: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Responsibility replay end-to-end: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- PostgreSQL backup/restore + Work replay: PASS" >> "$GITHUB_STEP_SUMMARY"
           echo "- Independent evidence qualification: PASS" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Technical evidence is complete. Human G3 remains a separate outcome/responsibility decision." >> "$GITHUB_STEP_SUMMARY"
       - name: Upload qualified release evidence
         uses: actions/upload-artifact@v4
         with:
-          name: p3-runtime-qualified-release-evidence
+          name: p4-qualified-release-evidence
           path: |
-            ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P3-RUNTIME-LIVE.json
-            ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P3-RUNTIME-LIVE-QUALIFIED.json
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P4-LIVE.json
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P4-LIVE-QUALIFIED.json
           if-no-files-found: error

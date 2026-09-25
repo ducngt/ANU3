@@ -147,3 +147,47 @@ Provider-specific technology remains behind Smart Box/Adapter boundaries. Replac
 Write Box Studio MVP cannot grant Authority or modify Constitutional Core. Promotion is allowed only for an architecture-audit-passing candidate with specification, knowledge, rules, examples, provenance and operation bindings aligned to the Capability Contract.
 
 Phase 4 Governed Human-AI Work is deliberately outside this tranche.
+
+# Phase 4 — Governed Human–AI Work Runtime
+
+Phase 4 extends the accepted P3 Runtime additively through Alembic revision `0006`. It does not redefine Identity, Authority, Delegation, Policy, Trust, Provenance, Capability or Data primitives.
+
+```text
+Human Goal / Intent
+      |
+Execution Planner
+      |   (cannot create Authority / Policy / DataScope / Signature rules)
+      v
+Governed Work Graph
+      |
+      +--> Human Task
+      +--> Agent Task
+      +--> Capability Task
+      +--> Policy / Authority Gate
+      +--> Decision / Approval / Signature
+      +--> Timer / Event Wait
+      +--> Handover / Escalation / Recovery
+      |
+      v
+Persistent Work State + Responsibility Trace + Historical Replay
+```
+
+The runtime is a single execution fabric for Human, Agent and Capability tasks. It does not create separate BPM, Agent orchestration, approval and signature silos.
+
+## E1 / E2 / E3 ARU-01 pilot
+
+- **E1 / A1:** AI assists a lecturer by synthesizing governed knowledge with provenance; no institutional state-changing authority is created.
+- **E2 / A2:** Agent prepares a learning-asset revision proposal; canonical publication is forbidden to the Agent and requires Human review/authority.
+- **E3:** Agent prepares analysis; a consequential academic approval requires Human Authority, applicable Policy and Human Signature. Agent approval attempts fail closed and hand over.
+
+## Failure and handover
+
+The runtime implements `DETECT -> STOP -> PRESERVE STATE -> HANDOVER -> HUMAN -> RECOVER -> LEARN` as persisted work transitions and handover records. Missing authority, mandatory evidence, required signature, invalid policy context, forbidden Agent action and unsupported autonomy fail closed.
+
+## Responsibility replay
+
+Every persisted task/transition can carry actor identity/kind, authority, delegation, policy, evidence, signature/attestation, artifact and provenance references. Replay reconstructs the end-to-end responsibility chain and verifies E3 approval traces contain Human authority and signature.
+
+## Contextual autonomy
+
+Autonomy is not a fixed property of an Agent. Work Contracts and nodes define ceilings. The ARU-01 G2-approved pilot uses A1 for E1 and A2 before consequential Human decisions in E2/E3. The runtime can represent higher autonomy only when a future Work Contract, Authority/Delegation and Policy envelope explicitly permits it; E3 pre-decision Agent execution above A2 is blocked.

@@ -1,0 +1,426 @@
+{
+  "$defs": {
+    "AgentAssignment": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_ref": {
+          "title": "Agent Ref",
+          "type": "string"
+        },
+        "purpose": {
+          "title": "Purpose",
+          "type": "string"
+        },
+        "owner_ref": {
+          "title": "Owner Ref",
+          "type": "string"
+        },
+        "allowed_capability_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Capability Refs",
+          "type": "array"
+        },
+        "allowed_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Actions",
+          "type": "array"
+        },
+        "forbidden_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Forbidden Actions",
+          "type": "array"
+        },
+        "autonomy_ceiling": {
+          "$ref": "#/$defs/AutonomyLevel"
+        },
+        "delegation_required_for_consequential_action": {
+          "default": true,
+          "title": "Delegation Required For Consequential Action",
+          "type": "boolean"
+        },
+        "human_supervisor_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Human Supervisor Ref"
+        }
+      },
+      "required": [
+        "agent_ref",
+        "purpose",
+        "owner_ref",
+        "autonomy_ceiling"
+      ],
+      "title": "AgentAssignment",
+      "type": "object"
+    },
+    "ApprovalPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "approval_id": {
+          "title": "Approval Id",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "human_required": {
+          "default": true,
+          "title": "Human Required",
+          "type": "boolean"
+        },
+        "signature_required": {
+          "default": false,
+          "title": "Signature Required",
+          "type": "boolean"
+        },
+        "required_role_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Required Role Ref"
+        },
+        "required_authority_action": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Required Authority Action"
+        },
+        "resource_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resource Ref"
+        }
+      },
+      "required": [
+        "approval_id",
+        "description"
+      ],
+      "title": "ApprovalPoint",
+      "type": "object"
+    },
+    "AutonomyLevel": {
+      "enum": [
+        "A0",
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "title": "AutonomyLevel",
+      "type": "string"
+    },
+    "DecisionPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": {
+          "title": "Decision Id",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "consequential": {
+          "default": false,
+          "title": "Consequential",
+          "type": "boolean"
+        },
+        "human_authority_required": {
+          "default": false,
+          "title": "Human Authority Required",
+          "type": "boolean"
+        },
+        "evidence_required": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Required",
+          "type": "array"
+        }
+      },
+      "required": [
+        "decision_id",
+        "description"
+      ],
+      "title": "DecisionPoint",
+      "type": "object"
+    },
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "ExecutionClass": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "title": "ExecutionClass",
+      "type": "string"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "WorkParticipant": {
+      "additionalProperties": false,
+      "properties": {
+        "subject_ref": {
+          "title": "Subject Ref",
+          "type": "string"
+        },
+        "role_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Role Ref"
+        },
+        "responsibility": {
+          "title": "Responsibility",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_ref",
+        "responsibility"
+      ],
+      "title": "WorkParticipant",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "work_type_id": {
+      "title": "Work Type Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "owner_ref": {
+      "title": "Owner Ref",
+      "type": "string"
+    },
+    "goal": {
+      "title": "Goal",
+      "type": "string"
+    },
+    "scope": {
+      "additionalProperties": true,
+      "title": "Scope",
+      "type": "object"
+    },
+    "execution_class": {
+      "$ref": "#/$defs/ExecutionClass"
+    },
+    "allowed_autonomy": {
+      "$ref": "#/$defs/AutonomyLevel"
+    },
+    "human_participants": {
+      "items": {
+        "$ref": "#/$defs/WorkParticipant"
+      },
+      "title": "Human Participants",
+      "type": "array"
+    },
+    "agent_assignments": {
+      "items": {
+        "$ref": "#/$defs/AgentAssignment"
+      },
+      "title": "Agent Assignments",
+      "type": "array"
+    },
+    "capability_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Capability Refs",
+      "type": "array"
+    },
+    "data_scope": {
+      "additionalProperties": true,
+      "title": "Data Scope",
+      "type": "object"
+    },
+    "knowledge_requirements": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Knowledge Requirements",
+      "type": "array"
+    },
+    "decision_points": {
+      "items": {
+        "$ref": "#/$defs/DecisionPoint"
+      },
+      "title": "Decision Points",
+      "type": "array"
+    },
+    "approval_points": {
+      "items": {
+        "$ref": "#/$defs/ApprovalPoint"
+      },
+      "title": "Approval Points",
+      "type": "array"
+    },
+    "signature_policy_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Signature Policy Ref"
+    },
+    "evidence_requirements": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Requirements",
+      "type": "array"
+    },
+    "risk_class": {
+      "title": "Risk Class",
+      "type": "string"
+    },
+    "outcome_definition": {
+      "additionalProperties": true,
+      "title": "Outcome Definition",
+      "type": "object"
+    },
+    "escalation": {
+      "additionalProperties": true,
+      "title": "Escalation",
+      "type": "object"
+    },
+    "failure_policy": {
+      "additionalProperties": true,
+      "title": "Failure Policy",
+      "type": "object"
+    },
+    "trace_policy": {
+      "additionalProperties": true,
+      "title": "Trace Policy",
+      "type": "object"
+    },
+    "retention": {
+      "additionalProperties": true,
+      "title": "Retention",
+      "type": "object"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "work_type_id",
+    "name",
+    "description",
+    "version",
+    "owner_ref",
+    "goal",
+    "execution_class",
+    "allowed_autonomy",
+    "risk_class",
+    "effective_period",
+    "provenance_ref"
+  ],
+  "title": "WorkContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.work-contract.v1"
+}

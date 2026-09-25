@@ -1,0 +1,249 @@
+{
+  "$defs": {
+    "AutonomyLevel": {
+      "enum": [
+        "A0",
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "title": "AutonomyLevel",
+      "type": "string"
+    },
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "WorkNode": {
+      "additionalProperties": false,
+      "properties": {
+        "node_id": {
+          "title": "Node Id",
+          "type": "string"
+        },
+        "node_type": {
+          "enum": [
+            "HUMAN_TASK",
+            "AGENT_TASK",
+            "CAPABILITY_TASK",
+            "POLICY_GATE",
+            "DECISION",
+            "APPROVAL_SIGNATURE",
+            "TIMER",
+            "EVENT_WAIT",
+            "HANDOVER",
+            "ESCALATION",
+            "RECOVERY"
+          ],
+          "title": "Node Type",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "actor_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Actor Ref"
+        },
+        "capability_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capability Ref"
+        },
+        "required_authority_action": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Required Authority Action"
+        },
+        "required_resource_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Required Resource Ref"
+        },
+        "evidence_required": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Required",
+          "type": "array"
+        },
+        "signature_required": {
+          "default": false,
+          "title": "Signature Required",
+          "type": "boolean"
+        },
+        "attestation_required": {
+          "default": false,
+          "title": "Attestation Required",
+          "type": "boolean"
+        },
+        "allowed_autonomy": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AutonomyLevel"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "next_nodes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Next Nodes",
+          "type": "array"
+        },
+        "failure_node": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Failure Node"
+        },
+        "configuration": {
+          "additionalProperties": true,
+          "title": "Configuration",
+          "type": "object"
+        }
+      },
+      "required": [
+        "node_id",
+        "node_type",
+        "label"
+      ],
+      "title": "WorkNode",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "graph_id": {
+      "title": "Graph Id",
+      "type": "string"
+    },
+    "work_type_ref": {
+      "title": "Work Type Ref",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "owner_ref": {
+      "title": "Owner Ref",
+      "type": "string"
+    },
+    "entry_node": {
+      "title": "Entry Node",
+      "type": "string"
+    },
+    "nodes": {
+      "items": {
+        "$ref": "#/$defs/WorkNode"
+      },
+      "title": "Nodes",
+      "type": "array"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "graph_id",
+    "work_type_ref",
+    "version",
+    "owner_ref",
+    "entry_node",
+    "nodes",
+    "effective_period",
+    "provenance_ref"
+  ],
+  "title": "GovernedWorkGraph",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.governed-work-graph.v1"
+}

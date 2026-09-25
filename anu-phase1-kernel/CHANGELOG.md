@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.7.0 — Phase 4 Governed Human–AI Work Runtime
+
+- Recorded P3 Runtime G3 acceptance as the baseline.
+- Added Work Contract and Governed Work Graph contracts.
+- Added Execution Planner with explicit prohibition on creating Authority/Policy/DataScope/Signature requirements.
+- Added persisted Human, Agent and Capability tasks in one runtime.
+- Added Human approval, Authority/Policy gates and signature verification for consequential E3 decisions.
+- Added fail-closed handover/escalation/recovery paths and responsibility replay.
+- Added deterministic Timer/Event-Wait primitives.
+- Added ARU-01 E1/E2/E3 pilots, including forbidden Agent publication and Agent-approval failure cases.
+- Added Alembic revision `0006`.
+- Exported 81 executable JSON Schemas.
+- Added independent P4 boundary verification and PostgreSQL 16 live recovery workflow.
+- Updated P3 regression verifiers to remain valid under additive later Alembic heads.
+
 ## 0.6.0 — P3-02..P3-07 SBBS Capability Runtime
 
 - Recorded `P2-T02 + P3-01 G3 ACCEPTED` as the new baseline.

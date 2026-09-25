@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anu-phase1-kernel"
-version = "0.6.0"
-description = "ANU 4.0 Kernel plus Phase 2 Reality/Data/Memory and Phase 3 SBBS Capability Runtime"
+version = "0.7.0"
+description = "ANU 4.0 Kernel, Reality/Data/Memory, SBBS Capability Runtime and Governed Human-AI Work Runtime"
 requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.110",

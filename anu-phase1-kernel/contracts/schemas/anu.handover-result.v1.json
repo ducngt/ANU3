@@ -1,0 +1,83 @@
+{
+  "$defs": {
+    "WorkState": {
+      "enum": [
+        "CREATED",
+        "CONTEXT_READY",
+        "IN_PROGRESS",
+        "PROPOSAL_READY",
+        "REVIEW_REQUIRED",
+        "APPROVED",
+        "REJECTED",
+        "REVISION_REQUIRED",
+        "ACTION_AUTHORIZED",
+        "EXECUTING",
+        "EXECUTED",
+        "EVIDENCE_CAPTURED",
+        "OUTCOME_OBSERVED",
+        "CLOSED",
+        "BLOCKED",
+        "ESCALATED",
+        "CANCELLED",
+        "FAILED",
+        "RECOVERING"
+      ],
+      "title": "WorkState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "handover_id": {
+      "title": "Handover Id",
+      "type": "string"
+    },
+    "work_id": {
+      "title": "Work Id",
+      "type": "string"
+    },
+    "from_state": {
+      "$ref": "#/$defs/WorkState"
+    },
+    "status": {
+      "const": "OPEN",
+      "default": "OPEN",
+      "title": "Status",
+      "type": "string"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "human_target_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Human Target Ref"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "handover_id",
+    "work_id",
+    "from_state",
+    "reason_codes",
+    "created_at"
+  ],
+  "title": "HandoverResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.handover-result.v1"
+}

@@ -1,0 +1,59 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    },
+    "work_id": {
+      "title": "Work Id",
+      "type": "string"
+    },
+    "node_id": {
+      "title": "Node Id",
+      "type": "string"
+    },
+    "actor_ref": {
+      "title": "Actor Ref",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "SUCCEEDED",
+        "BLOCKED",
+        "FAILED",
+        "HANDOVER_REQUIRED"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "output_payload": {
+      "additionalProperties": true,
+      "title": "Output Payload",
+      "type": "object"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "recorded_at": {
+      "format": "date-time",
+      "title": "Recorded At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "task_id",
+    "work_id",
+    "node_id",
+    "actor_ref",
+    "status",
+    "recorded_at"
+  ],
+  "title": "WorkTaskResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.work-task-result.v1"
+}

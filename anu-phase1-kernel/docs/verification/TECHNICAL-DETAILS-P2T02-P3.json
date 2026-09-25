@@ -9,8 +9,8 @@
     "database_object_store_recovery_reference": "PASS"
   },
   "details": {
-    "clean_migration_cycle": "upgrade -> downgrade -> upgrade PASS at revision 0004",
-    "automated_tests": "...............................................................          [100%]",
+    "clean_migration_cycle": "upgrade -> downgrade -> upgrade PASS through current Alembic head",
+    "automated_tests": "........................................................................ [ 82%]\n...............                                                          [100%]",
     "aru01_multimodal_capability_pilot": {
       "work_id": "P2-T02-P3-01-MULTIMODAL-CAPABILITY-FOUNDATION",
       "pass": true,
@@ -50,7 +50,7 @@
           "source_ref": "urn:aru:source:multimodal-learning-platform",
           "epistemic_type": "FACT",
           "validation_state": "APPROVED",
-          "provenance_ref": "urn:anu:provenance:01a0d6ce-aca3-7e2b-bdbd-1ae2b351c2d6",
+          "provenance_ref": "urn:anu:provenance:01a0d79b-3995-7d39-9373-4ba39086e7ae",
           "extraction_status": "EXTRACTED",
           "extracted_text": "ARU-01 Software Engineering Programme Version 2.0\nCompetency: responsible AI systems",
           "analyzer_ref": "urn:anu:analyzer:pdf:pypdf",
@@ -61,7 +61,7 @@
             "filename": "programme-handbook.pdf",
             "page_count": 1
           },
-          "recorded_time": "2026-09-25T04:24:23.971025Z",
+          "recorded_time": "2026-09-25T08:07:49.397319Z",
           "lifecycle_state": "ACTIVE"
         },
         {
@@ -76,7 +76,7 @@
           "source_ref": "urn:aru:source:multimodal-learning-platform",
           "epistemic_type": "CLAIM",
           "validation_state": "VALIDATED",
-          "provenance_ref": "urn:anu:provenance:01a0d6ce-acb5-778a-8075-dc3faa1f66f2",
+          "provenance_ref": "urn:anu:provenance:01a0d79b-39ad-7eb8-91f5-7d1102273795",
           "extraction_status": "EXTRACTED",
           "extracted_text": "ARU-01 Course Specification\nCourse: ANU Systems Studio\nLearning outcome: provenance-aware design.",
           "analyzer_ref": "urn:anu:analyzer:docx:python-docx",
@@ -88,7 +88,7 @@
             "paragraph_count": 3,
             "table_count": 0
           },
-          "recorded_time": "2026-09-25T04:24:23.989645Z",
+          "recorded_time": "2026-09-25T08:07:49.421762Z",
           "lifecycle_state": "ACTIVE"
         },
         {
@@ -103,7 +103,7 @@
           "source_ref": "urn:aru:source:multimodal-learning-platform",
           "epistemic_type": "CLAIM",
           "validation_state": "VALIDATED",
-          "provenance_ref": "urn:anu:provenance:01a0d6ce-acc3-7242-bf7f-b1f3e554ee1d",
+          "provenance_ref": "urn:anu:provenance:01a0d79b-39bd-7eb7-8166-c5784548ea1d",
           "extraction_status": "METADATA_ONLY",
           "extracted_text": null,
           "analyzer_ref": "urn:anu:analyzer:image:pillow",
@@ -117,7 +117,7 @@
             "mode": "RGB",
             "format": "PNG"
           },
-          "recorded_time": "2026-09-25T04:24:24.003246Z",
+          "recorded_time": "2026-09-25T08:07:49.437990Z",
           "lifecycle_state": "ACTIVE"
         },
         {
@@ -132,7 +132,7 @@
           "source_ref": "urn:aru:source:multimodal-learning-platform",
           "epistemic_type": "CLAIM",
           "validation_state": "VALIDATED",
-          "provenance_ref": "urn:anu:provenance:01a0d6ce-acc7-7312-9a78-bbbdd53d767f",
+          "provenance_ref": "urn:anu:provenance:01a0d79b-39c4-7081-9af2-980fd1231164",
           "extraction_status": "METADATA_ONLY",
           "extracted_text": null,
           "analyzer_ref": "urn:anu:analyzer:audio:wave",
@@ -146,7 +146,7 @@
             "sample_width": 2,
             "duration_seconds": 0.25
           },
-          "recorded_time": "2026-09-25T04:24:24.007426Z",
+          "recorded_time": "2026-09-25T08:07:49.443996Z",
           "lifecycle_state": "ACTIVE"
         },
         {
@@ -161,7 +161,7 @@
           "source_ref": "urn:aru:source:multimodal-learning-platform",
           "epistemic_type": "CLAIM",
           "validation_state": "VALIDATED",
-          "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0a-7cc6-98c5-4df128602eb2",
+          "provenance_ref": "urn:anu:provenance:01a0d79b-3a15-72c2-af6d-281261802c5e",
           "extraction_status": "METADATA_ONLY",
           "extracted_text": null,
           "analyzer_ref": "urn:anu:analyzer:media:ffprobe",
@@ -189,7 +189,7 @@
               }
             }
           },
-          "recorded_time": "2026-09-25T04:24:24.074244Z",
+          "recorded_time": "2026-09-25T08:07:49.525003Z",
           "lifecycle_state": "ACTIVE"
         }
       ],
@@ -198,7 +198,7 @@
         "artifact_version_ref": "urn:anu:artifact-version:aru-p2t02:1:v1",
         "epistemic_type": "FACT",
         "validation_state": "APPROVED",
-        "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0f-744a-b9f0-3c251a07238e",
+        "provenance_ref": "urn:anu:provenance:01a0d79b-3a1a-75e4-8b23-bbef0911a0b8",
         "indexed": true
       },
       "retrieval": {
@@ -216,7 +216,7 @@
               "urn:aru:source:multimodal-learning-platform",
               "urn:anu:artifact-version:aru-p2t02:1:v1"
             ],
-            "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0f-744a-b9f0-3c251a07238e",
+            "provenance_ref": "urn:anu:provenance:01a0d79b-3a1a-75e4-8b23-bbef0911a0b8",
             "content_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
             "score": 0.584722,
             "lexical_score": 1.0,
@@ -233,7 +233,7 @@
             "source_refs": [
               "urn:aru:source:multimodal-learning-platform"
             ],
-            "provenance_ref": "urn:anu:provenance:01a0d6ce-aca3-7e2b-bdbd-1ae2b351c2d6",
+            "provenance_ref": "urn:anu:provenance:01a0d79b-3995-7d39-9373-4ba39086e7ae",
             "content_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
             "score": 0.562268,
             "lexical_score": 1.0,
@@ -250,7 +250,7 @@
             "source_refs": [
               "urn:aru:source:multimodal-learning-platform"
             ],
-            "provenance_ref": "urn:anu:provenance:01a0d6ce-acb5-778a-8075-dc3faa1f66f2",
+            "provenance_ref": "urn:anu:provenance:01a0d79b-39ad-7eb8-91f5-7d1102273795",
             "content_hash": "8bcbcad2890e636af5155e7351f75dfc807c618733e2d506737879929782b1da",
             "score": 0.15,
             "lexical_score": 0.333333,
@@ -267,7 +267,7 @@
             "source_refs": [
               "urn:aru:source:multimodal-learning-platform"
             ],
-            "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0a-7cc6-98c5-4df128602eb2",
+            "provenance_ref": "urn:anu:provenance:01a0d79b-3a15-72c2-af6d-281261802c5e",
             "content_hash": "3f452ccf120d54c89d168b3db0ca0e46c7d8bc2732b7888efbfa9afba3c38100",
             "score": 0.032409,
             "lexical_score": 0.0,
@@ -315,25 +315,31 @@
           }
         ]
       },
-      "object_store_root": "/tmp/anu-p2t02-p3-jvo6cvnc/objects",
+      "object_store_root": "/tmp/anu-p2t02-p3-2ltven8l/objects",
       "synthetic_data_only": true
     },
-    "contract_schema_export": "exported 50 schemas to /mnt/data/anu_phase2_t02_work/contracts/schemas",
+    "contract_schema_export": {
+      "command_output": "exported 81 schemas to /mnt/data/anu_phase4_work/anu-phase1-kernel/contracts/schemas",
+      "exported_count": 81,
+      "minimum_baseline_count": 50,
+      "missing_baseline_schemas": [],
+      "compatibility_rule": "additive schemas are allowed; P2-T02/P3-01 baseline schemas must remain present"
+    },
     "independent_boundary_verifier": "....                                                                     [100%]",
-    "postgresql_offline_migration_compile": "ef);\n\nCREATE INDEX ix_university_memory_record_lifecycle_state ON university_memory_record (lifecycle_state);\n\nUPDATE alembic_version SET version_num='0003' WHERE alembic_version.version_num = '0002';\n\n-- Running upgrade 0003 -> 0004\n\nCREATE TABLE artifact_object_version (\n    version_id VARCHAR(255) NOT NULL, \n    artifact_id VARCHAR(255) NOT NULL, \n    filename VARCHAR(512) NOT NULL, \n    semantic_type VARCHAR(255) NOT NULL, \n    media_type VARCHAR(128) NOT NULL, \n    byte_size INTEGER NOT NULL, \n    content_hash VARCHAR(128) NOT NULL, \n    storage_ref VARCHAR(1024) NOT NULL, \n    source_ref VARCHAR(255) NOT NULL, \n    owner_ref VARCHAR(255) NOT NULL, \n    context_ref VARCHAR(255), \n    observed_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    recorded_time TIMESTAMP WITH TIME ZONE NOT NULL, \n    epistemic_type VARCHAR(32) NOT NULL, \n    validation_state VARCHAR(32) NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    supersedes_ref VARCHAR(255), \n    extraction_status VARCHAR(32) NOT NULL, \n    extracted_text TEXT, \n    analyzer_ref VARCHAR(255) NOT NULL, \n    analyzer_version VARCHAR(64) NOT NULL, \n    metadata JSON NOT NULL, \n    PRIMARY KEY (version_id)\n);\n\nCREATE INDEX ix_artifact_object_version_artifact_id ON artifact_object_version (artifact_id);\n\nCREATE INDEX ix_artifact_object_version_semantic_type ON artifact_object_version (semantic_type);\n\nCREATE INDEX ix_artifact_object_version_media_type ON artifact_object_version (media_type);\n\nCREATE INDEX ix_artifact_object_version_content_hash ON artifact_object_version (content_hash);\n\nCREATE INDEX ix_artifact_object_version_storage_ref ON artifact_object_version (storage_ref);\n\nCREATE INDEX ix_artifact_object_version_source_ref ON artifact_object_version (source_ref);\n\nCREATE INDEX ix_artifact_object_version_owner_ref ON artifact_object_version (owner_ref);\n\nCREATE INDEX ix_artifact_object_version_context_ref ON artifact_object_version (context_ref);\n\nCREATE INDEX ix_artifact_object_version_observed_at ON artifact_object_version (observed_at);\n\nCREATE INDEX ix_artifact_object_version_recorded_time ON artifact_object_version (recorded_time);\n\nCREATE INDEX ix_artifact_object_version_epistemic_type ON artifact_object_version (epistemic_type);\n\nCREATE INDEX ix_artifact_object_version_validation_state ON artifact_object_version (validation_state);\n\nCREATE INDEX ix_artifact_object_version_provenance_ref ON artifact_object_version (provenance_ref);\n\nCREATE INDEX ix_artifact_object_version_lifecycle_state ON artifact_object_version (lifecycle_state);\n\nCREATE INDEX ix_artifact_object_version_supersedes_ref ON artifact_object_version (supersedes_ref);\n\nCREATE INDEX ix_artifact_object_version_extraction_status ON artifact_object_version (extraction_status);\n\nCREATE TABLE retrieval_projection (\n    row_id SERIAL NOT NULL, \n    projection_id VARCHAR(255) NOT NULL, \n    object_ref VARCHAR(255) NOT NULL, \n    object_kind VARCHAR(64) NOT NULL, \n    title VARCHAR(512) NOT NULL, \n    semantic_type VARCHAR(255), \n    epistemic_type VARCHAR(32), \n    validation_state VARCHAR(32), \n    source_refs JSON NOT NULL, \n    provenance_ref VARCHAR(255), \n    content_hash VARCHAR(128), \n    searchable_text TEXT NOT NULL, \n    vector_json JSON NOT NULL, \n    index_version VARCHAR(64) NOT NULL, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_retrieval_object_index_version UNIQUE (object_ref, index_version), \n    UNIQUE (projection_id)\n);\n\nCREATE INDEX ix_retrieval_projection_projection_id ON retrieval_projection (projection_id);\n\nCREATE INDEX ix_retrieval_projection_object_ref ON retrieval_projection (object_ref);\n\nCREATE INDEX ix_retrieval_projection_object_kind ON retrieval_projection (object_kind);\n\nCREATE INDEX ix_retrieval_projection_semantic_type ON retrieval_projection (semantic_type);\n\nCREATE INDEX ix_retrieval_projection_epistemic_type ON retrieval_projection (epistemic_type);\n\nCREATE INDEX ix_retrieval_projection_validation_state ON retrieval_projection (validation_state);\n\nCREATE INDEX ix_retrieval_projection_provenance_ref ON retrieval_projection (provenance_ref);\n\nCREATE INDEX ix_retrieval_projection_index_version ON retrieval_projection (index_version);\n\nCREATE INDEX ix_retrieval_projection_lifecycle_state ON retrieval_projection (lifecycle_state);\n\nCREATE INDEX ix_retrieval_projection_recorded_at ON retrieval_projection (recorded_at);\n\nCREATE TABLE capability_version (\n    row_id SERIAL NOT NULL, \n    capability_id VARCHAR(255) NOT NULL, \n    name VARCHAR(255) NOT NULL, \n    description TEXT NOT NULL, \n    owner_ref VARCHAR(255) NOT NULL, \n    domain VARCHAR(128) NOT NULL, \n    version VARCHAR(64) NOT NULL, \n    operations JSON NOT NULL, \n    requires_capabilities JSON NOT NULL, \n    data_scope JSON NOT NULL, \n    policy_refs JSON NOT NULL, \n    risk_class VARCHAR(32) NOT NULL, \n    effective_from TIMESTAMP WITH TIME ZONE NOT NULL, \n    effective_to TIMESTAMP WITH TIME ZONE, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    provenance_ref VARCHAR(255), \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_capability_id_version UNIQUE (capability_id, version)\n);\n\nCREATE INDEX ix_capability_version_capability_id ON capability_version (capability_id);\n\nCREATE INDEX ix_capability_version_owner_ref ON capability_version (owner_ref);\n\nCREATE INDEX ix_capability_version_domain ON capability_version (domain);\n\nCREATE INDEX ix_capability_version_version ON capability_version (version);\n\nCREATE INDEX ix_capability_version_effective_from ON capability_version (effective_from);\n\nCREATE INDEX ix_capability_version_effective_to ON capability_version (effective_to);\n\nCREATE INDEX ix_capability_version_lifecycle_state ON capability_version (lifecycle_state);\n\nCREATE INDEX ix_capability_version_provenance_ref ON capability_version (provenance_ref);\n\nCREATE INDEX ix_capability_version_recorded_at ON capability_version (recorded_at);\n\nCREATE TABLE smart_box_manifest_version (\n    row_id SERIAL NOT NULL, \n    box_id VARCHAR(255) NOT NULL, \n    capability_ref VARCHAR(320) NOT NULL, \n    box_version VARCHAR(64) NOT NULL, \n    provider_ref VARCHAR(255) NOT NULL, \n    runtime_type VARCHAR(128) NOT NULL, \n    operation_bindings JSON NOT NULL, \n    requires_capabilities JSON NOT NULL, \n    adapter_boundary VARCHAR(255) NOT NULL, \n    model_dependencies JSON NOT NULL, \n    data_classes JSON NOT NULL, \n    quality_slo JSON NOT NULL, \n    observability JSON NOT NULL, \n    effective_from TIMESTAMP WITH TIME ZONE NOT NULL, \n    effective_to TIMESTAMP WITH TIME ZONE, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    provenance_ref VARCHAR(255), \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_smart_box_id_version UNIQUE (box_id, box_version)\n);\n\nCREATE INDEX ix_smart_box_manifest_version_box_id ON smart_box_manifest_version (box_id);\n\nCREATE INDEX ix_smart_box_manifest_version_capability_ref ON smart_box_manifest_version (capability_ref);\n\nCREATE INDEX ix_smart_box_manifest_version_box_version ON smart_box_manifest_version (box_version);\n\nCREATE INDEX ix_smart_box_manifest_version_provider_ref ON smart_box_manifest_version (provider_ref);\n\nCREATE INDEX ix_smart_box_manifest_version_effective_from ON smart_box_manifest_version (effective_from);\n\nCREATE INDEX ix_smart_box_manifest_version_effective_to ON smart_box_manifest_version (effective_to);\n\nCREATE INDEX ix_smart_box_manifest_version_lifecycle_state ON smart_box_manifest_version (lifecycle_state);\n\nCREATE INDEX ix_smart_box_manifest_version_provenance_ref ON smart_box_manifest_version (provenance_ref);\n\nCREATE INDEX ix_smart_box_manifest_version_recorded_at ON smart_box_manifest_version (recorded_at);\n\nUPDATE alembic_version SET version_num='0004' WHERE alembic_version.version_num = '0003';\n\nCOMMIT;\n\nINFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Generating static SQL\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\nINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Phase 1 Kernel baseline\nINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Phase 1 trust/authentication hardening\nINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Phase 2 Reality/Data/Memory foundation\nINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, P2-T02 multimodal ingestion/retrieval + P3 contract registry foundation",
+    "postgresql_offline_migration_compile": "nance_ref ON work_contract_version (provenance_ref);\n\nCREATE INDEX ix_work_contract_version_recorded_at ON work_contract_version (recorded_at);\n\nCREATE TABLE work_graph_version (\n    row_id SERIAL NOT NULL, \n    graph_id VARCHAR(255) NOT NULL, \n    work_type_ref VARCHAR(320) NOT NULL, \n    version VARCHAR(64) NOT NULL, \n    owner_ref VARCHAR(255) NOT NULL, \n    entry_node VARCHAR(255) NOT NULL, \n    nodes JSON NOT NULL, \n    effective_from TIMESTAMP WITH TIME ZONE NOT NULL, \n    effective_to TIMESTAMP WITH TIME ZONE, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_work_graph_version UNIQUE (graph_id, version)\n);\n\nCREATE INDEX ix_work_graph_version_graph_id ON work_graph_version (graph_id);\n\nCREATE INDEX ix_work_graph_version_work_type_ref ON work_graph_version (work_type_ref);\n\nCREATE INDEX ix_work_graph_version_version ON work_graph_version (version);\n\nCREATE INDEX ix_work_graph_version_owner_ref ON work_graph_version (owner_ref);\n\nCREATE INDEX ix_work_graph_version_effective_from ON work_graph_version (effective_from);\n\nCREATE INDEX ix_work_graph_version_effective_to ON work_graph_version (effective_to);\n\nCREATE INDEX ix_work_graph_version_lifecycle_state ON work_graph_version (lifecycle_state);\n\nCREATE INDEX ix_work_graph_version_provenance_ref ON work_graph_version (provenance_ref);\n\nCREATE INDEX ix_work_graph_version_recorded_at ON work_graph_version (recorded_at);\n\nCREATE TABLE work_execution_plan (\n    plan_id VARCHAR(255) NOT NULL, \n    work_type_ref VARCHAR(320) NOT NULL, \n    work_graph_ref VARCHAR(320) NOT NULL, \n    goal TEXT NOT NULL, \n    execution_class VARCHAR(8) NOT NULL, \n    autonomy_level VARCHAR(8) NOT NULL, \n    required_capability_refs JSON NOT NULL, \n    required_checks JSON NOT NULL, \n    decision_points JSON NOT NULL, \n    signature_points JSON NOT NULL, \n    fallback JSON NOT NULL, \n    trace_policy JSON NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    created_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (plan_id)\n);\n\nCREATE INDEX ix_work_execution_plan_work_type_ref ON work_execution_plan (work_type_ref);\n\nCREATE INDEX ix_work_execution_plan_work_graph_ref ON work_execution_plan (work_graph_ref);\n\nCREATE INDEX ix_work_execution_plan_execution_class ON work_execution_plan (execution_class);\n\nCREATE INDEX ix_work_execution_plan_autonomy_level ON work_execution_plan (autonomy_level);\n\nCREATE INDEX ix_work_execution_plan_provenance_ref ON work_execution_plan (provenance_ref);\n\nCREATE INDEX ix_work_execution_plan_created_at ON work_execution_plan (created_at);\n\nCREATE TABLE work_instance (\n    work_id VARCHAR(255) NOT NULL, \n    plan_ref VARCHAR(255) NOT NULL, \n    work_type_ref VARCHAR(320) NOT NULL, \n    work_graph_ref VARCHAR(320) NOT NULL, \n    execution_class VARCHAR(8) NOT NULL, \n    autonomy_level VARCHAR(8) NOT NULL, \n    state VARCHAR(32) NOT NULL, \n    requester_ref VARCHAR(255) NOT NULL, \n    context JSON NOT NULL, \n    trace_id VARCHAR(255) NOT NULL, \n    created_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    updated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (work_id)\n);\n\nCREATE INDEX ix_work_instance_plan_ref ON work_instance (plan_ref);\n\nCREATE INDEX ix_work_instance_work_type_ref ON work_instance (work_type_ref);\n\nCREATE INDEX ix_work_instance_work_graph_ref ON work_instance (work_graph_ref);\n\nCREATE INDEX ix_work_instance_execution_class ON work_instance (execution_class);\n\nCREATE INDEX ix_work_instance_autonomy_level ON work_instance (autonomy_level);\n\nCREATE INDEX ix_work_instance_state ON work_instance (state);\n\nCREATE INDEX ix_work_instance_requester_ref ON work_instance (requester_ref);\n\nCREATE INDEX ix_work_instance_trace_id ON work_instance (trace_id);\n\nCREATE INDEX ix_work_instance_created_at ON work_instance (created_at);\n\nCREATE INDEX ix_work_instance_updated_at ON work_instance (updated_at);\n\nCREATE TABLE work_task_record (\n    task_id VARCHAR(255) NOT NULL, \n    work_id VARCHAR(255) NOT NULL, \n    node_id VARCHAR(255) NOT NULL, \n    actor_ref VARCHAR(255) NOT NULL, \n    actor_kind VARCHAR(32) NOT NULL, \n    action VARCHAR(255) NOT NULL, \n    input_payload JSON NOT NULL, \n    output_payload JSON NOT NULL, \n    evidence_refs JSON NOT NULL, \n    authority_ref VARCHAR(255), \n    delegation_ref VARCHAR(255), \n    policy_ref VARCHAR(320), \n    signature_ref VARCHAR(255), \n    attestation_ref VARCHAR(255), \n    artifact_ref VARCHAR(255), \n    provenance_ref VARCHAR(255) NOT NULL, \n    status VARCHAR(32) NOT NULL, \n    reason_codes JSON NOT NULL, \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (task_id)\n);\n\nCREATE INDEX ix_work_task_record_work_id ON work_task_record (work_id);\n\nCREATE INDEX ix_work_task_record_node_id ON work_task_record (node_id);\n\nCREATE INDEX ix_work_task_record_actor_ref ON work_task_record (actor_ref);\n\nCREATE INDEX ix_work_task_record_actor_kind ON work_task_record (actor_kind);\n\nCREATE INDEX ix_work_task_record_action ON work_task_record (action);\n\nCREATE INDEX ix_work_task_record_provenance_ref ON work_task_record (provenance_ref);\n\nCREATE INDEX ix_work_task_record_status ON work_task_record (status);\n\nCREATE INDEX ix_work_task_record_recorded_at ON work_task_record (recorded_at);\n\nCREATE TABLE work_transition_record (\n    transition_id VARCHAR(255) NOT NULL, \n    work_id VARCHAR(255) NOT NULL, \n    actor_ref VARCHAR(255) NOT NULL, \n    actor_kind VARCHAR(32) NOT NULL, \n    from_state VARCHAR(32) NOT NULL, \n    to_state VARCHAR(32) NOT NULL, \n    reason TEXT NOT NULL, \n    evidence_refs JSON NOT NULL, \n    authority_ref VARCHAR(255), \n    delegation_ref VARCHAR(255), \n    policy_ref VARCHAR(320), \n    signature_ref VARCHAR(255), \n    attestation_ref VARCHAR(255), \n    artifact_ref VARCHAR(255), \n    provenance_ref VARCHAR(255) NOT NULL, \n    applied BOOLEAN DEFAULT false NOT NULL, \n    reason_codes JSON NOT NULL, \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (transition_id)\n);\n\nCREATE INDEX ix_work_transition_record_work_id ON work_transition_record (work_id);\n\nCREATE INDEX ix_work_transition_record_actor_ref ON work_transition_record (actor_ref);\n\nCREATE INDEX ix_work_transition_record_actor_kind ON work_transition_record (actor_kind);\n\nCREATE INDEX ix_work_transition_record_from_state ON work_transition_record (from_state);\n\nCREATE INDEX ix_work_transition_record_to_state ON work_transition_record (to_state);\n\nCREATE INDEX ix_work_transition_record_provenance_ref ON work_transition_record (provenance_ref);\n\nCREATE INDEX ix_work_transition_record_applied ON work_transition_record (applied);\n\nCREATE INDEX ix_work_transition_record_recorded_at ON work_transition_record (recorded_at);\n\nCREATE TABLE work_handover_record (\n    handover_id VARCHAR(255) NOT NULL, \n    work_id VARCHAR(255) NOT NULL, \n    actor_ref VARCHAR(255) NOT NULL, \n    from_state VARCHAR(32) NOT NULL, \n    reason_codes JSON NOT NULL, \n    human_target_ref VARCHAR(255), \n    preserved_state BOOLEAN DEFAULT true NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    status VARCHAR(32) DEFAULT 'OPEN' NOT NULL, \n    created_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (handover_id)\n);\n\nCREATE INDEX ix_work_handover_record_work_id ON work_handover_record (work_id);\n\nCREATE INDEX ix_work_handover_record_actor_ref ON work_handover_record (actor_ref);\n\nCREATE INDEX ix_work_handover_record_from_state ON work_handover_record (from_state);\n\nCREATE INDEX ix_work_handover_record_human_target_ref ON work_handover_record (human_target_ref);\n\nCREATE INDEX ix_work_handover_record_provenance_ref ON work_handover_record (provenance_ref);\n\nCREATE INDEX ix_work_handover_record_status ON work_handover_record (status);\n\nCREATE INDEX ix_work_handover_record_created_at ON work_handover_record (created_at);\n\nUPDATE alembic_version SET version_num='0006' WHERE alembic_version.version_num = '0005';\n\nCOMMIT;\n\nINFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Generating static SQL\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\nINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Phase 1 Kernel baseline\nINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Phase 1 trust/authentication hardening\nINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Phase 2 Reality/Data/Memory foundation\nINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, P2-T02 multimodal ingestion/retrieval + P3 contract registry foundation\nINFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, P3-02..P3-07 SBBS capability runtime\nINFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, P4 Governed Human-AI Work Runtime",
     "database_object_store_recovery_reference": {
       "database_backup": {
         "backend": "sqlite",
-        "backup_path": "/tmp/anu-p2t02-p3-jvo6cvnc/p2t02.db.backup",
+        "backup_path": "/tmp/anu-p2t02-p3-2ltven8l/p2t02.db.backup",
         "status": "PASS"
       },
       "database_restore": {
         "backend": "sqlite",
-        "restored_database": "/tmp/anu-p2t02-p3-jvo6cvnc/p2t02-restored.db",
+        "restored_database": "/tmp/anu-p2t02-p3-2ltven8l/p2t02-restored.db",
         "status": "PASS"
       },
-      "object_store_backup": "/tmp/anu-p2t02-p3-jvo6cvnc/object-store-backup",
-      "object_store_restore": "/tmp/anu-p2t02-p3-jvo6cvnc/object-store-restored",
+      "object_store_backup": "/tmp/anu-p2t02-p3-2ltven8l/object-store-backup",
+      "object_store_restore": "/tmp/anu-p2t02-p3-2ltven8l/object-store-restored",
       "counts_after_restore": {
         "artifacts": 5,
         "knowledge": 1,
@@ -364,7 +370,7 @@
               "urn:aru:source:multimodal-learning-platform",
               "urn:anu:artifact-version:aru-p2t02:1:v1"
             ],
-            "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0f-744a-b9f0-3c251a07238e",
+            "provenance_ref": "urn:anu:provenance:01a0d79b-3a1a-75e4-8b23-bbef0911a0b8",
             "content_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
             "score": 0.584722,
             "lexical_score": 1.0,
@@ -381,7 +387,7 @@
             "source_refs": [
               "urn:aru:source:multimodal-learning-platform"
             ],
-            "provenance_ref": "urn:anu:provenance:01a0d6ce-aca3-7e2b-bdbd-1ae2b351c2d6",
+            "provenance_ref": "urn:anu:provenance:01a0d79b-3995-7d39-9373-4ba39086e7ae",
             "content_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
             "score": 0.562268,
             "lexical_score": 1.0,
@@ -398,7 +404,7 @@
             "source_refs": [
               "urn:aru:source:multimodal-learning-platform"
             ],
-            "provenance_ref": "urn:anu:provenance:01a0d6ce-acb5-778a-8075-dc3faa1f66f2",
+            "provenance_ref": "urn:anu:provenance:01a0d79b-39ad-7eb8-91f5-7d1102273795",
             "content_hash": "8bcbcad2890e636af5155e7351f75dfc807c618733e2d506737879929782b1da",
             "score": 0.15,
             "lexical_score": 0.333333,
@@ -415,7 +421,7 @@
             "source_refs": [
               "urn:aru:source:multimodal-learning-platform"
             ],
-            "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0a-7cc6-98c5-4df128602eb2",
+            "provenance_ref": "urn:anu:provenance:01a0d79b-3a15-72c2-af6d-281261802c5e",
             "content_hash": "3f452ccf120d54c89d168b3db0ca0e46c7d8bc2732b7888efbfa9afba3c38100",
             "score": 0.032409,
             "lexical_score": 0.0,
