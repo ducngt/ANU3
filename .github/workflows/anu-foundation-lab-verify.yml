@@ -1,0 +1,27 @@
+name: ANU shared foundation verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'anu-phase1-kernel/scripts/foundation_data_lab.py'
+      - 'anu-phase1-kernel/scripts/foundation_data_lab.html'
+      - 'anu-phase1-kernel/tests/api/test_foundation_data_lab.py'
+      - '.github/workflows/anu-foundation-lab-verify.yml'
+  workflow_dispatch:
+
+jobs:
+  shared-data:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: anu-phase1-kernel
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install kernel and test dependencies
+        run: python -m pip install -e '.[test]'
+      - name: Verify shared foundation, source authority boundary and LIS/RIS views
+        run: python -m pytest -q tests/api/test_foundation_data_lab.py
