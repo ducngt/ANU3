@@ -1,0 +1,29 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "granted_permissions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Granted Permissions",
+      "type": "array"
+    },
+    "security_tags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Security Tags",
+      "type": "array"
+    },
+    "satisfied_policy_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Satisfied Policy Refs",
+      "type": "array"
+    }
+  },
+  "title": "CompatibilityContext",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.compatibility-context.v1"
+}

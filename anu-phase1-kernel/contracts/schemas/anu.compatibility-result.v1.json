@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "CompatibilityDimension": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "title": "Dimension",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "TRANSFORM_REQUIRED",
+            "ADAPTER_REQUIRED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "detail": {
+          "title": "Detail",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dimension",
+        "status",
+        "detail"
+      ],
+      "title": "CompatibilityDimension",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "compatible": {
+      "title": "Compatible",
+      "type": "boolean"
+    },
+    "direct": {
+      "title": "Direct",
+      "type": "boolean"
+    },
+    "from_capability_ref": {
+      "title": "From Capability Ref",
+      "type": "string"
+    },
+    "from_operation": {
+      "title": "From Operation",
+      "type": "string"
+    },
+    "to_capability_ref": {
+      "title": "To Capability Ref",
+      "type": "string"
+    },
+    "to_operation": {
+      "title": "To Operation",
+      "type": "string"
+    },
+    "dimensions": {
+      "items": {
+        "$ref": "#/$defs/CompatibilityDimension"
+      },
+      "title": "Dimensions",
+      "type": "array"
+    },
+    "required_transformation_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Transformation Refs",
+      "type": "array"
+    },
+    "required_adapter_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Adapter Refs",
+      "type": "array"
+    },
+    "evidence_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Evidence Id"
+    }
+  },
+  "required": [
+    "compatible",
+    "direct",
+    "from_capability_ref",
+    "from_operation",
+    "to_capability_ref",
+    "to_operation",
+    "dimensions"
+  ],
+  "title": "CompatibilityResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.compatibility-result.v1"
+}

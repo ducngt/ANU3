@@ -16,6 +16,8 @@ class CapabilityOperation(KernelModel):
     output_contract_refs: list[str] = Field(default_factory=list)
     constraints: dict[str, Any] = Field(default_factory=dict)
     policy_refs: list[str] = Field(default_factory=list)
+    permissions: list[str] = Field(default_factory=list)
+    security_tags: list[str] = Field(default_factory=list)
 
 
 class CapabilityContract(KernelModel):
@@ -44,6 +46,7 @@ class CapabilityContract(KernelModel):
 class SmartBoxOperationBinding(KernelModel):
     operation_id: str
     handler_ref: str
+    binding_config: dict[str, Any] = Field(default_factory=dict)
     timeout_seconds: int = Field(default=30, ge=1, le=3600)
     idempotent: bool = True
 

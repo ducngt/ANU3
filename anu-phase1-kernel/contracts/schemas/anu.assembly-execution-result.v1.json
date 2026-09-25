@@ -1,0 +1,174 @@
+{
+  "$defs": {
+    "SmartWireExecutionResult": {
+      "additionalProperties": false,
+      "properties": {
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "plan_ref": {
+          "title": "Plan Ref",
+          "type": "string"
+        },
+        "trace_id": {
+          "title": "Trace Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "SUCCEEDED",
+            "FAILED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "output_payload": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Payload"
+        },
+        "selected_box_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selected Box Ref"
+        },
+        "traces": {
+          "items": {
+            "$ref": "#/$defs/WireStepTrace"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "completed_at": {
+          "format": "date-time",
+          "title": "Completed At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "execution_id",
+        "plan_ref",
+        "trace_id",
+        "status",
+        "started_at",
+        "completed_at"
+      ],
+      "title": "SmartWireExecutionResult",
+      "type": "object"
+    },
+    "WireStepTrace": {
+      "additionalProperties": false,
+      "properties": {
+        "step": {
+          "title": "Step",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "SKIP"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "detail": {
+          "title": "Detail",
+          "type": "string"
+        }
+      },
+      "required": [
+        "step",
+        "status",
+        "detail"
+      ],
+      "title": "WireStepTrace",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "execution_id": {
+      "title": "Execution Id",
+      "type": "string"
+    },
+    "assembly_ref": {
+      "title": "Assembly Ref",
+      "type": "string"
+    },
+    "trace_id": {
+      "title": "Trace Id",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "SUCCEEDED",
+        "FAILED"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "final_payload": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Final Payload"
+    },
+    "connection_results": {
+      "items": {
+        "$ref": "#/$defs/SmartWireExecutionResult"
+      },
+      "title": "Connection Results",
+      "type": "array"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "completed_at": {
+      "format": "date-time",
+      "title": "Completed At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "execution_id",
+    "assembly_ref",
+    "trace_id",
+    "status",
+    "started_at",
+    "completed_at"
+  ],
+  "title": "AssemblyExecutionResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.assembly-execution-result.v1"
+}

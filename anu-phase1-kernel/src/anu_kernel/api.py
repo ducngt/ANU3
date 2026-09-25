@@ -57,15 +57,17 @@ from .trust import integrity_ref, verify_signature_record, verify_agent_attestat
 from .errors import AuthenticationError
 from .api_dependencies import get_session
 
-KERNEL_VERSION = "0.5.0"
-app = FastAPI(title="ANU Kernel + P2 Multimodal/Memory + P3 Capability Contract Foundation", version=KERNEL_VERSION)
+KERNEL_VERSION = "0.6.0"
+app = FastAPI(title="ANU Kernel + P2 Reality/Memory + P3 SBBS Capability Runtime", version=KERNEL_VERSION)
 
 from .reality_api import router as reality_router
 from .ingestion_api import router as ingestion_router
 from .capability_api import router as capability_router
+from .sbbs_runtime_api import router as sbbs_runtime_router
 app.include_router(reality_router)
 app.include_router(ingestion_router)
 app.include_router(capability_router)
+app.include_router(sbbs_runtime_router)
 
 
 @app.exception_handler(RepositoryConflict)
@@ -115,7 +117,7 @@ def root():
 @app.get("/health")
 def health(session: Session = Depends(get_session)):
     session.execute(text("SELECT 1"))
-    return {"status": "ok", "phase": 2, "phase_3_contract_foundation": True, "kernel_version": KERNEL_VERSION}
+    return {"status": "ok", "phase": 2, "current_phase": 3, "phase_3_runtime": True, "kernel_version": KERNEL_VERSION}
 
 
 def _load_release_status() -> dict:

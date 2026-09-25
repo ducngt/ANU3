@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "candidate_id": {
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "capability_ref": {
+      "title": "Capability Ref",
+      "type": "string"
+    },
+    "box_ref": {
+      "title": "Box Ref",
+      "type": "string"
+    },
+    "stage": {
+      "const": "PROMOTED",
+      "default": "PROMOTED",
+      "title": "Stage",
+      "type": "string"
+    }
+  },
+  "required": [
+    "candidate_id",
+    "capability_ref",
+    "box_ref"
+  ],
+  "title": "WriteBoxPromotionResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.write-box-promotion-result.v1"
+}

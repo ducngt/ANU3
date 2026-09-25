@@ -1,0 +1,121 @@
+{
+  "$defs": {
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "transform_id": {
+      "title": "Transform Id",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "owner_ref": {
+      "title": "Owner Ref",
+      "type": "string"
+    },
+    "from_contract_ref": {
+      "title": "From Contract Ref",
+      "type": "string"
+    },
+    "to_contract_ref": {
+      "title": "To Contract Ref",
+      "type": "string"
+    },
+    "mapping": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Mapping",
+      "type": "object"
+    },
+    "constants": {
+      "additionalProperties": true,
+      "title": "Constants",
+      "type": "object"
+    },
+    "semantic_preservation": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Semantic Preservation",
+      "type": "array"
+    },
+    "lossy": {
+      "default": false,
+      "title": "Lossy",
+      "type": "boolean"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "transform_id",
+    "version",
+    "name",
+    "owner_ref",
+    "from_contract_ref",
+    "to_contract_ref",
+    "effective_period",
+    "provenance_ref"
+  ],
+  "title": "TransformDefinition",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.transform-definition.v1"
+}

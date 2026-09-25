@@ -1,0 +1,127 @@
+{
+  "checks": {
+    "clean_migration_cycle": "PASS",
+    "automated_tests": "PASS",
+    "aru01_sbbs_runtime_pilot": "PASS",
+    "contract_schema_export": "PASS",
+    "independent_boundary_verifier": "PASS",
+    "postgresql_offline_migration_compile": "PASS",
+    "runtime_recovery_and_replay": "PASS"
+  },
+  "details": {
+    "clean_migration_cycle": "upgrade -> downgrade -> upgrade PASS at revision 0005",
+    "automated_tests": "........................................................................ [ 98%]\n.                                                                        [100%]",
+    "aru01_sbbs_runtime_pilot": {
+      "pass": true,
+      "write_box_action": "WRITE_BOX",
+      "architecture_audit_pass": true,
+      "promoted_capability_ref": "urn:anu:capability:programme-summary@1.0.0",
+      "discovered": [
+        "urn:anu:capability:programme-summary@1.0.0"
+      ],
+      "connection_plans": [
+        "urn:anu:connection-plan:01a0d6e1-1b80-7584-995d-7620f694fd18@1.0.0",
+        "urn:anu:connection-plan:01a0d6e1-1b90-7cf6-8fa1-0045d0f53746@1.0.0"
+      ],
+      "assembly_refs": [
+        "urn:anu:assembly:aru01-programme-summary-a@1.0.0",
+        "urn:anu:assembly:aru01-programme-summary-b@1.0.0"
+      ],
+      "provider_outputs": [
+        {
+          "programme_id": "BSC-CS",
+          "summary": "Computer Science"
+        },
+        {
+          "programme_id": "BSC-CS",
+          "summary": "Computer Science"
+        }
+      ],
+      "provider_replacement_preserved_contract": true,
+      "legacy_transform_adapter_plan": "urn:anu:connection-plan:01a0d6e1-1ba1-7b3c-a974-8a4a9ce2b1de@1.0.0",
+      "legacy_transform_refs": [
+        "urn:anu:transform:legacy-programme-to-canonical@1.0.0"
+      ],
+      "legacy_adapter_refs": [
+        "urn:anu:adapter:legacy-rpc-to-python-local@1.0.0"
+      ],
+      "legacy_wire_output": {
+        "programme_id": "BSC-CS",
+        "summary": "Computer Science"
+      }
+    },
+    "contract_schema_export": "exported 67 schemas to /mnt/data/ANU3-P3-RUNTIME-CI-ACTIVATION/anu-phase1-kernel/contracts/schemas",
+    "independent_boundary_verifier": "....                                                                     [100%]",
+    "postgresql_offline_migration_compile": "n)\n);\n\nCREATE INDEX ix_transform_version_transform_id ON transform_version (transform_id);\n\nCREATE INDEX ix_transform_version_version ON transform_version (version);\n\nCREATE INDEX ix_transform_version_owner_ref ON transform_version (owner_ref);\n\nCREATE INDEX ix_transform_version_from_contract_ref ON transform_version (from_contract_ref);\n\nCREATE INDEX ix_transform_version_to_contract_ref ON transform_version (to_contract_ref);\n\nCREATE INDEX ix_transform_version_effective_from ON transform_version (effective_from);\n\nCREATE INDEX ix_transform_version_effective_to ON transform_version (effective_to);\n\nCREATE INDEX ix_transform_version_lifecycle_state ON transform_version (lifecycle_state);\n\nCREATE INDEX ix_transform_version_provenance_ref ON transform_version (provenance_ref);\n\nCREATE INDEX ix_transform_version_recorded_at ON transform_version (recorded_at);\n\nCREATE TABLE adapter_version (\n    row_id SERIAL NOT NULL, \n    adapter_id VARCHAR(255) NOT NULL, \n    version VARCHAR(64) NOT NULL, \n    name VARCHAR(255) NOT NULL, \n    owner_ref VARCHAR(255) NOT NULL, \n    source_runtime_type VARCHAR(128) NOT NULL, \n    target_runtime_type VARCHAR(128) NOT NULL, \n    capability_scope JSON NOT NULL, \n    configuration JSON NOT NULL, \n    effective_from TIMESTAMP WITH TIME ZONE NOT NULL, \n    effective_to TIMESTAMP WITH TIME ZONE, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_adapter_id_version UNIQUE (adapter_id, version)\n);\n\nCREATE INDEX ix_adapter_version_adapter_id ON adapter_version (adapter_id);\n\nCREATE INDEX ix_adapter_version_version ON adapter_version (version);\n\nCREATE INDEX ix_adapter_version_owner_ref ON adapter_version (owner_ref);\n\nCREATE INDEX ix_adapter_version_source_runtime_type ON adapter_version (source_runtime_type);\n\nCREATE INDEX ix_adapter_version_target_runtime_type ON adapter_version (target_runtime_type);\n\nCREATE INDEX ix_adapter_version_effective_from ON adapter_version (effective_from);\n\nCREATE INDEX ix_adapter_version_effective_to ON adapter_version (effective_to);\n\nCREATE INDEX ix_adapter_version_lifecycle_state ON adapter_version (lifecycle_state);\n\nCREATE INDEX ix_adapter_version_provenance_ref ON adapter_version (provenance_ref);\n\nCREATE INDEX ix_adapter_version_recorded_at ON adapter_version (recorded_at);\n\nCREATE TABLE compatibility_evidence (\n    evidence_id VARCHAR(255) NOT NULL, \n    from_capability_ref VARCHAR(320) NOT NULL, \n    from_operation VARCHAR(255) NOT NULL, \n    to_capability_ref VARCHAR(320) NOT NULL, \n    to_operation VARCHAR(255) NOT NULL, \n    compatible BOOLEAN NOT NULL, \n    direct BOOLEAN NOT NULL, \n    result_json JSON NOT NULL, \n    request_hash VARCHAR(128) NOT NULL, \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (evidence_id)\n);\n\nCREATE INDEX ix_compatibility_evidence_from_capability_ref ON compatibility_evidence (from_capability_ref);\n\nCREATE INDEX ix_compatibility_evidence_to_capability_ref ON compatibility_evidence (to_capability_ref);\n\nCREATE INDEX ix_compatibility_evidence_compatible ON compatibility_evidence (compatible);\n\nCREATE INDEX ix_compatibility_evidence_request_hash ON compatibility_evidence (request_hash);\n\nCREATE INDEX ix_compatibility_evidence_recorded_at ON compatibility_evidence (recorded_at);\n\nCREATE TABLE connection_plan_version (\n    row_id SERIAL NOT NULL, \n    plan_id VARCHAR(255) NOT NULL, \n    version VARCHAR(64) NOT NULL, \n    from_capability VARCHAR(320) NOT NULL, \n    from_operation VARCHAR(255) NOT NULL, \n    to_capability VARCHAR(320) NOT NULL, \n    to_operation VARCHAR(255) NOT NULL, \n    from_box_ref VARCHAR(320) NOT NULL, \n    to_box_ref VARCHAR(320) NOT NULL, \n    contract_ref VARCHAR(320), \n    transformation_refs JSON NOT NULL, \n    adapter_refs JSON NOT NULL, \n    policy_checks JSON NOT NULL, \n    security_context JSON NOT NULL, \n    retry_policy JSON NOT NULL, \n    observability_policy JSON NOT NULL, \n    compatibility_evidence JSON NOT NULL, \n    effective_from TIMESTAMP WITH TIME ZONE NOT NULL, \n    effective_to TIMESTAMP WITH TIME ZONE, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_connection_plan_version UNIQUE (plan_id, version)\n);\n\nCREATE INDEX ix_connection_plan_version_plan_id ON connection_plan_version (plan_id);\n\nCREATE INDEX ix_connection_plan_version_version ON connection_plan_version (version);\n\nCREATE INDEX ix_connection_plan_version_from_capability ON connection_plan_version (from_capability);\n\nCREATE INDEX ix_connection_plan_version_to_capability ON connection_plan_version (to_capability);\n\nCREATE INDEX ix_connection_plan_version_from_box_ref ON connection_plan_version (from_box_ref);\n\nCREATE INDEX ix_connection_plan_version_to_box_ref ON connection_plan_version (to_box_ref);\n\nCREATE INDEX ix_connection_plan_version_effective_from ON connection_plan_version (effective_from);\n\nCREATE INDEX ix_connection_plan_version_effective_to ON connection_plan_version (effective_to);\n\nCREATE INDEX ix_connection_plan_version_lifecycle_state ON connection_plan_version (lifecycle_state);\n\nCREATE INDEX ix_connection_plan_version_provenance_ref ON connection_plan_version (provenance_ref);\n\nCREATE INDEX ix_connection_plan_version_recorded_at ON connection_plan_version (recorded_at);\n\nCREATE TABLE assembly_version (\n    row_id SERIAL NOT NULL, \n    assembly_id VARCHAR(255) NOT NULL, \n    name VARCHAR(255) NOT NULL, \n    description TEXT NOT NULL, \n    owner_ref VARCHAR(255) NOT NULL, \n    version VARCHAR(64) NOT NULL, \n    capability_refs JSON NOT NULL, \n    connection_plan_refs JSON NOT NULL, \n    human_refs JSON NOT NULL, \n    agent_refs JSON NOT NULL, \n    policy_refs JSON NOT NULL, \n    decision_points JSON NOT NULL, \n    configuration JSON NOT NULL, \n    effective_from TIMESTAMP WITH TIME ZONE NOT NULL, \n    effective_to TIMESTAMP WITH TIME ZONE, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_assembly_version UNIQUE (assembly_id, version)\n);\n\nCREATE INDEX ix_assembly_version_assembly_id ON assembly_version (assembly_id);\n\nCREATE INDEX ix_assembly_version_owner_ref ON assembly_version (owner_ref);\n\nCREATE INDEX ix_assembly_version_version ON assembly_version (version);\n\nCREATE INDEX ix_assembly_version_effective_from ON assembly_version (effective_from);\n\nCREATE INDEX ix_assembly_version_effective_to ON assembly_version (effective_to);\n\nCREATE INDEX ix_assembly_version_lifecycle_state ON assembly_version (lifecycle_state);\n\nCREATE INDEX ix_assembly_version_provenance_ref ON assembly_version (provenance_ref);\n\nCREATE INDEX ix_assembly_version_recorded_at ON assembly_version (recorded_at);\n\nCREATE TABLE wire_execution_record (\n    execution_id VARCHAR(255) NOT NULL, \n    plan_ref VARCHAR(320) NOT NULL, \n    trace_id VARCHAR(255) NOT NULL, \n    status VARCHAR(32) NOT NULL, \n    selected_box_ref VARCHAR(320), \n    input_payload JSON NOT NULL, \n    output_payload JSON, \n    trace_json JSON NOT NULL, \n    started_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    completed_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (execution_id)\n);\n\nCREATE INDEX ix_wire_execution_record_plan_ref ON wire_execution_record (plan_ref);\n\nCREATE INDEX ix_wire_execution_record_trace_id ON wire_execution_record (trace_id);\n\nCREATE INDEX ix_wire_execution_record_status ON wire_execution_record (status);\n\nCREATE INDEX ix_wire_execution_record_started_at ON wire_execution_record (started_at);\n\nCREATE INDEX ix_wire_execution_record_completed_at ON wire_execution_record (completed_at);\n\nCREATE TABLE assembly_execution_record (\n    execution_id VARCHAR(255) NOT NULL, \n    assembly_ref VARCHAR(320) NOT NULL, \n    trace_id VARCHAR(255) NOT NULL, \n    status VARCHAR(32) NOT NULL, \n    input_payload JSON NOT NULL, \n    final_payload JSON, \n    connection_results JSON NOT NULL, \n    started_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    completed_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (execution_id)\n);\n\nCREATE INDEX ix_assembly_execution_record_assembly_ref ON assembly_execution_record (assembly_ref);\n\nCREATE INDEX ix_assembly_execution_record_trace_id ON assembly_execution_record (trace_id);\n\nCREATE INDEX ix_assembly_execution_record_status ON assembly_execution_record (status);\n\nCREATE INDEX ix_assembly_execution_record_started_at ON assembly_execution_record (started_at);\n\nCREATE INDEX ix_assembly_execution_record_completed_at ON assembly_execution_record (completed_at);\n\nCREATE TABLE write_box_candidate (\n    candidate_id VARCHAR(255) NOT NULL, \n    intent TEXT NOT NULL, \n    actor_ref VARCHAR(255) NOT NULL, \n    capability_json JSON NOT NULL, \n    smart_box_json JSON NOT NULL, \n    specification TEXT NOT NULL, \n    knowledge_refs JSON NOT NULL, \n    rule_refs JSON NOT NULL, \n    examples JSON NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    recommended_action VARCHAR(32) NOT NULL, \n    existing_capability_refs JSON NOT NULL, \n    audit_json JSON NOT NULL, \n    stage VARCHAR(32) DEFAULT 'DRAFT' NOT NULL, \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    promoted_at TIMESTAMP WITH TIME ZONE, \n    PRIMARY KEY (candidate_id)\n);\n\nCREATE INDEX ix_write_box_candidate_actor_ref ON write_box_candidate (actor_ref);\n\nCREATE INDEX ix_write_box_candidate_provenance_ref ON write_box_candidate (provenance_ref);\n\nCREATE INDEX ix_write_box_candidate_recommended_action ON write_box_candidate (recommended_action);\n\nCREATE INDEX ix_write_box_candidate_stage ON write_box_candidate (stage);\n\nCREATE INDEX ix_write_box_candidate_recorded_at ON write_box_candidate (recorded_at);\n\nUPDATE alembic_version SET version_num='0005' WHERE alembic_version.version_num = '0004';\n\nCOMMIT;\n\nINFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Generating static SQL\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\nINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Phase 1 Kernel baseline\nINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Phase 1 trust/authentication hardening\nINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Phase 2 Reality/Data/Memory foundation\nINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, P2-T02 multimodal ingestion/retrieval + P3 contract registry foundation\nINFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, P3-02..P3-07 SBBS capability runtime",
+    "runtime_recovery_and_replay": {
+      "backup": {
+        "backend": "sqlite",
+        "backup_path": "/tmp/anu-p3-runtime-ouweay5t/p3-runtime.db.backup",
+        "status": "PASS"
+      },
+      "restore": {
+        "backend": "sqlite",
+        "restored_database": "/tmp/anu-p3-runtime-ouweay5t/p3-runtime-restored.db",
+        "status": "PASS"
+      },
+      "counts": {
+        "compatibility_evidence": 3,
+        "connection_plans": 3,
+        "assemblies": 2,
+        "wire_executions": 3,
+        "write_box_candidates": 1,
+        "transforms": 1,
+        "adapters": 1
+      },
+      "restored_assembly_replay": {
+        "execution_id": "urn:anu:assembly-execution:01a0d6e1-2a40-73fa-b2e4-9ae81f18884b",
+        "assembly_ref": "urn:anu:assembly:aru01-programme-summary-a@1.0.0",
+        "trace_id": "restored-replay",
+        "status": "SUCCEEDED",
+        "final_payload": {
+          "programme_id": "BSC-CS",
+          "summary": "Computer Science"
+        },
+        "connection_results": [
+          {
+            "execution_id": "urn:anu:wire-execution:01a0d6e1-2a3a-7ec2-bad7-1c69e50953a1",
+            "plan_ref": "urn:anu:connection-plan:01a0d6e1-1b80-7584-995d-7620f694fd18@1.0.0",
+            "trace_id": "restored-replay",
+            "status": "SUCCEEDED",
+            "output_payload": {
+              "programme_id": "BSC-CS",
+              "summary": "Computer Science"
+            },
+            "selected_box_ref": "urn:anu:box:programme-summary@1.0.0",
+            "traces": [
+              {
+                "step": "policy",
+                "status": "PASS",
+                "detail": "declared policy checks satisfied"
+              },
+              {
+                "step": "security",
+                "status": "PASS",
+                "detail": "declared security context satisfied"
+              },
+              {
+                "step": "route",
+                "status": "PASS",
+                "detail": "executed urn:anu:box:programme-summary@1.0.0:programme.summarize"
+              },
+              {
+                "step": "contract_validation",
+                "status": "PASS",
+                "detail": "execution followed a compatibility-proven connection plan"
+              }
+            ],
+            "started_at": "2026-09-25T04:44:35.770557Z",
+            "completed_at": "2026-09-25T04:44:35.770870Z"
+          }
+        ],
+        "started_at": "2026-09-25T04:44:35.765742Z",
+        "completed_at": "2026-09-25T04:44:35.776604Z"
+      }
+    }
+  }
+}

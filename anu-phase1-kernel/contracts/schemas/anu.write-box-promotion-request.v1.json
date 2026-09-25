@@ -1,0 +1,20 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "candidate_id": {
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "actor_ref": {
+      "title": "Actor Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "candidate_id",
+    "actor_ref"
+  ],
+  "title": "WriteBoxPromotionRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.write-box-promotion-request.v1"
+}

@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.6.0 — P3-02..P3-07 SBBS Capability Runtime
+
+- Recorded `P2-T02 + P3-01 G3 ACCEPTED` as the new baseline.
+- Added Compatibility Engine with machine-readable evidence and fail-closed connection planning.
+- Added versioned Transform and Adapter registries.
+- Added declarative Connection Planner.
+- Added Thin Smart Wire runtime with policy/security gates, transform/adapter execution and tracing; no discovery/planning logic in Wire.
+- Added Assembly Registry/Runtime with explicit connection composition and persisted execution trace.
+- Added Write Box Studio MVP with Discover-before-Build, architecture audit and controlled promotion.
+- Demonstrated provider replacement behind an unchanged Capability Contract.
+- Added Alembic revision `0005`.
+- Exported 67 executable JSON Schemas.
+- Added ARU-01 full SBBS runtime pilot, recovery/replay and independent P3 boundary verifier.
+- Local verification passes; live PostgreSQL revision `0005` evidence remains the external CI gate before G3.
+
 ## 0.5.0 — P2-T02 multimodal memory + P3 capability contract foundation
 
 - Recorded P2-T01 Human G3 acceptance as the new Phase 2 baseline.

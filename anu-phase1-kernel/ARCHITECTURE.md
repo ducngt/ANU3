@@ -107,3 +107,43 @@ Alembic revision `0004` adds artifact versions, retrieval projections, Capabilit
 Human-approved ARU-01 synthetic-data scope and P2 Source Authority/Epistemic G2 guardrails remain unchanged. P2-T02 uses only synthetic fixtures and therefore does not open a new privacy G2. Real SIS/LMS/HR or personal data remains a separate Human G2 decision.
 
 AI/CI owns implementation, migration, tests, replay/recovery and conformance. Human G3 is opened only after the live PostgreSQL CI evidence for revision `0004` has been independently qualified.
+
+
+# P3-02..P3-07 — SBBS Capability Runtime
+
+The accepted P2-T02/P3-01 baseline is extended additively by Alembic revision `0005`.
+
+```text
+Intent / Need
+   |
+Discover existing Capability
+   |
+Capability Contract + Smart Box Manifest
+   |
+Compatibility Engine ----> Compatibility Evidence
+   |                              |
+Transform Registry / Adapter Registry
+   |                              |
+Connection Planner --------------+
+   |
+Declarative Connection Plan
+   |
+Thin Smart Wire Runtime
+   |  route · validate · transform · adapter · policy/security · trace
+   |  NO discovery · NO semantic planning · NO business logic
+   v
+Assembly Registry / Runtime
+   |
+Explicit socio-technical composition metadata
+
+Write Box Studio:
+Discover -> Reuse/Version/Write -> Contract -> Package -> Audit -> Candidate -> Promote
+```
+
+Compatibility must be proven across capability semantics, input/output contract refs, constraints, permissions, security, policy and provider runtime requirements. Semantic similarity can identify candidates but cannot create a connection.
+
+Provider-specific technology remains behind Smart Box/Adapter boundaries. Replacing `programme-retrieval-a` with `programme-retrieval-b` under the same Capability Contract must preserve the consumer contract and Assembly outcome.
+
+Write Box Studio MVP cannot grant Authority or modify Constitutional Core. Promotion is allowed only for an architecture-audit-passing candidate with specification, knowledge, rules, examples, provenance and operation bindings aligned to the Capability Contract.
+
+Phase 4 Governed Human-AI Work is deliberately outside this tranche.

@@ -1,0 +1,181 @@
+name: ANU Phase 3 SBBS Capability Runtime Verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: anu-p3-runtime-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-test:
+    name: P3 contracts, runtime, replay and conformance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Locate ANU project
+        shell: bash
+        run: |
+          if [ -f pyproject.toml ]; then
+            echo "ANU_PROJECT_DIR=." >> "$GITHUB_ENV"
+          elif [ -f anu-phase1-kernel/pyproject.toml ]; then
+            echo "ANU_PROJECT_DIR=anu-phase1-kernel" >> "$GITHUB_ENV"
+          else
+            echo "ANU pyproject.toml not found" >&2
+            exit 1
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install verification dependencies
+        shell: bash
+        run: cd "$ANU_PROJECT_DIR" && python -m pip install -e '.[test]'
+      - name: Run complete P3 verifier
+        shell: bash
+        run: cd "$ANU_PROJECT_DIR" && python scripts/verify_p3_runtime.py
+      - name: Upload local evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: p3-runtime-local-verification-evidence
+          path: |
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/P3-RUNTIME-LATEST.json
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/TECHNICAL-DETAILS-P3-RUNTIME.json
+          if-no-files-found: error
+
+  postgres-live:
+    name: PostgreSQL 16 SBBS runtime and recovery proof
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: anu_p3
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d anu_p3"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      ANU_DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/anu_p3
+      ANU_POSTGRES_RESTORE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/anu_p3_restore
+      PGPASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v4
+      - name: Locate ANU project
+        shell: bash
+        run: |
+          if [ -f pyproject.toml ]; then
+            echo "ANU_PROJECT_DIR=." >> "$GITHUB_ENV"
+          elif [ -f anu-phase1-kernel/pyproject.toml ]; then
+            echo "ANU_PROJECT_DIR=anu-phase1-kernel" >> "$GITHUB_ENV"
+          else
+            echo "ANU pyproject.toml not found" >&2
+            exit 1
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install project and PostgreSQL driver
+        shell: bash
+        run: cd "$ANU_PROJECT_DIR" && python -m pip install -e '.[test,postgres]'
+      - name: Install PostgreSQL client tools
+        shell: bash
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      - name: Clean live migration to revision 0005
+        shell: bash
+        run: cd "$ANU_PROJECT_DIR" && alembic upgrade head
+      - name: Assert live Alembic head
+        shell: bash
+        run: cd "$ANU_PROJECT_DIR" && test "$(alembic current | awk '{print $1}')" = "0005"
+      - name: Create isolated restore database
+        shell: bash
+        run: createdb -h localhost -U postgres anu_p3_restore
+      - name: Run live ARU-01 P3 runtime and recovery
+        shell: bash
+        run: |
+          cd "$ANU_PROJECT_DIR"
+          python scripts/postgres_p3_runtime_live_verify.py \
+            --database-url "$ANU_DATABASE_URL" \
+            --restore-url "$ANU_POSTGRES_RESTORE_URL" \
+            --backup /tmp/anu-p3-postgres.dump \
+            --output docs/verification/POSTGRES-P3-RUNTIME-LIVE.json
+      - name: Upload PostgreSQL live evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: p3-runtime-postgresql-live-evidence
+          path: ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P3-RUNTIME-LIVE.json
+          if-no-files-found: error
+
+  independent-verify:
+    name: Independent P3 evidence qualification
+    needs: [build-test, postgres-live]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Locate ANU project
+        shell: bash
+        run: |
+          if [ -f pyproject.toml ]; then
+            echo "ANU_PROJECT_DIR=." >> "$GITHUB_ENV"
+          elif [ -f anu-phase1-kernel/pyproject.toml ]; then
+            echo "ANU_PROJECT_DIR=anu-phase1-kernel" >> "$GITHUB_ENV"
+          else
+            echo "ANU pyproject.toml not found" >&2
+            exit 1
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install independent verifier dependencies
+        shell: bash
+        run: cd "$ANU_PROJECT_DIR" && python -m pip install -e '.[test]'
+      - name: Download live PostgreSQL evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: p3-runtime-postgresql-live-evidence
+          path: ${{ env.ANU_PROJECT_DIR }}/docs/verification/
+      - name: Verify Thin Wire / Authority / Evidence boundaries
+        shell: bash
+        run: cd "$ANU_PROJECT_DIR" && python -m pytest tests/independent/test_p3_runtime_boundaries.py -q
+      - name: Independently qualify PostgreSQL evidence
+        shell: bash
+        run: |
+          cd "$ANU_PROJECT_DIR"
+          python scripts/verify_p3_runtime_postgres_evidence.py \
+            --input docs/verification/POSTGRES-P3-RUNTIME-LIVE.json \
+            --output docs/verification/POSTGRES-P3-RUNTIME-LIVE-QUALIFIED.json
+      - name: Publish Human-readable CI summary
+        shell: bash
+        run: |
+          echo "## ANU Phase 3 SBBS Capability Runtime Evidence" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Revision 0005 clean migration on PostgreSQL 16: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Compatibility Engine + evidence: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Transform/Adapter Registry: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Declarative Connection Planner: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Thin Smart Wire: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Assembly Registry/Runtime: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Write Box Studio architecture audit + promotion: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Provider replacement without consumer-contract break: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- PostgreSQL backup/restore + Assembly replay: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Independent evidence qualification: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Technical evidence is complete. Human G3 remains a separate outcome/responsibility decision." >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload qualified release evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: p3-runtime-qualified-release-evidence
+          path: |
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P3-RUNTIME-LIVE.json
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P3-RUNTIME-LIVE-QUALIFIED.json
+          if-no-files-found: error

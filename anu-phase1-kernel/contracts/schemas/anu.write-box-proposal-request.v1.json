@@ -1,0 +1,393 @@
+{
+  "$defs": {
+    "CapabilityContract": {
+      "additionalProperties": false,
+      "properties": {
+        "capability_id": {
+          "title": "Capability Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "owner_ref": {
+          "title": "Owner Ref",
+          "type": "string"
+        },
+        "domain": {
+          "title": "Domain",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "operations": {
+          "items": {
+            "$ref": "#/$defs/CapabilityOperation"
+          },
+          "title": "Operations",
+          "type": "array"
+        },
+        "requires_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Requires Capabilities",
+          "type": "array"
+        },
+        "data_scope": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Data Scope",
+          "type": "array"
+        },
+        "policy_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Policy Refs",
+          "type": "array"
+        },
+        "risk_class": {
+          "default": "E1",
+          "title": "Risk Class",
+          "type": "string"
+        },
+        "effective_period": {
+          "$ref": "#/$defs/EffectivePeriod"
+        },
+        "lifecycle_state": {
+          "$ref": "#/$defs/LifecycleState",
+          "default": "ACTIVE"
+        },
+        "provenance_ref": {
+          "title": "Provenance Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "capability_id",
+        "name",
+        "description",
+        "owner_ref",
+        "domain",
+        "version",
+        "operations",
+        "effective_period",
+        "provenance_ref"
+      ],
+      "title": "CapabilityContract",
+      "type": "object"
+    },
+    "CapabilityOperation": {
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "purpose": {
+          "title": "Purpose",
+          "type": "string"
+        },
+        "input_semantics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Input Semantics",
+          "type": "array"
+        },
+        "output_semantics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Output Semantics",
+          "type": "array"
+        },
+        "input_contract_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Input Contract Refs",
+          "type": "array"
+        },
+        "output_contract_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Output Contract Refs",
+          "type": "array"
+        },
+        "constraints": {
+          "additionalProperties": true,
+          "title": "Constraints",
+          "type": "object"
+        },
+        "policy_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Policy Refs",
+          "type": "array"
+        },
+        "permissions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Permissions",
+          "type": "array"
+        },
+        "security_tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Security Tags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "operation_id",
+        "purpose"
+      ],
+      "title": "CapabilityOperation",
+      "type": "object"
+    },
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "SmartBoxManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "box_id": {
+          "title": "Box Id",
+          "type": "string"
+        },
+        "capability_ref": {
+          "title": "Capability Ref",
+          "type": "string"
+        },
+        "box_version": {
+          "title": "Box Version",
+          "type": "string"
+        },
+        "provider_ref": {
+          "title": "Provider Ref",
+          "type": "string"
+        },
+        "runtime_type": {
+          "title": "Runtime Type",
+          "type": "string"
+        },
+        "operation_bindings": {
+          "items": {
+            "$ref": "#/$defs/SmartBoxOperationBinding"
+          },
+          "title": "Operation Bindings",
+          "type": "array"
+        },
+        "requires_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Requires Capabilities",
+          "type": "array"
+        },
+        "adapter_boundary": {
+          "title": "Adapter Boundary",
+          "type": "string"
+        },
+        "model_dependencies": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Model Dependencies",
+          "type": "array"
+        },
+        "data_classes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Data Classes",
+          "type": "array"
+        },
+        "quality_slo": {
+          "additionalProperties": true,
+          "title": "Quality Slo",
+          "type": "object"
+        },
+        "observability": {
+          "additionalProperties": true,
+          "title": "Observability",
+          "type": "object"
+        },
+        "effective_period": {
+          "$ref": "#/$defs/EffectivePeriod"
+        },
+        "lifecycle_state": {
+          "$ref": "#/$defs/LifecycleState",
+          "default": "ACTIVE"
+        },
+        "provenance_ref": {
+          "title": "Provenance Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "box_id",
+        "capability_ref",
+        "box_version",
+        "provider_ref",
+        "runtime_type",
+        "operation_bindings",
+        "adapter_boundary",
+        "effective_period",
+        "provenance_ref"
+      ],
+      "title": "SmartBoxManifest",
+      "type": "object"
+    },
+    "SmartBoxOperationBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "handler_ref": {
+          "title": "Handler Ref",
+          "type": "string"
+        },
+        "binding_config": {
+          "additionalProperties": true,
+          "title": "Binding Config",
+          "type": "object"
+        },
+        "timeout_seconds": {
+          "default": 30,
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        },
+        "idempotent": {
+          "default": true,
+          "title": "Idempotent",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "operation_id",
+        "handler_ref"
+      ],
+      "title": "SmartBoxOperationBinding",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "intent": {
+      "title": "Intent",
+      "type": "string"
+    },
+    "actor_ref": {
+      "title": "Actor Ref",
+      "type": "string"
+    },
+    "capability": {
+      "$ref": "#/$defs/CapabilityContract"
+    },
+    "smart_box": {
+      "$ref": "#/$defs/SmartBoxManifest"
+    },
+    "specification": {
+      "title": "Specification",
+      "type": "string"
+    },
+    "knowledge_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Knowledge Refs",
+      "type": "array"
+    },
+    "rule_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Rule Refs",
+      "type": "array"
+    },
+    "examples": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Examples",
+      "type": "array"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "intent",
+    "actor_ref",
+    "capability",
+    "smart_box",
+    "specification",
+    "knowledge_refs",
+    "rule_refs",
+    "examples",
+    "provenance_ref"
+  ],
+  "title": "WriteBoxProposalRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.write-box-proposal-request.v1"
+}

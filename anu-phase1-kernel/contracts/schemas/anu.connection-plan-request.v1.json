@@ -1,0 +1,121 @@
+{
+  "$defs": {
+    "CompatibilityContext": {
+      "additionalProperties": false,
+      "properties": {
+        "granted_permissions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Granted Permissions",
+          "type": "array"
+        },
+        "security_tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Security Tags",
+          "type": "array"
+        },
+        "satisfied_policy_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Satisfied Policy Refs",
+          "type": "array"
+        }
+      },
+      "title": "CompatibilityContext",
+      "type": "object"
+    },
+    "RetryPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "max_attempts": {
+          "default": 1,
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Max Attempts",
+          "type": "integer"
+        },
+        "retry_on": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Retry On",
+          "type": "array"
+        }
+      },
+      "title": "RetryPolicy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "from_capability_ref": {
+      "title": "From Capability Ref",
+      "type": "string"
+    },
+    "from_operation": {
+      "title": "From Operation",
+      "type": "string"
+    },
+    "to_capability_ref": {
+      "title": "To Capability Ref",
+      "type": "string"
+    },
+    "to_operation": {
+      "title": "To Operation",
+      "type": "string"
+    },
+    "from_box_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "From Box Ref"
+    },
+    "to_box_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "To Box Ref"
+    },
+    "context": {
+      "$ref": "#/$defs/CompatibilityContext"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    },
+    "retry_policy": {
+      "$ref": "#/$defs/RetryPolicy"
+    },
+    "observability_policy": {
+      "additionalProperties": true,
+      "title": "Observability Policy",
+      "type": "object"
+    }
+  },
+  "required": [
+    "from_capability_ref",
+    "from_operation",
+    "to_capability_ref",
+    "to_operation",
+    "provenance_ref"
+  ],
+  "title": "ConnectionPlanRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.connection-plan-request.v1"
+}

@@ -50,6 +50,20 @@
           },
           "title": "Policy Refs",
           "type": "array"
+        },
+        "permissions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Permissions",
+          "type": "array"
+        },
+        "security_tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Security Tags",
+          "type": "array"
         }
       },
       "required": [

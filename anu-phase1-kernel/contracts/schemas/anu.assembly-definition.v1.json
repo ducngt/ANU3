@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "assembly_id": {
+      "title": "Assembly Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "owner_ref": {
+      "title": "Owner Ref",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "capability_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Capability Refs",
+      "type": "array"
+    },
+    "connection_plan_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Connection Plan Refs",
+      "type": "array"
+    },
+    "human_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Human Refs",
+      "type": "array"
+    },
+    "agent_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Agent Refs",
+      "type": "array"
+    },
+    "policy_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Policy Refs",
+      "type": "array"
+    },
+    "decision_points": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Decision Points",
+      "type": "array"
+    },
+    "configuration": {
+      "additionalProperties": true,
+      "title": "Configuration",
+      "type": "object"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "assembly_id",
+    "name",
+    "description",
+    "owner_ref",
+    "version",
+    "capability_refs",
+    "connection_plan_refs",
+    "effective_period",
+    "provenance_ref"
+  ],
+  "title": "AssemblyDefinition",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.assembly-definition.v1"
+}

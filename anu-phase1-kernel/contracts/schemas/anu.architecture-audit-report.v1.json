@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "audit_id": {
+      "title": "Audit Id",
+      "type": "string"
+    },
+    "subject_ref": {
+      "title": "Subject Ref",
+      "type": "string"
+    },
+    "passed": {
+      "title": "Passed",
+      "type": "boolean"
+    },
+    "checks": {
+      "additionalProperties": {
+        "enum": [
+          "PASS",
+          "FAIL"
+        ],
+        "type": "string"
+      },
+      "title": "Checks",
+      "type": "object"
+    },
+    "findings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "audited_at": {
+      "format": "date-time",
+      "title": "Audited At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "audit_id",
+    "subject_ref",
+    "passed",
+    "checks",
+    "audited_at"
+  ],
+  "title": "ArchitectureAuditReport",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.architecture-audit-report.v1"
+}

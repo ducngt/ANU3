@@ -42,106 +42,115 @@
       "title": "LifecycleState",
       "type": "string"
     },
-    "SmartBoxOperationBinding": {
+    "RetryPolicy": {
       "additionalProperties": false,
       "properties": {
-        "operation_id": {
-          "title": "Operation Id",
-          "type": "string"
-        },
-        "handler_ref": {
-          "title": "Handler Ref",
-          "type": "string"
-        },
-        "binding_config": {
-          "additionalProperties": true,
-          "title": "Binding Config",
-          "type": "object"
-        },
-        "timeout_seconds": {
-          "default": 30,
-          "maximum": 3600,
+        "max_attempts": {
+          "default": 1,
+          "maximum": 10,
           "minimum": 1,
-          "title": "Timeout Seconds",
+          "title": "Max Attempts",
           "type": "integer"
         },
-        "idempotent": {
-          "default": true,
-          "title": "Idempotent",
-          "type": "boolean"
+        "retry_on": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Retry On",
+          "type": "array"
         }
       },
-      "required": [
-        "operation_id",
-        "handler_ref"
-      ],
-      "title": "SmartBoxOperationBinding",
+      "title": "RetryPolicy",
       "type": "object"
     }
   },
   "additionalProperties": false,
   "properties": {
-    "box_id": {
-      "title": "Box Id",
+    "plan_id": {
+      "title": "Plan Id",
       "type": "string"
     },
-    "capability_ref": {
-      "title": "Capability Ref",
+    "version": {
+      "default": "1.0.0",
+      "title": "Version",
       "type": "string"
     },
-    "box_version": {
-      "title": "Box Version",
+    "from_capability": {
+      "title": "From Capability",
       "type": "string"
     },
-    "provider_ref": {
-      "title": "Provider Ref",
+    "from_operation": {
+      "title": "From Operation",
       "type": "string"
     },
-    "runtime_type": {
-      "title": "Runtime Type",
+    "to_capability": {
+      "title": "To Capability",
       "type": "string"
     },
-    "operation_bindings": {
-      "items": {
-        "$ref": "#/$defs/SmartBoxOperationBinding"
-      },
-      "title": "Operation Bindings",
-      "type": "array"
+    "to_operation": {
+      "title": "To Operation",
+      "type": "string"
     },
-    "requires_capabilities": {
+    "from_box_ref": {
+      "title": "From Box Ref",
+      "type": "string"
+    },
+    "to_box_ref": {
+      "title": "To Box Ref",
+      "type": "string"
+    },
+    "contract_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Contract Ref"
+    },
+    "transformation_refs": {
       "items": {
         "type": "string"
       },
-      "title": "Requires Capabilities",
+      "title": "Transformation Refs",
       "type": "array"
     },
-    "adapter_boundary": {
-      "title": "Adapter Boundary",
-      "type": "string"
-    },
-    "model_dependencies": {
+    "adapter_refs": {
       "items": {
         "type": "string"
       },
-      "title": "Model Dependencies",
+      "title": "Adapter Refs",
       "type": "array"
     },
-    "data_classes": {
+    "policy_checks": {
       "items": {
         "type": "string"
       },
-      "title": "Data Classes",
+      "title": "Policy Checks",
       "type": "array"
     },
-    "quality_slo": {
+    "security_context": {
       "additionalProperties": true,
-      "title": "Quality Slo",
+      "title": "Security Context",
       "type": "object"
     },
-    "observability": {
+    "retry_policy": {
+      "$ref": "#/$defs/RetryPolicy"
+    },
+    "observability_policy": {
       "additionalProperties": true,
-      "title": "Observability",
+      "title": "Observability Policy",
       "type": "object"
+    },
+    "compatibility_evidence": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Compatibility Evidence",
+      "type": "array"
     },
     "effective_period": {
       "$ref": "#/$defs/EffectivePeriod"
@@ -156,17 +165,17 @@
     }
   },
   "required": [
-    "box_id",
-    "capability_ref",
-    "box_version",
-    "provider_ref",
-    "runtime_type",
-    "operation_bindings",
-    "adapter_boundary",
+    "plan_id",
+    "from_capability",
+    "from_operation",
+    "to_capability",
+    "to_operation",
+    "from_box_ref",
+    "to_box_ref",
     "effective_period",
     "provenance_ref"
   ],
-  "title": "SmartBoxManifest",
+  "title": "ConnectionPlan",
   "type": "object",
-  "$id": "urn:anu:schema:anu.smart-box-manifest.v1"
+  "$id": "urn:anu:schema:anu.connection-plan.v1"
 }

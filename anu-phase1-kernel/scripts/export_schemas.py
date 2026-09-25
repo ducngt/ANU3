@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from anu_kernel import contracts, reality_contracts, ingestion_contracts, capability_contracts
+from anu_kernel import contracts, reality_contracts, ingestion_contracts, capability_contracts, sbbs_runtime_contracts
 
 MODELS = {
     "anu.identity.v1": contracts.IdentityContract,
@@ -56,6 +56,23 @@ MODELS = {
     "anu.smart-box-manifest.v1": capability_contracts.SmartBoxManifest,
     "anu.capability-discovery-query.v1": capability_contracts.CapabilityDiscoveryQuery,
     "anu.capability-discovery-response.v1": capability_contracts.CapabilityDiscoveryResponse,
+    "anu.compatibility-context.v1": sbbs_runtime_contracts.CompatibilityContext,
+    "anu.compatibility-check-request.v1": sbbs_runtime_contracts.CompatibilityCheckRequest,
+    "anu.compatibility-result.v1": sbbs_runtime_contracts.CompatibilityResult,
+    "anu.transform-definition.v1": sbbs_runtime_contracts.TransformDefinition,
+    "anu.adapter-definition.v1": sbbs_runtime_contracts.AdapterDefinition,
+    "anu.connection-plan-request.v1": sbbs_runtime_contracts.ConnectionPlanRequest,
+    "anu.connection-plan.v1": sbbs_runtime_contracts.ConnectionPlan,
+    "anu.smart-wire-execution-request.v1": sbbs_runtime_contracts.SmartWireExecutionRequest,
+    "anu.smart-wire-execution-result.v1": sbbs_runtime_contracts.SmartWireExecutionResult,
+    "anu.assembly-definition.v1": sbbs_runtime_contracts.AssemblyDefinition,
+    "anu.assembly-execution-request.v1": sbbs_runtime_contracts.AssemblyExecutionRequest,
+    "anu.assembly-execution-result.v1": sbbs_runtime_contracts.AssemblyExecutionResult,
+    "anu.architecture-audit-report.v1": sbbs_runtime_contracts.ArchitectureAuditReport,
+    "anu.write-box-proposal-request.v1": sbbs_runtime_contracts.WriteBoxProposalRequest,
+    "anu.write-box-proposal-result.v1": sbbs_runtime_contracts.WriteBoxProposalResult,
+    "anu.write-box-promotion-request.v1": sbbs_runtime_contracts.WriteBoxPromotionRequest,
+    "anu.write-box-promotion-result.v1": sbbs_runtime_contracts.WriteBoxPromotionResult,
 }
 
 out = Path(__file__).resolve().parents[1] / "contracts" / "schemas"

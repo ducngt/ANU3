@@ -1,74 +1,56 @@
-# ANU Kernel + P2 Multimodal Memory + P3 Capability Contract Foundation
+# ANU Kernel + P2 Reality/Memory + P3 SBBS Capability Runtime
 
-Executable reference implementation under ANU-URA-1.0 and ANU-HB-1.2.
+Executable reference implementation under ANU-URA-1.0, ANU-HB-1.2 and SBBS 2.0.
 
 ## Human-directed / AI-executed delivery
 
-Human owns purpose, meaning, institutional authority, standards, responsibility and acceptance. AI/CI owns repository discovery, architecture, contracts, implementation, migration, tests, conformance, technical verification and evidence preparation.
-
-Human does **not** need to operate Swagger, Alembic, pytest or PostgreSQL by default. `/human` is the Human-facing status surface; `/docs` remains a technical surface.
+Human owns purpose, meaning, institutional authority, standards, responsibility and acceptance. AI/CI owns architecture, contracts, implementation, migrations, tests, replay, audit, conformance and technical evidence. Human does not need to run Swagger, Alembic, pytest or PostgreSQL by default.
 
 ## Accepted baselines
 
-- Phase 1 Tranche 03: G3 accepted, G4 pilot-institutionalized.
+- Phase 1 Tranche 03: G3 accepted; G4 pilot-institutionalized.
 - Phase 2 Tranche 01: G3 accepted.
+- P2-T02 + P3-01: G3 accepted.
 
-## P2-T02 scope
+## P3-02..P3-07 scope
 
-- real-byte ingestion for PDF, DOCX, image, audio, video and text;
-- content-addressed immutable Object Store Adapter with SHA-256 integrity;
-- source lifecycle/effective-time checks and fail-closed source authority;
-- deterministic PDF/DOCX extraction and media metadata adapters;
-- extraction failure retention rather than destructive discard;
-- Artifact -> Knowledge provenance chain with epistemic type preserved;
-- University Memory projection with source/provenance linkage;
-- lexical + provider-neutral hashing-vector retrieval baseline;
-- retrieval results include source refs, provenance refs and content hash;
-- database + object-store recovery proof.
-
-## P3-00/P3-01 scope
-
-- Capability Contract;
-- Capability Registry;
-- Smart Box Manifest;
-- discovery by operation/domain/semantic I/O;
-- replaceable provider manifests for the same Capability Contract;
-- `CAPABILITY != AUTHORITY` enforced by contract structure.
-
-P3 execution runtime is **not** opened yet: Connection Planner, Smart Wire, Assembly and Write Box Studio remain later versioned work.
+- Compatibility Engine across Capability, semantic I/O, contract/schema, constraints, permissions, security and policy;
+- versioned Adapter/Transform Registry;
+- declarative Connection Planner with mandatory compatibility evidence;
+- Thin Smart Wire runtime: route, transform, adapter boundary, policy/security gate, retry metadata, tracing/observability — no discovery/planning/business logic;
+- Assembly Registry/Runtime with explicit composition;
+- Write Box Studio MVP: Discover-before-Build, Contract-before-Code, architecture audit, sandbox candidate and controlled promotion;
+- provider replacement behind an unchanged Capability Contract;
+- recovery/replay of connection plans and assemblies;
+- ARU-01 synthetic end-to-end SBBS runtime pilot.
 
 ## Verification state
 
-Local verification for version `0.5.0` passes:
+Local verification for version `0.6.0` passes:
 
-- Alembic `0001 -> 0002 -> 0003 -> 0004`, downgrade to base, re-upgrade;
+- Alembic `0001 -> ... -> 0005`, downgrade to base, re-upgrade;
 - full automated test suite;
-- ARU-01 five-format multimodal pilot;
-- Artifact -> Knowledge provenance replay;
-- University Memory indexing/retrieval;
-- Capability Registry + two-provider Smart Box discovery;
-- 50 executable JSON Schemas;
+- ARU-01 Write Box -> register -> discover -> match -> plan -> assemble -> execute pilot;
+- transform + adapter execution path;
+- provider replacement preserves consumer contract;
+- 67 executable JSON Schemas;
 - PostgreSQL offline migration compilation;
-- SQLite database + object-store backup/restore with post-restore integrity/retrieval/discovery;
-- independent P2-T02/P3 boundary verifier.
+- backup/restore + post-restore Assembly replay;
+- independent Thin Wire / authority / compatibility-evidence boundary audit.
 
-Live PostgreSQL revision `0004` migration/pilot/recovery evidence remains the external GitHub Actions gate before Human G3.
+Live PostgreSQL revision `0005` runtime/recovery evidence remains the external GitHub Actions gate before Human G3.
 
-## Known reference limitations
+## Runtime boundary
 
-Image/audio/video bytes are fully ingested and integrity-governed, but the reference analyzer is metadata-first. OCR, speech transcription and video semantic analysis remain replaceable provider adapters for later upgrades. The vector retriever is a deterministic reference implementation, not a production embedding commitment.
+`CAPABILITY != AUTHORITY`. Smart Wire executes a pre-approved declarative Connection Plan; it does not discover or select capabilities. Write Box can create/version capability packages but cannot grant authority or modify Constitutional Core.
 
 ## AI/CI verification
 
 ```bash
-python scripts/verify_p2t02_p3.py
+python scripts/verify_p3_runtime.py
 ```
 
-Human-facing evidence is generated into `docs/verification/`.
-
 ## Runtime
-
-The application assumes migrations have already been applied by the deployment pipeline. It intentionally does not call `Base.metadata.create_all()` at startup.
 
 ```bash
 alembic upgrade head

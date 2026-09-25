@@ -1,0 +1,59 @@
+{
+  "$defs": {
+    "CompatibilityContext": {
+      "additionalProperties": false,
+      "properties": {
+        "granted_permissions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Granted Permissions",
+          "type": "array"
+        },
+        "security_tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Security Tags",
+          "type": "array"
+        },
+        "satisfied_policy_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Satisfied Policy Refs",
+          "type": "array"
+        }
+      },
+      "title": "CompatibilityContext",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "assembly_ref": {
+      "title": "Assembly Ref",
+      "type": "string"
+    },
+    "input_payload": {
+      "additionalProperties": true,
+      "title": "Input Payload",
+      "type": "object"
+    },
+    "trace_id": {
+      "title": "Trace Id",
+      "type": "string"
+    },
+    "context": {
+      "$ref": "#/$defs/CompatibilityContext"
+    }
+  },
+  "required": [
+    "assembly_ref",
+    "input_payload",
+    "trace_id"
+  ],
+  "title": "AssemblyExecutionRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.assembly-execution-request.v1"
+}
