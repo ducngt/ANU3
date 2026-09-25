@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "EpistemicType": {
+      "enum": [
+        "FACT",
+        "EVIDENCE",
+        "CLAIM",
+        "INFERENCE",
+        "PREDICTION",
+        "RECOMMENDATION",
+        "DECISION"
+      ],
+      "title": "EpistemicType",
+      "type": "string"
+    },
+    "ValidationState": {
+      "enum": [
+        "UNVALIDATED",
+        "VALIDATED",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED"
+      ],
+      "title": "ValidationState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "data_id": {
+      "title": "Data Id",
+      "type": "string"
+    },
+    "version_id": {
+      "title": "Version Id",
+      "type": "string"
+    },
+    "semantic_type": {
+      "title": "Semantic Type",
+      "type": "string"
+    },
+    "epistemic_type": {
+      "$ref": "#/$defs/EpistemicType"
+    },
+    "validation_state": {
+      "$ref": "#/$defs/ValidationState"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "title": "Payload",
+      "type": "object"
+    },
+    "source_ref": {
+      "title": "Source Ref",
+      "type": "string"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "recorded_time": {
+      "format": "date-time",
+      "title": "Recorded Time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "data_id",
+    "version_id",
+    "semantic_type",
+    "epistemic_type",
+    "validation_state",
+    "payload",
+    "source_ref",
+    "provenance_ref",
+    "effective_period",
+    "recorded_time"
+  ],
+  "title": "DataProjectionResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.data-projection-result.v1"
+}

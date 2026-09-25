@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from anu_kernel import contracts
+from anu_kernel import contracts, reality_contracts
 
 MODELS = {
     "anu.identity.v1": contracts.IdentityContract,
@@ -33,6 +33,18 @@ MODELS = {
     "anu.attestation-verification-result.v1": contracts.AttestationVerificationResult,
     "anu.integrity-hash-request.v1": contracts.IntegrityHashRequest,
     "anu.integrity-hash-result.v1": contracts.IntegrityHashResult,
+    "anu.source-registry.v1": reality_contracts.SourceRegistryContract,
+    "anu.source-authority-mapping.v1": reality_contracts.SourceAuthorityMappingContract,
+    "anu.data-contract.v1": reality_contracts.DataContractContract,
+    "anu.data-envelope.v1": reality_contracts.DataEnvelopeContract,
+    "anu.data-projection-request.v1": reality_contracts.DataProjectionRequest,
+    "anu.data-projection-result.v1": reality_contracts.DataProjectionResult,
+    "anu.knowledge-object.v1": reality_contracts.KnowledgeObjectContract,
+    "anu.ingested-artifact.v1": reality_contracts.IngestedArtifactContract,
+    "anu.memory-record.v1": reality_contracts.MemoryRecordContract,
+    "anu.search-result-item.v1": reality_contracts.SearchResultItem,
+    "anu.search-response.v1": reality_contracts.SearchResponse,
+    "anu.provenance-graph-result.v1": reality_contracts.ProvenanceGraphResult,
 }
 
 out = Path(__file__).resolve().parents[1] / "contracts" / "schemas"

@@ -1,6 +1,6 @@
-# ANU Phase 1 Kernel
+# ANU Kernel + Phase 2 Reality/Data/Memory
 
-Executable reference implementation of the ANU 4.0 Constitutional Kernel under ANU-URA-1.0 and ANU-HB-1.2.
+Executable reference implementation under ANU-URA-1.0 and ANU-HB-1.2.
 
 ## Human-directed / AI-executed delivery
 
@@ -8,45 +8,57 @@ Human owns purpose, meaning, institutional authority, standards, responsibility 
 
 Human does **not** need to operate Swagger, Alembic or pytest by default. The Human-facing runtime entry point is `/human`; `/docs` remains a technical surface for AI/engineering verification.
 
-## Phase-1 scope
+## Accepted Phase 1 baseline
 
-- P1-00 Canonical Meta-Model
-- P1-01 Identity Kernel
-- P1-02 Semantic Registry
-- P1-03 Role & Competence Kernel
-- P1-04 Authority Kernel
-- P1-05 Delegation Kernel
-- P1-06 Policy Kernel
-- P1-07 Provenance & Audit Kernel
-- P1-08 Version & Lifecycle Kernel
-- P1-09 Core Contract & Event Model
-- P1-10 Conformance & Historical Replay
+Phase 1 Tranche 03 is Human G3 accepted and G4 institutionalized for **pilot/reference use**. Future changes are versioned upgrades and must preserve its historical evidence.
 
-## Current tranche: 0.3.0 candidate
+The accepted Kernel provides Identity, Semantics, Role/Competence, Authority/Delegation, Policy, Provenance/Audit, Lifecycle, Event/Decision contracts, historical replay, AuthN/PEP separation, Trust Registry, Human Signature and Agent Attestation primitives.
 
-Tranche 03 hardens the Trust & Control boundary without collapsing the constitutional distinctions:
+## Phase 2 Tranche 01 scope
 
-- external authentication is mapped into ANU Identity but does not create institutional Authority;
-- a Policy Enforcement Point composes Authentication, Authority/Delegation and versioned Policy and fails closed;
-- Trust Registry stores public-key credential metadata only, never private signing keys;
-- Human Signature verification checks cryptographic integrity, credential validity, active role and Authority independently;
-- Agent Attestation is separate from Human Signature and consequential Agent attestations require active bounded delegation;
-- canonical SHA-256 integrity references detect artifact tampering;
-- Alembic revision `0002` adds trust credential, signature and attestation persistence;
-- database engine creation is lazy so architecture/migration tooling can compile PostgreSQL DDL without requiring a runtime driver;
-- backup/restore adapters cover SQLite reference operation and PostgreSQL target operation;
-- GitHub Actions contains a PostgreSQL 16 live verification lane.
+Phase 2 implements the Reality/Data/Memory foundation with Human-approved ARU-01 synthetic institutional data:
+
+- Source Registry;
+- Source Authority Mapping by semantic type and scope;
+- Data Contract;
+- institutional Data Envelope with effective-time + recorded-time history;
+- fail-closed source authority for official-like state;
+- independent Epistemic Type and Validation State;
+- Knowledge Object versioning;
+- metadata-first object/document ingestion with integrity reference;
+- Provenance graph traversal using Phase 1 provenance primitives;
+- University Memory index that points back to source records rather than becoming a shadow source-of-truth;
+- baseline search/retrieval;
+- ARU-01 programme/enrollment/learning/inference fixtures and historical projection replay.
+
+## Key Phase 2 invariants
+
+- `SOURCE AUTHORITY != STORAGE LOCATION`
+- `MEMORY != SOURCE OF TRUTH`
+- `INFERENCE != FACT`
+- `PREDICTION != EVIDENCE`
+- `RECOMMENDATION != DECISION`
+- `SYNTHETIC OUTPUT != AUTHORITATIVE EVIDENCE`
+- consequential history is append/supersede, not destructive overwrite
 
 ## Verification state
 
-Local isolated-environment checks pass, including migration cycle, automated tests, ARU-01 trust-chain pilot, 27 JSON Schema exports, PostgreSQL offline migration compilation, SQLite backup/restore and independent verification.
+Phase 2 Tranche 01 local verification passes:
 
-The Human gate remains **G3_NOT_READY** until live PostgreSQL migration + ARU-01 + backup/restore evidence is produced by an environment that actually provides PostgreSQL. This is a technical blocked-queue item; no Human technical decision is requested.
+- migration `0001 -> 0002 -> 0003`, downgrade to base, and re-upgrade;
+- full automated test suite;
+- ARU-01 Reality/Data/Memory pilot;
+- machine-readable contract schema export;
+- PostgreSQL offline migration compilation;
+- SQLite reference backup/restore with historical projection replay.
+
+Human G3 is **not requested yet**. Live PostgreSQL migration + Phase 2 pilot + backup/restore evidence remains an AI/CI technical gate.
 
 ## AI/CI verification
 
 ```bash
 python scripts/verify_phase1.py
+python scripts/verify_phase2.py
 python scripts/independent_verify.py
 ```
 

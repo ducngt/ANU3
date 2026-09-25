@@ -1,74 +1,75 @@
-# Phase-1 Executable Architecture — Tranche 03
+# ANU Executable Architecture — Phase 2 Tranche 01
 
-## Constitutional boundary
+## Baseline
 
-The Kernel remains a modular monolith. Logical responsibility boundaries are explicit without requiring network-service fragmentation.
+Phase 1 Tranche 03 is the accepted Constitutional Kernel baseline. Phase 2 extends it additively; it does not redefine Identity, Authority, Policy, Provenance, Trust, Event or Lifecycle primitives.
 
 ```text
 Human purpose / meaning / authority / acceptance
                     |
                     v
-              Human Dashboard
+            Constitutional Kernel
+ Identity · Semantics · Authority · Policy · Trust
+ Provenance · Audit · Lifecycle · Replay · Events
                     |
                     v
-External IdP -> AuthN Adapter -----------+
-                                          |
-Kernel API -> PEP ------------------------+--> Authority / Delegation
-           |                              +--> Policy Decision
-           |                              +--> Trust Registry
-           |                              +--> Signature / Attestation verification
-           |
-           +-> Identity / Semantics
-           +-> Role / Competence
-           +-> Provenance / Audit
-           +-> Lifecycle / Events
-           +-> Historical Replay
-                    |
-                    v
-        versioned relational persistence
+          Reality / Data / Memory Fabric
+   +----------------+------------------------+
+   |                |                        |
+Source Registry  Data Contracts        Knowledge Objects
+   |                |                        |
+Authority Map -> Data Envelope versions      |
+                    |                        |
+             Temporal Projection             |
+                    +-----------+------------+
+                                |
+                         Provenance Graph
+                                |
+                      University Memory Index
+                                |
+                         Search / Retrieval
 ```
 
-`LAYER != HOP`: these are contract/responsibility boundaries, not mandatory microservices.
+`LAYER != HOP`: the boundaries above are logical ownership/contract boundaries and remain deployable as a modular monolith in the reference implementation.
 
-## Authentication, authorization and authority
+## Source authority
 
-Authentication answers who is interacting and maps verified external credential claims to an existing ANU Identity. The AuthN adapter cannot create Authority. The PEP independently evaluates current Authority/Delegation and versioned Policy.
+A storage system does not become authoritative merely because it contains data. Source Authority Mapping binds a registered source to a semantic type and bounded authority scope.
 
-`AUTHENTICATION != AUTHORIZATION != AUTHORITY` is enforced structurally rather than by naming convention.
+Official-like state (`FACT`, `EVIDENCE`, `DECISION`) fails closed unless a matching authoritative source mapping exists. AI inference stores may hold `INFERENCE`, `PREDICTION` and `RECOMMENDATION` without acquiring authority over official records.
 
-## Trust Registry
+## Epistemic governance
 
-Trust Registry stores credential validation metadata: subject binding, public key, fingerprint, issuer, validity period, status and revocation metadata. Private keys are outside Kernel persistence.
+Epistemic Type and Validation State are independent axes. Validation does not change what kind of knowledge an object is.
 
-The Tranche-03 reference verifier supports Ed25519 detached signatures. This is a provider-independent reference mechanism, not a declaration that one cryptographic profile is the institutional/legal standard.
+The reference implementation forbids in-place epistemic mutation for a Data Object. A governed transition from inference/claim to official state must create a distinct object linked by provenance. This makes the transition explicit and replayable.
 
-## Human Signature
+## Data Contract and Envelope
 
-A cryptographically valid signature becomes institutionally valid only when all of these are independently valid at signature time:
+The Data Contract follows the URA contract shape: identity/version, semantic definition, schema, owner, authoritative source, producers/consumers, freshness, quality, provenance, access/privacy, integrity, retention and compatibility policy.
 
-1. credential binding and lifecycle;
-2. detached signature over the canonical signature statement;
-3. active signer role;
-4. referenced institutional Authority.
+The Data Envelope carries global identity, contract/schema version, source record and authority scope, owner/context, bitemporal metadata, epistemic/validation state, provenance/integrity, policy references, lifecycle and payload.
 
-Therefore `SIGNATURE != AUTHORITY` and `SIGNED != TRUE` remain intact.
+## Temporal projection
 
-## Agent Attestation
+Consequential state is stored as append-only versions. Projection is reconstructed by effective time and optionally by recorded time. The ARU-01 pilot proves that Programme v1 can still be reconstructed after v2 becomes current.
 
-Agent Attestation records Agent identity/version, owner, runtime, model dependency, purpose, work, action, capability/tool, delegation, policy version, input references, artifact hash, time, credential and attestation signature.
+## Provenance and University Memory
 
-A consequential Agent attestation requires an active delegation at the attestation effective time. It never becomes Human approval.
+Phase 2 reuses the Phase 1 Provenance Record rather than creating a competing lineage system. Graph traversal follows `previous_provenance_refs`.
 
-## Migration and database portability
+University Memory is an institutional index over decisions/actions/outcomes/failures/changes/capabilities/knowledge. Every memory record retains `source_ref` and `provenance_ref`; Memory does not replace the authoritative source.
 
-Alembic remains the sole deployed schema migration mechanism. Revision `0002` introduces Trust Registry, Signature Record and Agent Attestation persistence. Runtime engine creation is lazy, allowing PostgreSQL migration SQL to compile in offline architecture verification without loading a DBAPI driver.
+## Ingestion and retrieval
 
-GitHub Actions includes a PostgreSQL 16 live lane for migration, ARU-01 trust-chain execution and backup/restore verification.
+The tranche registers object/document metadata, media type, source, owner, integrity reference and provenance. Binary object storage remains behind future provider adapters.
 
-## Backup / restore
+Search/retrieval is intentionally a portable lexical baseline across Data, Knowledge and Memory. Production search/vector providers are replaceable implementation concerns, not semantic authorities.
 
-The backup adapter uses the SQLite backup API for the executable reference environment and `pg_dump`/`pg_restore` for PostgreSQL. Verification must prove institutional history survives restore; a successful backup command alone is insufficient evidence.
+## Migration and compatibility
+
+Alembic revision `0003` adds only Phase 2 tables. Phase 1 contracts/APIs remain available. Downgrade removes Phase 2 tables and returns to the accepted revision `0002` without rewriting Phase 1 history.
 
 ## Human-directed delivery boundary
 
-Technical verification remains an AI/CI responsibility. If live PostgreSQL evidence is unavailable, the Work is shown as a technical blocker rather than asking Human to inspect CI, execute commands or waive an engineering check.
+ARU-01 synthetic data scope and Source Authority/Epistemic guardrails were approved at G0/G1/G2. AI/CI owns implementation and verification. Human G3 is requested only after live PostgreSQL evidence clears the remaining technical gate.

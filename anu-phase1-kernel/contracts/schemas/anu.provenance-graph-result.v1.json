@@ -1,0 +1,45 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "root_provenance_ref": {
+      "title": "Root Provenance Ref",
+      "type": "string"
+    },
+    "nodes": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Nodes",
+      "type": "array"
+    },
+    "edges": {
+      "items": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "type": "object"
+      },
+      "title": "Edges",
+      "type": "array"
+    },
+    "completeness_status": {
+      "default": "COMPLETE",
+      "title": "Completeness Status",
+      "type": "string"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "root_provenance_ref"
+  ],
+  "title": "ProvenanceGraphResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.provenance-graph-result.v1"
+}

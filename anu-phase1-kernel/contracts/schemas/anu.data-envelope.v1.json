@@ -1,0 +1,241 @@
+{
+  "$defs": {
+    "DataSourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "system_id": {
+          "title": "System Id",
+          "type": "string"
+        },
+        "record_ref": {
+          "title": "Record Ref",
+          "type": "string"
+        },
+        "authority_scope": {
+          "additionalProperties": true,
+          "title": "Authority Scope",
+          "type": "object"
+        }
+      },
+      "required": [
+        "system_id",
+        "record_ref"
+      ],
+      "title": "DataSourceRef",
+      "type": "object"
+    },
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "EpistemicType": {
+      "enum": [
+        "FACT",
+        "EVIDENCE",
+        "CLAIM",
+        "INFERENCE",
+        "PREDICTION",
+        "RECOMMENDATION",
+        "DECISION"
+      ],
+      "title": "EpistemicType",
+      "type": "string"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "ValidationState": {
+      "enum": [
+        "UNVALIDATED",
+        "VALIDATED",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED"
+      ],
+      "title": "ValidationState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "data_id": {
+      "title": "Data Id",
+      "type": "string"
+    },
+    "version_id": {
+      "title": "Version Id",
+      "type": "string"
+    },
+    "contract_ref": {
+      "title": "Contract Ref",
+      "type": "string"
+    },
+    "semantic_type": {
+      "title": "Semantic Type",
+      "type": "string"
+    },
+    "schema_version": {
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "subject_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Subject Refs",
+      "type": "array"
+    },
+    "source": {
+      "$ref": "#/$defs/DataSourceRef"
+    },
+    "owner_ref": {
+      "title": "Owner Ref",
+      "type": "string"
+    },
+    "context_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Context Ref"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "recorded_time": {
+      "format": "date-time",
+      "title": "Recorded Time",
+      "type": "string"
+    },
+    "epistemic_type": {
+      "$ref": "#/$defs/EpistemicType"
+    },
+    "validation_state": {
+      "$ref": "#/$defs/ValidationState",
+      "default": "UNVALIDATED"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    },
+    "integrity_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Integrity Ref"
+    },
+    "access_policy_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Access Policy Ref"
+    },
+    "retention_policy_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Retention Policy Ref"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "title": "Payload",
+      "type": "object"
+    },
+    "supersedes_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Supersedes Ref"
+    },
+    "synthetic_output": {
+      "default": false,
+      "title": "Synthetic Output",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "data_id",
+    "version_id",
+    "contract_ref",
+    "semantic_type",
+    "schema_version",
+    "source",
+    "owner_ref",
+    "effective_period",
+    "recorded_time",
+    "epistemic_type",
+    "provenance_ref",
+    "payload"
+  ],
+  "title": "DataEnvelopeContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.data-envelope.v1"
+}

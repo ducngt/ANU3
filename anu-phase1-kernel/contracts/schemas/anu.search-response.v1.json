@@ -1,0 +1,130 @@
+{
+  "$defs": {
+    "EpistemicType": {
+      "enum": [
+        "FACT",
+        "EVIDENCE",
+        "CLAIM",
+        "INFERENCE",
+        "PREDICTION",
+        "RECOMMENDATION",
+        "DECISION"
+      ],
+      "title": "EpistemicType",
+      "type": "string"
+    },
+    "SearchResultItem": {
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "title": "Ref",
+          "type": "string"
+        },
+        "object_type": {
+          "title": "Object Type",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "semantic_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Semantic Type"
+        },
+        "epistemic_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EpistemicType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "validation_state": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ValidationState"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "source_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Ref"
+        },
+        "snippet": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Snippet"
+        }
+      },
+      "required": [
+        "ref",
+        "object_type",
+        "title"
+      ],
+      "title": "SearchResultItem",
+      "type": "object"
+    },
+    "ValidationState": {
+      "enum": [
+        "UNVALIDATED",
+        "VALIDATED",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED"
+      ],
+      "title": "ValidationState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "query": {
+      "title": "Query",
+      "type": "string"
+    },
+    "results": {
+      "items": {
+        "$ref": "#/$defs/SearchResultItem"
+      },
+      "title": "Results",
+      "type": "array"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "title": "SearchResponse",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.search-response.v1"
+}

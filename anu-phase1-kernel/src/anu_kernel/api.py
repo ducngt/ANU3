@@ -31,7 +31,6 @@ from .contracts import (
     AgentAttestationContract,
     IntegrityHashRequest,
 )
-from .db import get_session_factory
 from .errors import DomainValidationError, RepositoryConflict
 from .repository import (
     add_audit,
@@ -56,17 +55,13 @@ from .authn import authenticate_bearer_token
 from .enforcement import enforce_governed_action
 from .trust import integrity_ref, verify_signature_record, verify_agent_attestation
 from .errors import AuthenticationError
+from .api_dependencies import get_session
 
-KERNEL_VERSION = "0.3.0"
-app = FastAPI(title="ANU Phase-1 Kernel", version=KERNEL_VERSION)
+KERNEL_VERSION = "0.4.0"
+app = FastAPI(title="ANU Kernel + Phase-2 Reality/Data/Memory", version=KERNEL_VERSION)
 
-
-def get_session():
-    session = get_session_factory()()
-    try:
-        yield session
-    finally:
-        session.close()
+from .reality_api import router as reality_router
+app.include_router(reality_router)
 
 
 @app.exception_handler(RepositoryConflict)
@@ -116,11 +111,13 @@ def root():
 @app.get("/health")
 def health(session: Session = Depends(get_session)):
     session.execute(text("SELECT 1"))
-    return {"status": "ok", "phase": 1, "kernel_version": KERNEL_VERSION}
+    return {"status": "ok", "phase": 2, "kernel_version": KERNEL_VERSION}
 
 
 def _load_release_status() -> dict:
     candidates = [
+        Path("docs/verification/P2-LATEST.json"),
+        Path(__file__).resolve().parents[2] / "docs" / "verification" / "P2-LATEST.json",
         Path("docs/verification/LATEST.json"),
         Path(__file__).resolve().parents[2] / "docs" / "verification" / "LATEST.json",
     ]
@@ -153,11 +150,11 @@ def human_dashboard():
     )
     limitations = "".join(f"<li>{item}</li>" for item in status.get("known_limitations", [])) or "<li>None recorded</li>"
     return f"""
-    <!doctype html><html><head><meta charset='utf-8'><title>ANU Phase 1 Human Dashboard</title>
+    <!doctype html><html><head><meta charset='utf-8'><title>ANU Human Dashboard</title>
     <style>body{{font-family:system-ui;max-width:920px;margin:40px auto;padding:0 20px;line-height:1.5}}
     table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ddd;padding:10px;text-align:left}}
     .gate{{font-size:1.2rem;padding:12px;background:#f3f4f6;border-radius:8px}}</style></head><body>
-    <h1>ANU Phase 1 — Human Dashboard</h1>
+    <h1>ANU — Human Dashboard</h1>
     <p class='gate'><b>Work:</b> {status.get('work_id','P1-T02')} · <b>Status:</b> {status.get('status')} · <b>Human Gate:</b> {status.get('human_gate')}</p>
     <p>{status.get('summary','Technical work is executed and verified by AI/CI. Human reviews meaning, authority, evidence, outcome and residual risk.')}</p>
     <h2>Verification evidence</h2><table><tr><th>Check</th><th>Result</th></tr>{rows}</table>

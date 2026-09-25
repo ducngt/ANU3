@@ -1,0 +1,163 @@
+{
+  "$defs": {
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contract_id": {
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "data_type": {
+      "title": "Data Type",
+      "type": "string"
+    },
+    "semantic_definition": {
+      "title": "Semantic Definition",
+      "type": "string"
+    },
+    "schema": {
+      "additionalProperties": true,
+      "title": "Schema",
+      "type": "object"
+    },
+    "owner": {
+      "title": "Owner",
+      "type": "string"
+    },
+    "authoritative_source": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Authoritative Source"
+    },
+    "producers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Producers",
+      "type": "array"
+    },
+    "consumers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Consumers",
+      "type": "array"
+    },
+    "freshness_requirement": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Freshness Requirement"
+    },
+    "quality_rules": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Quality Rules",
+      "type": "array"
+    },
+    "provenance_requirement": {
+      "default": "REQUIRED",
+      "title": "Provenance Requirement",
+      "type": "string"
+    },
+    "access_policy": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Access Policy"
+    },
+    "privacy_class": {
+      "default": "INTERNAL",
+      "title": "Privacy Class",
+      "type": "string"
+    },
+    "integrity_requirement": {
+      "default": "HASH",
+      "title": "Integrity Requirement",
+      "type": "string"
+    },
+    "retention_rule": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Retention Rule"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "compatibility_policy": {
+      "default": "BACKWARD_COMPATIBLE_OPTIONAL_ADDITIONS",
+      "title": "Compatibility Policy",
+      "type": "string"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "provenance_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provenance Ref"
+    }
+  },
+  "required": [
+    "contract_id",
+    "data_type",
+    "semantic_definition",
+    "schema",
+    "owner",
+    "version"
+  ],
+  "title": "DataContractContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.data-contract.v1"
+}

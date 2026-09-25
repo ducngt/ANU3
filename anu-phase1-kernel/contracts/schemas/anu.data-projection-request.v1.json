@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "data_id": {
+      "title": "Data Id",
+      "type": "string"
+    },
+    "effective_at": {
+      "format": "date-time",
+      "title": "Effective At",
+      "type": "string"
+    },
+    "recorded_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recorded At"
+    }
+  },
+  "required": [
+    "data_id",
+    "effective_at"
+  ],
+  "title": "DataProjectionRequest",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.data-projection-request.v1"
+}

@@ -1,0 +1,220 @@
+{
+  "checks": {
+    "clean_migration_cycle": "PASS",
+    "automated_tests": "PASS",
+    "aru01_reality_data_memory_pilot": "PASS",
+    "contract_schema_export": "PASS",
+    "postgresql_offline_migration_compile": "PASS",
+    "backup_restore_reference": "PASS"
+  },
+  "details": {
+    "clean_migration_cycle": "upgrade -> downgrade -> upgrade PASS at revision 0003",
+    "automated_tests": "............................................                             [100%]",
+    "aru01_reality_data_memory_pilot": {
+      "scenario": "ARU-01 Phase 2 Reality/Data/Memory Pilot",
+      "synthetic_data_only": true,
+      "checks": {
+        "official_programme_from_authoritative_source": true,
+        "historical_projection_reconstructs_v1": true,
+        "current_projection_is_v2": true,
+        "ai_inference_remains_inference": true,
+        "non_authoritative_ai_fact_is_blocked": true,
+        "provenance_graph_is_complete": true,
+        "university_memory_search_returns_results": true
+      },
+      "pass": true,
+      "historical_projection": {
+        "data_id": "urn:anu:data:programme:software-engineering",
+        "version_id": "urn:anu:data-version:programme:software-engineering:v1",
+        "semantic_type": "urn:anu:semantic:programme-version",
+        "epistemic_type": "FACT",
+        "validation_state": "APPROVED",
+        "payload": {
+          "programme": "Software Engineering",
+          "version": "1.0",
+          "credits": 120
+        },
+        "source_ref": "urn:aru:source:academic-governance",
+        "provenance_ref": "urn:anu:provenance:programme:v1",
+        "effective_period": {
+          "valid_from": "2026-01-01T00:00:00",
+          "valid_until": "2026-09-01T00:00:00"
+        },
+        "recorded_time": "2026-01-02T00:00:00"
+      },
+      "current_projection": {
+        "data_id": "urn:anu:data:programme:software-engineering",
+        "version_id": "urn:anu:data-version:programme:software-engineering:v2",
+        "semantic_type": "urn:anu:semantic:programme-version",
+        "epistemic_type": "FACT",
+        "validation_state": "APPROVED",
+        "payload": {
+          "programme": "Software Engineering",
+          "version": "2.0",
+          "credits": 124
+        },
+        "source_ref": "urn:aru:source:academic-governance",
+        "provenance_ref": "urn:anu:provenance:programme:v2",
+        "effective_period": {
+          "valid_from": "2026-09-01T00:00:00",
+          "valid_until": null
+        },
+        "recorded_time": "2026-09-02T00:00:00"
+      },
+      "provenance_graph": {
+        "root_provenance_ref": "urn:anu:provenance:memory:programme-change",
+        "nodes": [
+          {
+            "provenance_id": "urn:anu:provenance:memory:programme-change",
+            "entity_ref": "urn:anu:memory:programme-change",
+            "actor_ref": "urn:anu:human:aru-data-steward",
+            "source_refs": [
+              "urn:anu:data-version:programme:software-engineering:v2"
+            ],
+            "input_refs": [],
+            "output_refs": [
+              "urn:anu:memory:programme-change"
+            ],
+            "effective_time": "2026-01-01T00:00:00",
+            "recorded_time": "2026-01-01T00:01:00",
+            "integrity_ref": null
+          },
+          {
+            "provenance_id": "urn:anu:provenance:programme:v2",
+            "entity_ref": "urn:anu:data:programme:software-engineering",
+            "actor_ref": "urn:anu:human:aru-data-steward",
+            "source_refs": [
+              "urn:aru:source:academic-governance"
+            ],
+            "input_refs": [],
+            "output_refs": [
+              "urn:anu:data:programme:software-engineering"
+            ],
+            "effective_time": "2026-01-01T00:00:00",
+            "recorded_time": "2026-01-01T00:01:00",
+            "integrity_ref": null
+          },
+          {
+            "provenance_id": "urn:anu:provenance:programme:v1",
+            "entity_ref": "urn:anu:data:programme:software-engineering",
+            "actor_ref": "urn:anu:human:aru-data-steward",
+            "source_refs": [
+              "urn:aru:source:academic-governance"
+            ],
+            "input_refs": [],
+            "output_refs": [
+              "urn:anu:data:programme:software-engineering"
+            ],
+            "effective_time": "2026-01-01T00:00:00",
+            "recorded_time": "2026-01-01T00:01:00",
+            "integrity_ref": null
+          }
+        ],
+        "edges": [
+          {
+            "from": "urn:anu:provenance:memory:programme-change",
+            "to": "urn:anu:provenance:programme:v2",
+            "relation": "DERIVED_FROM"
+          },
+          {
+            "from": "urn:anu:provenance:programme:v2",
+            "to": "urn:anu:provenance:programme:v1",
+            "relation": "DERIVED_FROM"
+          }
+        ],
+        "completeness_status": "COMPLETE",
+        "warnings": []
+      },
+      "search": {
+        "query": "Programme",
+        "results": [
+          {
+            "ref": "urn:anu:data-version:programme:software-engineering:v1",
+            "object_type": "DATA",
+            "title": "urn:anu:data:programme:software-engineering",
+            "semantic_type": "urn:anu:semantic:programme-version",
+            "epistemic_type": "FACT",
+            "validation_state": "APPROVED",
+            "source_ref": "urn:aru:source:academic-governance",
+            "snippet": "{\"programme\": \"Software Engineering\", \"version\": \"1.0\", \"credits\": 120}"
+          },
+          {
+            "ref": "urn:anu:data-version:programme:software-engineering:v2",
+            "object_type": "DATA",
+            "title": "urn:anu:data:programme:software-engineering",
+            "semantic_type": "urn:anu:semantic:programme-version",
+            "epistemic_type": "FACT",
+            "validation_state": "APPROVED",
+            "source_ref": "urn:aru:source:academic-governance",
+            "snippet": "{\"programme\": \"Software Engineering\", \"version\": \"2.0\", \"credits\": 124}"
+          },
+          {
+            "ref": "urn:anu:data-version:enrollment:learner-001:v1",
+            "object_type": "DATA",
+            "title": "urn:anu:data:enrollment:learner-001",
+            "semantic_type": "urn:anu:semantic:official-enrollment",
+            "epistemic_type": "FACT",
+            "validation_state": "APPROVED",
+            "source_ref": "urn:aru:source:registrar",
+            "snippet": "{\"learner_ref\": \"urn:anu:human:learner-001\", \"programme_ref\": \"urn:anu:data:programme:software-engineering\", \"status\": \"ENROLLED\"}"
+          },
+          {
+            "ref": "urn:anu:knowledge:programme-guide@2.0.0",
+            "object_type": "KNOWLEDGE",
+            "title": "ARU Software Engineering Programme Guide",
+            "semantic_type": "urn:anu:semantic:programme-guide",
+            "epistemic_type": "CLAIM",
+            "validation_state": "VALIDATED",
+            "source_ref": null,
+            "snippet": "urn:anu:artifact:programme-guide@2.0.0"
+          },
+          {
+            "ref": "urn:anu:memory:programme-change",
+            "object_type": "MEMORY_INDEX",
+            "title": "Programme version 2.0 became effective on 2026-09-01; memory index preserves the source record and provenance chain.",
+            "semantic_type": null,
+            "epistemic_type": null,
+            "validation_state": null,
+            "source_ref": "urn:anu:data-version:programme:software-engineering:v2",
+            "snippet": "Programme version 2.0 became effective on 2026-09-01; memory index preserves the source record and provenance chain."
+          }
+        ]
+      }
+    },
+    "contract_schema_export": "exported 39 schemas to /mnt/data/anu_phase2_work/anu-phase1-kernel/contracts/schemas",
+    "postgresql_offline_migration_compile": "SON NOT NULL, \n    supersedes_ref VARCHAR(255), \n    synthetic_output BOOLEAN DEFAULT false NOT NULL, \n    PRIMARY KEY (version_id)\n);\n\nCREATE INDEX ix_data_object_version_data_id ON data_object_version (data_id);\n\nCREATE INDEX ix_data_object_version_contract_ref ON data_object_version (contract_ref);\n\nCREATE INDEX ix_data_object_version_semantic_type ON data_object_version (semantic_type);\n\nCREATE INDEX ix_data_object_version_source_system_id ON data_object_version (source_system_id);\n\nCREATE INDEX ix_data_object_version_owner_ref ON data_object_version (owner_ref);\n\nCREATE INDEX ix_data_object_version_context_ref ON data_object_version (context_ref);\n\nCREATE INDEX ix_data_object_version_effective_from ON data_object_version (effective_from);\n\nCREATE INDEX ix_data_object_version_effective_to ON data_object_version (effective_to);\n\nCREATE INDEX ix_data_object_version_recorded_time ON data_object_version (recorded_time);\n\nCREATE INDEX ix_data_object_version_epistemic_type ON data_object_version (epistemic_type);\n\nCREATE INDEX ix_data_object_version_validation_state ON data_object_version (validation_state);\n\nCREATE INDEX ix_data_object_version_provenance_ref ON data_object_version (provenance_ref);\n\nCREATE INDEX ix_data_object_version_lifecycle_state ON data_object_version (lifecycle_state);\n\nCREATE INDEX ix_data_object_version_supersedes_ref ON data_object_version (supersedes_ref);\n\nCREATE TABLE knowledge_object_version (\n    row_id SERIAL NOT NULL, \n    knowledge_id VARCHAR(255) NOT NULL, \n    title VARCHAR(512) NOT NULL, \n    semantic_type VARCHAR(255) NOT NULL, \n    epistemic_type VARCHAR(32) NOT NULL, \n    validation_state VARCHAR(32) NOT NULL, \n    source_refs JSON NOT NULL, \n    author_owner VARCHAR(255) NOT NULL, \n    context_ref VARCHAR(255), \n    relations JSON NOT NULL, \n    effective_from TIMESTAMP WITH TIME ZONE NOT NULL, \n    effective_to TIMESTAMP WITH TIME ZONE, \n    version VARCHAR(64) NOT NULL, \n    permissions JSON NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    lifecycle_state VARCHAR(32) NOT NULL, \n    content_refs JSON NOT NULL, \n    recorded_time TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_knowledge_id_version UNIQUE (knowledge_id, version)\n);\n\nCREATE INDEX ix_knowledge_object_version_knowledge_id ON knowledge_object_version (knowledge_id);\n\nCREATE INDEX ix_knowledge_object_version_semantic_type ON knowledge_object_version (semantic_type);\n\nCREATE INDEX ix_knowledge_object_version_epistemic_type ON knowledge_object_version (epistemic_type);\n\nCREATE INDEX ix_knowledge_object_version_validation_state ON knowledge_object_version (validation_state);\n\nCREATE INDEX ix_knowledge_object_version_author_owner ON knowledge_object_version (author_owner);\n\nCREATE INDEX ix_knowledge_object_version_context_ref ON knowledge_object_version (context_ref);\n\nCREATE INDEX ix_knowledge_object_version_effective_from ON knowledge_object_version (effective_from);\n\nCREATE INDEX ix_knowledge_object_version_effective_to ON knowledge_object_version (effective_to);\n\nCREATE INDEX ix_knowledge_object_version_version ON knowledge_object_version (version);\n\nCREATE INDEX ix_knowledge_object_version_provenance_ref ON knowledge_object_version (provenance_ref);\n\nCREATE INDEX ix_knowledge_object_version_lifecycle_state ON knowledge_object_version (lifecycle_state);\n\nCREATE INDEX ix_knowledge_object_version_recorded_time ON knowledge_object_version (recorded_time);\n\nCREATE TABLE ingested_artifact (\n    artifact_id VARCHAR(255) NOT NULL, \n    content_ref VARCHAR(1024) NOT NULL, \n    media_type VARCHAR(128) NOT NULL, \n    source_ref VARCHAR(255) NOT NULL, \n    owner_ref VARCHAR(255) NOT NULL, \n    context_ref VARCHAR(255), \n    observed_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    recorded_time TIMESTAMP WITH TIME ZONE NOT NULL, \n    integrity_ref VARCHAR(255) NOT NULL, \n    metadata JSON NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    lifecycle_state VARCHAR(32) NOT NULL, \n    PRIMARY KEY (artifact_id)\n);\n\nCREATE INDEX ix_ingested_artifact_media_type ON ingested_artifact (media_type);\n\nCREATE INDEX ix_ingested_artifact_source_ref ON ingested_artifact (source_ref);\n\nCREATE INDEX ix_ingested_artifact_owner_ref ON ingested_artifact (owner_ref);\n\nCREATE INDEX ix_ingested_artifact_context_ref ON ingested_artifact (context_ref);\n\nCREATE INDEX ix_ingested_artifact_observed_at ON ingested_artifact (observed_at);\n\nCREATE INDEX ix_ingested_artifact_recorded_time ON ingested_artifact (recorded_time);\n\nCREATE INDEX ix_ingested_artifact_provenance_ref ON ingested_artifact (provenance_ref);\n\nCREATE INDEX ix_ingested_artifact_lifecycle_state ON ingested_artifact (lifecycle_state);\n\nCREATE TABLE university_memory_record (\n    memory_id VARCHAR(255) NOT NULL, \n    memory_type VARCHAR(64) NOT NULL, \n    subject_ref VARCHAR(255) NOT NULL, \n    source_ref VARCHAR(255) NOT NULL, \n    summary TEXT NOT NULL, \n    effective_time TIMESTAMP WITH TIME ZONE NOT NULL, \n    recorded_time TIMESTAMP WITH TIME ZONE NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    integrity_ref VARCHAR(255), \n    tags JSON NOT NULL, \n    lifecycle_state VARCHAR(32) NOT NULL, \n    PRIMARY KEY (memory_id)\n);\n\nCREATE INDEX ix_university_memory_record_memory_type ON university_memory_record (memory_type);\n\nCREATE INDEX ix_university_memory_record_subject_ref ON university_memory_record (subject_ref);\n\nCREATE INDEX ix_university_memory_record_source_ref ON university_memory_record (source_ref);\n\nCREATE INDEX ix_university_memory_record_effective_time ON university_memory_record (effective_time);\n\nCREATE INDEX ix_university_memory_record_recorded_time ON university_memory_record (recorded_time);\n\nCREATE INDEX ix_university_memory_record_provenance_ref ON university_memory_record (provenance_ref);\n\nCREATE INDEX ix_university_memory_record_lifecycle_state ON university_memory_record (lifecycle_state);\n\nUPDATE alembic_version SET version_num='0003' WHERE alembic_version.version_num = '0002';\n\nCOMMIT;\n\nINFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Generating static SQL\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\nINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Phase 1 Kernel baseline\nINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Phase 1 trust/authentication hardening\nINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Phase 2 Reality/Data/Memory foundation",
+    "backup_restore_reference": {
+      "backup": {
+        "backend": "sqlite",
+        "backup_path": "/tmp/anu-p2-t01-ylesq967/p2-backup.db",
+        "status": "PASS"
+      },
+      "restore": {
+        "backend": "sqlite",
+        "restored_database": "/tmp/anu-p2-t01-ylesq967/p2-restored.db",
+        "status": "PASS"
+      },
+      "data_versions_after_restore": 4,
+      "memory_records_after_restore": 1,
+      "historical_projection_after_restore": {
+        "data_id": "urn:anu:data:programme:software-engineering",
+        "version_id": "urn:anu:data-version:programme:software-engineering:v1",
+        "semantic_type": "urn:anu:semantic:programme-version",
+        "epistemic_type": "FACT",
+        "validation_state": "APPROVED",
+        "payload": {
+          "programme": "Software Engineering",
+          "version": "1.0",
+          "credits": 120
+        },
+        "source_ref": "urn:aru:source:academic-governance",
+        "provenance_ref": "urn:anu:provenance:programme:v1",
+        "effective_period": {
+          "valid_from": "2026-01-01T00:00:00",
+          "valid_until": "2026-09-01T00:00:00"
+        },
+        "recorded_time": "2026-01-02T00:00:00"
+      }
+    }
+  }
+}

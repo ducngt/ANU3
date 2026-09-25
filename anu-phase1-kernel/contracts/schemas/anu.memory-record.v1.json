@@ -1,0 +1,100 @@
+{
+  "$defs": {
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "memory_id": {
+      "title": "Memory Id",
+      "type": "string"
+    },
+    "memory_type": {
+      "enum": [
+        "DECISION",
+        "ACTION",
+        "OUTCOME",
+        "FAILURE",
+        "CHANGE",
+        "CAPABILITY",
+        "KNOWLEDGE"
+      ],
+      "title": "Memory Type",
+      "type": "string"
+    },
+    "subject_ref": {
+      "title": "Subject Ref",
+      "type": "string"
+    },
+    "source_ref": {
+      "title": "Source Ref",
+      "type": "string"
+    },
+    "summary": {
+      "title": "Summary",
+      "type": "string"
+    },
+    "effective_time": {
+      "format": "date-time",
+      "title": "Effective Time",
+      "type": "string"
+    },
+    "recorded_time": {
+      "format": "date-time",
+      "title": "Recorded Time",
+      "type": "string"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    },
+    "integrity_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Integrity Ref"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    }
+  },
+  "required": [
+    "memory_id",
+    "memory_type",
+    "subject_ref",
+    "source_ref",
+    "summary",
+    "effective_time",
+    "recorded_time",
+    "provenance_ref"
+  ],
+  "title": "MemoryRecordContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.memory-record.v1"
+}

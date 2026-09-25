@@ -1,0 +1,169 @@
+{
+  "$defs": {
+    "EffectivePeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Until"
+        }
+      },
+      "required": [
+        "valid_from"
+      ],
+      "title": "EffectivePeriod",
+      "type": "object"
+    },
+    "EpistemicType": {
+      "enum": [
+        "FACT",
+        "EVIDENCE",
+        "CLAIM",
+        "INFERENCE",
+        "PREDICTION",
+        "RECOMMENDATION",
+        "DECISION"
+      ],
+      "title": "EpistemicType",
+      "type": "string"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "ValidationState": {
+      "enum": [
+        "UNVALIDATED",
+        "VALIDATED",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED"
+      ],
+      "title": "ValidationState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "knowledge_id": {
+      "title": "Knowledge Id",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "semantic_type": {
+      "title": "Semantic Type",
+      "type": "string"
+    },
+    "epistemic_type": {
+      "$ref": "#/$defs/EpistemicType"
+    },
+    "validation_state": {
+      "$ref": "#/$defs/ValidationState"
+    },
+    "source_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Refs",
+      "type": "array"
+    },
+    "author_owner": {
+      "title": "Author Owner",
+      "type": "string"
+    },
+    "context_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Context Ref"
+    },
+    "relations": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Relations",
+      "type": "array"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/EffectivePeriod"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "permissions": {
+      "additionalProperties": true,
+      "title": "Permissions",
+      "type": "object"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    },
+    "content_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Content Refs",
+      "type": "array"
+    },
+    "recorded_time": {
+      "format": "date-time",
+      "title": "Recorded Time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "knowledge_id",
+    "title",
+    "semantic_type",
+    "epistemic_type",
+    "validation_state",
+    "author_owner",
+    "effective_period",
+    "version",
+    "provenance_ref",
+    "recorded_time"
+  ],
+  "title": "KnowledgeObjectContract",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.knowledge-object.v1"
+}
