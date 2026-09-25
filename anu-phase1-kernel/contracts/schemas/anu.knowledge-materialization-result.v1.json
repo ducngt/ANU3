@@ -1,0 +1,64 @@
+{
+  "$defs": {
+    "EpistemicType": {
+      "enum": [
+        "FACT",
+        "EVIDENCE",
+        "CLAIM",
+        "INFERENCE",
+        "PREDICTION",
+        "RECOMMENDATION",
+        "DECISION"
+      ],
+      "title": "EpistemicType",
+      "type": "string"
+    },
+    "ValidationState": {
+      "enum": [
+        "UNVALIDATED",
+        "VALIDATED",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED"
+      ],
+      "title": "ValidationState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "knowledge_ref": {
+      "title": "Knowledge Ref",
+      "type": "string"
+    },
+    "artifact_version_ref": {
+      "title": "Artifact Version Ref",
+      "type": "string"
+    },
+    "epistemic_type": {
+      "$ref": "#/$defs/EpistemicType"
+    },
+    "validation_state": {
+      "$ref": "#/$defs/ValidationState"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    },
+    "indexed": {
+      "default": true,
+      "title": "Indexed",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "knowledge_ref",
+    "artifact_version_ref",
+    "epistemic_type",
+    "validation_state",
+    "provenance_ref"
+  ],
+  "title": "KnowledgeMaterializationResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.knowledge-materialization-result.v1"
+}

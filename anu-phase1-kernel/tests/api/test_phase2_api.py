@@ -26,7 +26,7 @@ def test_health_reports_phase_2():
     response = client.get("/health")
     assert response.status_code == 200
     assert response.json()["phase"] == 2
-    assert response.json()["kernel_version"] == "0.4.0"
+    assert response.json()["kernel_version"] == "0.5.0"
 
 
 def test_phase2_source_registry_endpoint_is_exposed():

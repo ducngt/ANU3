@@ -1,0 +1,111 @@
+{
+  "$defs": {
+    "EpistemicType": {
+      "enum": [
+        "FACT",
+        "EVIDENCE",
+        "CLAIM",
+        "INFERENCE",
+        "PREDICTION",
+        "RECOMMENDATION",
+        "DECISION"
+      ],
+      "title": "EpistemicType",
+      "type": "string"
+    },
+    "RetrievalFilter": {
+      "additionalProperties": false,
+      "properties": {
+        "object_kinds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Object Kinds",
+          "type": "array"
+        },
+        "semantic_types": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Semantic Types",
+          "type": "array"
+        },
+        "epistemic_types": {
+          "items": {
+            "$ref": "#/$defs/EpistemicType"
+          },
+          "title": "Epistemic Types",
+          "type": "array"
+        },
+        "validation_states": {
+          "items": {
+            "$ref": "#/$defs/ValidationState"
+          },
+          "title": "Validation States",
+          "type": "array"
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        }
+      },
+      "title": "RetrievalFilter",
+      "type": "object"
+    },
+    "RetrievalMode": {
+      "enum": [
+        "LEXICAL",
+        "VECTOR",
+        "HYBRID"
+      ],
+      "title": "RetrievalMode",
+      "type": "string"
+    },
+    "ValidationState": {
+      "enum": [
+        "UNVALIDATED",
+        "VALIDATED",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED"
+      ],
+      "title": "ValidationState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "query": {
+      "title": "Query",
+      "type": "string"
+    },
+    "mode": {
+      "$ref": "#/$defs/RetrievalMode",
+      "default": "HYBRID"
+    },
+    "filters": {
+      "$ref": "#/$defs/RetrievalFilter"
+    },
+    "limit": {
+      "default": 20,
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Limit",
+      "type": "integer"
+    },
+    "include_provenance": {
+      "default": true,
+      "title": "Include Provenance",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "title": "RetrievalQuery",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.retrieval-query.v1"
+}

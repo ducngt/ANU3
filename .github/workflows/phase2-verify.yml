@@ -1,4 +1,4 @@
-name: ANU Phase 2 Verification
+name: ANU P2-T02 + P3 Contract Foundation Verification
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: anu-phase2-${{ github.ref }}
+  group: anu-p2t02-p3-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   build-test:
-    name: Phase 2 contracts, migration and conformance
+    name: P2-T02/P3 contracts, migration, replay and conformance
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,20 +34,20 @@ jobs:
       - name: Install verification dependencies
         shell: bash
         run: cd "$ANU_PROJECT_DIR" && python -m pip install -e '.[test]'
-      - name: Run Phase 2 verification suite
+      - name: Run complete local verifier
         shell: bash
-        run: cd "$ANU_PROJECT_DIR" && python scripts/verify_phase2.py
-      - name: Upload local Phase 2 evidence
+        run: cd "$ANU_PROJECT_DIR" && python scripts/verify_p2t02_p3.py
+      - name: Upload local evidence
         uses: actions/upload-artifact@v4
         with:
-          name: phase2-local-verification-evidence
+          name: p2t02-p3-local-verification-evidence
           path: |
-            ${{ env.ANU_PROJECT_DIR }}/docs/verification/P2-LATEST.json
-            ${{ env.ANU_PROJECT_DIR }}/docs/verification/TECHNICAL-DETAILS-P2-T01.json
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/P2T02-P3-LATEST.json
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/TECHNICAL-DETAILS-P2T02-P3.json
           if-no-files-found: error
 
   postgres-live:
-    name: PostgreSQL 16 Phase 2 live replay and recovery
+    name: PostgreSQL 16 multimodal/recovery proof
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -55,17 +55,17 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: anu_p2
+          POSTGRES_DB: anu_p2t02
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U postgres -d anu_p2"
+          --health-cmd "pg_isready -U postgres -d anu_p2t02"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 10
     env:
-      ANU_DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/anu_p2
-      ANU_POSTGRES_RESTORE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/anu_p2_restore
+      ANU_DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/anu_p2t02
+      ANU_POSTGRES_RESTORE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/anu_p2t02_restore
       PGPASSWORD: postgres
     steps:
       - uses: actions/checkout@v4
@@ -90,30 +90,36 @@ jobs:
       - name: Install PostgreSQL client tools
         shell: bash
         run: sudo apt-get update && sudo apt-get install -y postgresql-client
-      - name: Clean live migration to Phase 2 head
+      - name: Clean live migration to revision 0004
         shell: bash
         run: cd "$ANU_PROJECT_DIR" && alembic upgrade head
+      - name: Assert live Alembic head
+        shell: bash
+        run: cd "$ANU_PROJECT_DIR" && test "$(alembic current | awk '{print $1}')" = "0004"
       - name: Create isolated restore database
         shell: bash
-        run: createdb -h localhost -U postgres anu_p2_restore
-      - name: Run ARU-01 Phase 2 pilot and backup/restore proof
+        run: createdb -h localhost -U postgres anu_p2t02_restore
+      - name: Run live ARU-01 multimodal pilot and DB/object-store recovery
         shell: bash
         run: |
           cd "$ANU_PROJECT_DIR"
-          python scripts/postgres_phase2_live_verify.py \
+          rm -rf /tmp/anu-p2t02-objects /tmp/anu-p2t02-restored-objects
+          python scripts/postgres_p2t02_p3_live_verify.py \
             --database-url "$ANU_DATABASE_URL" \
             --restore-url "$ANU_POSTGRES_RESTORE_URL" \
-            --backup /tmp/anu-p2-postgres.dump \
-            --output docs/verification/POSTGRES-P2-LIVE.json
-      - name: Upload PostgreSQL Phase 2 evidence
+            --backup /tmp/anu-p2t02-postgres.dump \
+            --object-store /tmp/anu-p2t02-objects \
+            --restored-object-store /tmp/anu-p2t02-restored-objects \
+            --output docs/verification/POSTGRES-P2T02-P3-LIVE.json
+      - name: Upload PostgreSQL live evidence
         uses: actions/upload-artifact@v4
         with:
-          name: phase2-postgresql-live-evidence
-          path: ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P2-LIVE.json
+          name: p2t02-p3-postgresql-live-evidence
+          path: ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P2T02-P3-LIVE.json
           if-no-files-found: error
 
   independent-verify:
-    name: Independent Phase 2 evidence qualification
+    name: Independent P2-T02/P3 evidence qualification
     needs: [build-test, postgres-live]
     runs-on: ubuntu-latest
     steps:
@@ -136,40 +142,41 @@ jobs:
       - name: Install independent verifier dependencies
         shell: bash
         run: cd "$ANU_PROJECT_DIR" && python -m pip install -e '.[test]'
-      - name: Download PostgreSQL Phase 2 evidence
+      - name: Download live PostgreSQL evidence
         uses: actions/download-artifact@v4
         with:
-          name: phase2-postgresql-live-evidence
+          name: p2t02-p3-postgresql-live-evidence
           path: ${{ env.ANU_PROJECT_DIR }}/docs/verification/
-      - name: Run independent Phase 2 boundary tests
+      - name: Run independent architecture/trust boundary tests
         shell: bash
-        run: cd "$ANU_PROJECT_DIR" && python -m pytest tests/independent/test_phase2_boundaries.py -q
-      - name: Independently qualify PostgreSQL Phase 2 evidence
+        run: cd "$ANU_PROJECT_DIR" && python -m pytest tests/independent/test_p2t02_p3_boundaries.py -q
+      - name: Independently qualify PostgreSQL evidence
         shell: bash
         run: |
           cd "$ANU_PROJECT_DIR"
-          python scripts/verify_phase2_postgres_evidence.py \
-            --input docs/verification/POSTGRES-P2-LIVE.json \
-            --output docs/verification/POSTGRES-P2-LIVE-QUALIFIED.json
-      - name: Publish Human-readable Phase 2 CI summary
+          python scripts/verify_p2t02_p3_postgres_evidence.py \
+            --input docs/verification/POSTGRES-P2T02-P3-LIVE.json \
+            --output docs/verification/POSTGRES-P2T02-P3-LIVE-QUALIFIED.json
+      - name: Publish Human-readable CI summary
         shell: bash
         run: |
-          echo "## ANU Phase 2 CI Evidence" >> "$GITHUB_STEP_SUMMARY"
+          echo "## ANU P2-T02 + P3 Contract Foundation Evidence" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Phase 2 contracts/migration/conformance: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- PostgreSQL 16 live migration to revision 0003: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- ARU-01 Reality/Data/Memory pilot on PostgreSQL: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Source authority fail-closed behavior: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Historical programme projection replay: PASS" >> "$GITHUB_STEP_SUMMARY"
-          echo "- PostgreSQL backup/restore and University Memory recovery: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Revision 0004 clean migration on PostgreSQL 16: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Multimodal PDF/DOCX/image/audio/video artifact ingestion: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Artifact integrity and provenance chain: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Knowledge materialization preserves epistemic type: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- University Memory + retrieval with source/provenance: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Capability Registry + Smart Box discovery/provider replaceability: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- PostgreSQL + object-store recovery: PASS" >> "$GITHUB_STEP_SUMMARY"
           echo "- Independent evidence qualification: PASS" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "Technical evidence is complete for Phase 2 G3 preparation. Human acceptance remains a separate decision." >> "$GITHUB_STEP_SUMMARY"
-      - name: Upload qualified Phase 2 evidence
+          echo "Technical evidence is complete. Human G3 remains a separate outcome/responsibility decision." >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload qualified release evidence
         uses: actions/upload-artifact@v4
         with:
-          name: phase2-qualified-release-evidence
+          name: p2t02-p3-qualified-release-evidence
           path: |
-            ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P2-LIVE.json
-            ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P2-LIVE-QUALIFIED.json
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P2T02-P3-LIVE.json
+            ${{ env.ANU_PROJECT_DIR }}/docs/verification/POSTGRES-P2T02-P3-LIVE-QUALIFIED.json
           if-no-files-found: error

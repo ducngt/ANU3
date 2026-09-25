@@ -1,8 +1,10 @@
-# ANU Executable Architecture — Phase 2 Tranche 01
+# ANU Executable Architecture — P2-T02 + P3-00/P3-01
 
-## Baseline
+## Baselines
 
-Phase 1 Tranche 03 is the accepted Constitutional Kernel baseline. Phase 2 extends it additively; it does not redefine Identity, Authority, Policy, Provenance, Trust, Event or Lifecycle primitives.
+- Phase 1 Tranche 03: Human G3 accepted; G4 pilot-institutionalized.
+- Phase 2 Tranche 01: Human G3 accepted.
+- P2-T02 and P3-00/P3-01 are additive, versioned extensions. They do not redefine Identity, Authority, Policy, Provenance, Trust, Event, Lifecycle, Data Contract or Epistemic primitives.
 
 ```text
 Human purpose / meaning / authority / acceptance
@@ -14,62 +16,94 @@ Human purpose / meaning / authority / acceptance
                     |
                     v
           Reality / Data / Memory Fabric
-   +----------------+------------------------+
-   |                |                        |
-Source Registry  Data Contracts        Knowledge Objects
-   |                |                        |
-Authority Map -> Data Envelope versions      |
-                    |                        |
-             Temporal Projection             |
-                    +-----------+------------+
-                                |
-                         Provenance Graph
-                                |
-                      University Memory Index
-                                |
-                         Search / Retrieval
+ Source Registry -> Authority Mapping -> Data/Artifact versions
+                    |                         |
+                    |                 Content-addressed
+                    |                  Object Store Adapter
+                    |                         |
+                    +------> Extraction/Metadata
+                                      |
+                              Knowledge Object
+                                      |
+                         University Memory Index
+                                      |
+                      Lexical + Vector Retrieval
+                                      |
+                    source + provenance returned
+                    |
+                    v
+       Capability Contract Foundation (P3)
+ Capability Registry -> Smart Box Manifest -> Discovery
+                    |
+         NO execution/authority promotion yet
 ```
 
-`LAYER != HOP`: the boundaries above are logical ownership/contract boundaries and remain deployable as a modular monolith in the reference implementation.
+`LAYER != HOP`: these are logical responsibility and contract boundaries. The reference deployment remains a modular monolith.
 
-## Source authority
+## Source authority and epistemic governance
 
-A storage system does not become authoritative merely because it contains data. Source Authority Mapping binds a registered source to a semantic type and bounded authority scope.
+`SOURCE AUTHORITY != STORAGE LOCATION` and `MEMORY != SOURCE OF TRUTH` remain mandatory. Official-like state (`FACT`, `EVIDENCE`, `DECISION`) fails closed without a matching active/effective source-authority mapping. Source lifecycle/effective time is checked at ingestion time.
 
-Official-like state (`FACT`, `EVIDENCE`, `DECISION`) fails closed unless a matching authoritative source mapping exists. AI inference stores may hold `INFERENCE`, `PREDICTION` and `RECOMMENDATION` without acquiring authority over official records.
+Epistemic Type and Validation State remain independent. Ingestion/extraction never promotes a file into Fact/Decision. Artifact versions cannot mutate epistemic type in place; a governed transition must create a distinct derived object and preserve provenance.
 
-## Epistemic governance
+## P2-T02 multimodal ingestion
 
-Epistemic Type and Validation State are independent axes. Validation does not change what kind of knowledge an object is.
+The ingestion boundary accepts real bytes for PDF, DOCX, image, audio, video and text artifacts. Bytes are written through a content-addressed Object Store Adapter using SHA-256. The institutional reference is stable (`urn:anu:object:sha256:<digest>`) and the provider-specific filesystem path is hidden behind the adapter.
 
-The reference implementation forbids in-place epistemic mutation for a Data Object. A governed transition from inference/claim to official state must create a distinct object linked by provenance. This makes the transition explicit and replayable.
+Deterministic analyzers:
 
-## Data Contract and Envelope
+- PDF: text/page extraction through a PDF adapter;
+- DOCX: paragraphs/tables through a DOCX adapter;
+- image: governed artifact + image metadata;
+- WAV/audio: governed artifact + media metadata;
+- video/audio: governed artifact + ffprobe metadata where available;
+- text: UTF-8 extraction.
 
-The Data Contract follows the URA contract shape: identity/version, semantic definition, schema, owner, authoritative source, producers/consumers, freshness, quality, provenance, access/privacy, integrity, retention and compatibility policy.
+Extraction failure does not delete the artifact. The immutable artifact remains recorded with `FAILED` extraction status and integrity/provenance.
 
-The Data Envelope carries global identity, contract/schema version, source record and authority scope, owner/context, bitemporal metadata, epistemic/validation state, provenance/integrity, policy references, lifecycle and payload.
+OCR, speech transcription and video semantic analysis are deliberately provider adapters for later versioned upgrades; they are not hidden inside the Core.
 
-## Temporal projection
+## Artifact -> Knowledge -> Memory provenance
 
-Consequential state is stored as append-only versions. Projection is reconstructed by effective time and optionally by recorded time. The ARU-01 pilot proves that Programme v1 can still be reconstructed after v2 becomes current.
+Materializing Knowledge from an ingested artifact creates a new Knowledge Object with its own provenance record derived from the artifact provenance. The artifact's epistemic type and validation state are preserved by deterministic extraction. University Memory records point back to artifact/knowledge sources and provenance; Memory remains an index/history fabric, not the authoritative source.
 
-## Provenance and University Memory
+## Retrieval
 
-Phase 2 reuses the Phase 1 Provenance Record rather than creating a competing lineage system. Graph traversal follows `previous_provenance_refs`.
+P2-T02 introduces a provider-neutral retrieval projection. The reference provider combines lexical overlap and a deterministic hashing-vector baseline. Every returned hit carries source references, provenance reference and content hash where applicable.
 
-University Memory is an institutional index over decisions/actions/outcomes/failures/changes/capabilities/knowledge. Every memory record retains `source_ref` and `provenance_ref`; Memory does not replace the authoritative source.
+The hashing vector is a replaceable reference implementation, not an institutional source of truth and not a production model commitment.
 
-## Ingestion and retrieval
+## P3-00/P3-01 Capability contract foundation
 
-The tranche registers object/document metadata, media type, source, owner, integrity reference and provenance. Binary object storage remains behind future provider adapters.
+P3 opens only the contract/catalog surface:
 
-Search/retrieval is intentionally a portable lexical baseline across Data, Knowledge and Memory. Production search/vector providers are replaceable implementation concerns, not semantic authorities.
+- versioned Capability Contract;
+- Capability Registry;
+- versioned Smart Box Manifest;
+- operation-to-handler binding metadata;
+- discovery by operation, domain and semantic inputs/outputs;
+- multiple provider manifests can satisfy the same capability contract.
+
+`CAPABILITY != AUTHORITY` is enforced structurally: Capability/Smart Box contracts do not confer or embed institutional Authority. A Box can only declare implementation bindings, dependencies, data classes, policy references, quality SLO and observability metadata.
+
+Connection Planner, Smart Wire execution, Assembly runtime and Write Box Studio are intentionally outside this tranche.
+
+## Recovery model
+
+Database state and content-addressed object storage are recovered as separate logical stores. Verification requires both:
+
+1. database migration/backup/restore;
+2. object-store copy/restore;
+3. post-restore artifact integrity verification;
+4. retrieval with provenance after restore;
+5. Capability/Box discovery after restore.
 
 ## Migration and compatibility
 
-Alembic revision `0003` adds only Phase 2 tables. Phase 1 contracts/APIs remain available. Downgrade removes Phase 2 tables and returns to the accepted revision `0002` without rewriting Phase 1 history.
+Alembic revision `0004` adds artifact versions, retrieval projections, Capability Registry and Smart Box Manifest Registry. Revision `0003` remains the accepted P2-T01 baseline. Downgrade returns to `0003` without rewriting prior institutional history.
 
 ## Human-directed delivery boundary
 
-ARU-01 synthetic data scope and Source Authority/Epistemic guardrails were approved at G0/G1/G2. AI/CI owns implementation and verification. Human G3 is requested only after live PostgreSQL evidence clears the remaining technical gate.
+Human-approved ARU-01 synthetic-data scope and P2 Source Authority/Epistemic G2 guardrails remain unchanged. P2-T02 uses only synthetic fixtures and therefore does not open a new privacy G2. Real SIS/LMS/HR or personal data remains a separate Human G2 decision.
+
+AI/CI owns implementation, migration, tests, replay/recovery and conformance. Human G3 is opened only after the live PostgreSQL CI evidence for revision `0004` has been independently qualified.

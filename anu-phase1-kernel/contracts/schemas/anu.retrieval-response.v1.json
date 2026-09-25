@@ -1,0 +1,182 @@
+{
+  "$defs": {
+    "EpistemicType": {
+      "enum": [
+        "FACT",
+        "EVIDENCE",
+        "CLAIM",
+        "INFERENCE",
+        "PREDICTION",
+        "RECOMMENDATION",
+        "DECISION"
+      ],
+      "title": "EpistemicType",
+      "type": "string"
+    },
+    "RetrievalHit": {
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "title": "Ref",
+          "type": "string"
+        },
+        "object_kind": {
+          "title": "Object Kind",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "semantic_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Semantic Type"
+        },
+        "epistemic_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EpistemicType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "validation_state": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ValidationState"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "source_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "provenance_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Provenance Ref"
+        },
+        "content_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "lexical_score": {
+          "title": "Lexical Score",
+          "type": "number"
+        },
+        "vector_score": {
+          "title": "Vector Score",
+          "type": "number"
+        },
+        "snippet": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Snippet"
+        }
+      },
+      "required": [
+        "ref",
+        "object_kind",
+        "title",
+        "score",
+        "lexical_score",
+        "vector_score"
+      ],
+      "title": "RetrievalHit",
+      "type": "object"
+    },
+    "RetrievalMode": {
+      "enum": [
+        "LEXICAL",
+        "VECTOR",
+        "HYBRID"
+      ],
+      "title": "RetrievalMode",
+      "type": "string"
+    },
+    "ValidationState": {
+      "enum": [
+        "UNVALIDATED",
+        "VALIDATED",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED"
+      ],
+      "title": "ValidationState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "query": {
+      "title": "Query",
+      "type": "string"
+    },
+    "mode": {
+      "$ref": "#/$defs/RetrievalMode"
+    },
+    "hits": {
+      "items": {
+        "$ref": "#/$defs/RetrievalHit"
+      },
+      "title": "Hits",
+      "type": "array"
+    },
+    "index_version": {
+      "default": "anu-hash-vector-v1",
+      "title": "Index Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "query",
+    "mode"
+  ],
+  "title": "RetrievalResponse",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.retrieval-response.v1"
+}

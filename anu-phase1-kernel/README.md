@@ -1,4 +1,4 @@
-# ANU Kernel + Phase 2 Reality/Data/Memory
+# ANU Kernel + P2 Multimodal Memory + P3 Capability Contract Foundation
 
 Executable reference implementation under ANU-URA-1.0 and ANU-HB-1.2.
 
@@ -6,60 +6,62 @@ Executable reference implementation under ANU-URA-1.0 and ANU-HB-1.2.
 
 Human owns purpose, meaning, institutional authority, standards, responsibility and acceptance. AI/CI owns repository discovery, architecture, contracts, implementation, migration, tests, conformance, technical verification and evidence preparation.
 
-Human does **not** need to operate Swagger, Alembic or pytest by default. The Human-facing runtime entry point is `/human`; `/docs` remains a technical surface for AI/engineering verification.
+Human does **not** need to operate Swagger, Alembic, pytest or PostgreSQL by default. `/human` is the Human-facing status surface; `/docs` remains a technical surface.
 
-## Accepted Phase 1 baseline
+## Accepted baselines
 
-Phase 1 Tranche 03 is Human G3 accepted and G4 institutionalized for **pilot/reference use**. Future changes are versioned upgrades and must preserve its historical evidence.
+- Phase 1 Tranche 03: G3 accepted, G4 pilot-institutionalized.
+- Phase 2 Tranche 01: G3 accepted.
 
-The accepted Kernel provides Identity, Semantics, Role/Competence, Authority/Delegation, Policy, Provenance/Audit, Lifecycle, Event/Decision contracts, historical replay, AuthN/PEP separation, Trust Registry, Human Signature and Agent Attestation primitives.
+## P2-T02 scope
 
-## Phase 2 Tranche 01 scope
+- real-byte ingestion for PDF, DOCX, image, audio, video and text;
+- content-addressed immutable Object Store Adapter with SHA-256 integrity;
+- source lifecycle/effective-time checks and fail-closed source authority;
+- deterministic PDF/DOCX extraction and media metadata adapters;
+- extraction failure retention rather than destructive discard;
+- Artifact -> Knowledge provenance chain with epistemic type preserved;
+- University Memory projection with source/provenance linkage;
+- lexical + provider-neutral hashing-vector retrieval baseline;
+- retrieval results include source refs, provenance refs and content hash;
+- database + object-store recovery proof.
 
-Phase 2 implements the Reality/Data/Memory foundation with Human-approved ARU-01 synthetic institutional data:
+## P3-00/P3-01 scope
 
-- Source Registry;
-- Source Authority Mapping by semantic type and scope;
-- Data Contract;
-- institutional Data Envelope with effective-time + recorded-time history;
-- fail-closed source authority for official-like state;
-- independent Epistemic Type and Validation State;
-- Knowledge Object versioning;
-- metadata-first object/document ingestion with integrity reference;
-- Provenance graph traversal using Phase 1 provenance primitives;
-- University Memory index that points back to source records rather than becoming a shadow source-of-truth;
-- baseline search/retrieval;
-- ARU-01 programme/enrollment/learning/inference fixtures and historical projection replay.
+- Capability Contract;
+- Capability Registry;
+- Smart Box Manifest;
+- discovery by operation/domain/semantic I/O;
+- replaceable provider manifests for the same Capability Contract;
+- `CAPABILITY != AUTHORITY` enforced by contract structure.
 
-## Key Phase 2 invariants
-
-- `SOURCE AUTHORITY != STORAGE LOCATION`
-- `MEMORY != SOURCE OF TRUTH`
-- `INFERENCE != FACT`
-- `PREDICTION != EVIDENCE`
-- `RECOMMENDATION != DECISION`
-- `SYNTHETIC OUTPUT != AUTHORITATIVE EVIDENCE`
-- consequential history is append/supersede, not destructive overwrite
+P3 execution runtime is **not** opened yet: Connection Planner, Smart Wire, Assembly and Write Box Studio remain later versioned work.
 
 ## Verification state
 
-Phase 2 Tranche 01 local verification passes:
+Local verification for version `0.5.0` passes:
 
-- migration `0001 -> 0002 -> 0003`, downgrade to base, and re-upgrade;
+- Alembic `0001 -> 0002 -> 0003 -> 0004`, downgrade to base, re-upgrade;
 - full automated test suite;
-- ARU-01 Reality/Data/Memory pilot;
-- machine-readable contract schema export;
+- ARU-01 five-format multimodal pilot;
+- Artifact -> Knowledge provenance replay;
+- University Memory indexing/retrieval;
+- Capability Registry + two-provider Smart Box discovery;
+- 50 executable JSON Schemas;
 - PostgreSQL offline migration compilation;
-- SQLite reference backup/restore with historical projection replay.
+- SQLite database + object-store backup/restore with post-restore integrity/retrieval/discovery;
+- independent P2-T02/P3 boundary verifier.
 
-Human G3 is **not requested yet**. Live PostgreSQL migration + Phase 2 pilot + backup/restore evidence remains an AI/CI technical gate.
+Live PostgreSQL revision `0004` migration/pilot/recovery evidence remains the external GitHub Actions gate before Human G3.
+
+## Known reference limitations
+
+Image/audio/video bytes are fully ingested and integrity-governed, but the reference analyzer is metadata-first. OCR, speech transcription and video semantic analysis remain replaceable provider adapters for later upgrades. The vector retriever is a deterministic reference implementation, not a production embedding commitment.
 
 ## AI/CI verification
 
 ```bash
-python scripts/verify_phase1.py
-python scripts/verify_phase2.py
-python scripts/independent_verify.py
+python scripts/verify_p2t02_p3.py
 ```
 
 Human-facing evidence is generated into `docs/verification/`.
@@ -72,5 +74,3 @@ The application assumes migrations have already been applied by the deployment p
 alembic upgrade head
 uvicorn anu_kernel.api:app --app-dir src --host 0.0.0.0 --port 8000
 ```
-
-Open `/human` for the Human Dashboard. `/docs` is not the default Human acceptance surface.

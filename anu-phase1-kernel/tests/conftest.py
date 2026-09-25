@@ -5,6 +5,8 @@ from sqlalchemy.orm import sessionmaker
 
 from anu_kernel.db import Base, make_engine
 import anu_kernel.reality_models  # register Phase 2 tables with shared metadata
+import anu_kernel.ingestion_models  # register P2-T02 tables
+import anu_kernel.capability_models  # register P3 contract/registry tables
 
 
 @pytest.fixture()

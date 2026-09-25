@@ -1,0 +1,461 @@
+{
+  "checks": {
+    "clean_migration_cycle": "PASS",
+    "automated_tests": "PASS",
+    "aru01_multimodal_capability_pilot": "PASS",
+    "contract_schema_export": "PASS",
+    "independent_boundary_verifier": "PASS",
+    "postgresql_offline_migration_compile": "PASS",
+    "database_object_store_recovery_reference": "PASS"
+  },
+  "details": {
+    "clean_migration_cycle": "upgrade -> downgrade -> upgrade PASS at revision 0004",
+    "automated_tests": "...............................................................          [100%]",
+    "aru01_multimodal_capability_pilot": {
+      "work_id": "P2-T02-P3-01-MULTIMODAL-CAPABILITY-FOUNDATION",
+      "pass": true,
+      "checks": {
+        "five_multimodal_types_ingested": true,
+        "pdf_text_extracted": true,
+        "docx_text_extracted": true,
+        "image_metadata_ingested": true,
+        "audio_metadata_ingested": true,
+        "video_metadata_ingested": true,
+        "artifact_integrity_pass": true,
+        "knowledge_epistemic_preserved": true,
+        "provenance_chain_complete": true,
+        "retrieval_has_source_and_provenance": true,
+        "memory_projection_materialized": true,
+        "capability_discovery_pass": true,
+        "provider_replaceability_visible": true
+      },
+      "counts": {
+        "artifacts": 5,
+        "knowledge_objects": 1,
+        "memory_records": 6,
+        "retrieval_projections": 12,
+        "capabilities": 1,
+        "boxes": 2
+      },
+      "artifacts": [
+        {
+          "artifact_id": "urn:anu:artifact:aru-p2t02:1",
+          "version_id": "urn:anu:artifact-version:aru-p2t02:1:v1",
+          "filename": "programme-handbook.pdf",
+          "semantic_type": "urn:anu:semantic:learning-artifact",
+          "media_type": "application/pdf",
+          "byte_size": 1437,
+          "content_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
+          "storage_ref": "urn:anu:object:sha256:eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
+          "source_ref": "urn:aru:source:multimodal-learning-platform",
+          "epistemic_type": "FACT",
+          "validation_state": "APPROVED",
+          "provenance_ref": "urn:anu:provenance:01a0d6ce-aca3-7e2b-bdbd-1ae2b351c2d6",
+          "extraction_status": "EXTRACTED",
+          "extracted_text": "ARU-01 Software Engineering Programme Version 2.0\nCompetency: responsible AI systems",
+          "analyzer_ref": "urn:anu:analyzer:pdf:pypdf",
+          "analyzer_version": "1.0.0",
+          "metadata": {
+            "title": "ARU-01 programme-handbook.pdf",
+            "pilot": "P2-T02",
+            "filename": "programme-handbook.pdf",
+            "page_count": 1
+          },
+          "recorded_time": "2026-09-25T04:24:23.971025Z",
+          "lifecycle_state": "ACTIVE"
+        },
+        {
+          "artifact_id": "urn:anu:artifact:aru-p2t02:2",
+          "version_id": "urn:anu:artifact-version:aru-p2t02:2:v1",
+          "filename": "course-spec.docx",
+          "semantic_type": "urn:anu:semantic:learning-artifact",
+          "media_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "byte_size": 36674,
+          "content_hash": "8bcbcad2890e636af5155e7351f75dfc807c618733e2d506737879929782b1da",
+          "storage_ref": "urn:anu:object:sha256:8bcbcad2890e636af5155e7351f75dfc807c618733e2d506737879929782b1da",
+          "source_ref": "urn:aru:source:multimodal-learning-platform",
+          "epistemic_type": "CLAIM",
+          "validation_state": "VALIDATED",
+          "provenance_ref": "urn:anu:provenance:01a0d6ce-acb5-778a-8075-dc3faa1f66f2",
+          "extraction_status": "EXTRACTED",
+          "extracted_text": "ARU-01 Course Specification\nCourse: ANU Systems Studio\nLearning outcome: provenance-aware design.",
+          "analyzer_ref": "urn:anu:analyzer:docx:python-docx",
+          "analyzer_version": "1.0.0",
+          "metadata": {
+            "title": "ARU-01 course-spec.docx",
+            "pilot": "P2-T02",
+            "filename": "course-spec.docx",
+            "paragraph_count": 3,
+            "table_count": 0
+          },
+          "recorded_time": "2026-09-25T04:24:23.989645Z",
+          "lifecycle_state": "ACTIVE"
+        },
+        {
+          "artifact_id": "urn:anu:artifact:aru-p2t02:3",
+          "version_id": "urn:anu:artifact-version:aru-p2t02:3:v1",
+          "filename": "learning-diagram.png",
+          "semantic_type": "urn:anu:semantic:learning-artifact",
+          "media_type": "image/png",
+          "byte_size": 834,
+          "content_hash": "7bc2dd0bb6d2ca9ddc6278554f67e6e756ff4a07fba4b509861818ec1be70000",
+          "storage_ref": "urn:anu:object:sha256:7bc2dd0bb6d2ca9ddc6278554f67e6e756ff4a07fba4b509861818ec1be70000",
+          "source_ref": "urn:aru:source:multimodal-learning-platform",
+          "epistemic_type": "CLAIM",
+          "validation_state": "VALIDATED",
+          "provenance_ref": "urn:anu:provenance:01a0d6ce-acc3-7242-bf7f-b1f3e554ee1d",
+          "extraction_status": "METADATA_ONLY",
+          "extracted_text": null,
+          "analyzer_ref": "urn:anu:analyzer:image:pillow",
+          "analyzer_version": "1.0.0",
+          "metadata": {
+            "title": "ARU-01 learning-diagram.png",
+            "pilot": "P2-T02",
+            "filename": "learning-diagram.png",
+            "width": 160,
+            "height": 90,
+            "mode": "RGB",
+            "format": "PNG"
+          },
+          "recorded_time": "2026-09-25T04:24:24.003246Z",
+          "lifecycle_state": "ACTIVE"
+        },
+        {
+          "artifact_id": "urn:anu:artifact:aru-p2t02:4",
+          "version_id": "urn:anu:artifact-version:aru-p2t02:4:v1",
+          "filename": "lecture-note.wav",
+          "semantic_type": "urn:anu:semantic:learning-artifact",
+          "media_type": "audio/x-wav",
+          "byte_size": 4044,
+          "content_hash": "2494c1e06e0487ecafc060b390fe575e38348b7e34c27c319537327f07c11d05",
+          "storage_ref": "urn:anu:object:sha256:2494c1e06e0487ecafc060b390fe575e38348b7e34c27c319537327f07c11d05",
+          "source_ref": "urn:aru:source:multimodal-learning-platform",
+          "epistemic_type": "CLAIM",
+          "validation_state": "VALIDATED",
+          "provenance_ref": "urn:anu:provenance:01a0d6ce-acc7-7312-9a78-bbbdd53d767f",
+          "extraction_status": "METADATA_ONLY",
+          "extracted_text": null,
+          "analyzer_ref": "urn:anu:analyzer:audio:wave",
+          "analyzer_version": "1.0.0",
+          "metadata": {
+            "title": "ARU-01 lecture-note.wav",
+            "pilot": "P2-T02",
+            "filename": "lecture-note.wav",
+            "channels": 1,
+            "sample_rate": 8000,
+            "sample_width": 2,
+            "duration_seconds": 0.25
+          },
+          "recorded_time": "2026-09-25T04:24:24.007426Z",
+          "lifecycle_state": "ACTIVE"
+        },
+        {
+          "artifact_id": "urn:anu:artifact:aru-p2t02:5",
+          "version_id": "urn:anu:artifact-version:aru-p2t02:5:v1",
+          "filename": "pilot-video.mp4",
+          "semantic_type": "urn:anu:semantic:learning-artifact",
+          "media_type": "video/mp4",
+          "byte_size": 1866,
+          "content_hash": "3f452ccf120d54c89d168b3db0ca0e46c7d8bc2732b7888efbfa9afba3c38100",
+          "storage_ref": "urn:anu:object:sha256:3f452ccf120d54c89d168b3db0ca0e46c7d8bc2732b7888efbfa9afba3c38100",
+          "source_ref": "urn:aru:source:multimodal-learning-platform",
+          "epistemic_type": "CLAIM",
+          "validation_state": "VALIDATED",
+          "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0a-7cc6-98c5-4df128602eb2",
+          "extraction_status": "METADATA_ONLY",
+          "extracted_text": null,
+          "analyzer_ref": "urn:anu:analyzer:media:ffprobe",
+          "analyzer_version": "1.0.0",
+          "metadata": {
+            "title": "ARU-01 pilot-video.mp4",
+            "pilot": "P2-T02",
+            "filename": "pilot-video.mp4",
+            "ffprobe": {
+              "programs": [],
+              "stream_groups": [],
+              "streams": [
+                {
+                  "index": 0,
+                  "codec_name": "h264",
+                  "codec_type": "video",
+                  "width": 160,
+                  "height": 90
+                }
+              ],
+              "format": {
+                "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+                "duration": "0.400000",
+                "size": "1866"
+              }
+            }
+          },
+          "recorded_time": "2026-09-25T04:24:24.074244Z",
+          "lifecycle_state": "ACTIVE"
+        }
+      ],
+      "knowledge": {
+        "knowledge_ref": "urn:anu:knowledge:aru-programme-handbook@1.0.0",
+        "artifact_version_ref": "urn:anu:artifact-version:aru-p2t02:1:v1",
+        "epistemic_type": "FACT",
+        "validation_state": "APPROVED",
+        "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0f-744a-b9f0-3c251a07238e",
+        "indexed": true
+      },
+      "retrieval": {
+        "query": "responsible AI systems",
+        "mode": "HYBRID",
+        "hits": [
+          {
+            "ref": "urn:anu:knowledge:aru-programme-handbook@1.0.0",
+            "object_kind": "KNOWLEDGE",
+            "title": "ARU-01 Programme Handbook Knowledge",
+            "semantic_type": "urn:anu:semantic:learning-artifact",
+            "epistemic_type": "FACT",
+            "validation_state": "APPROVED",
+            "source_refs": [
+              "urn:aru:source:multimodal-learning-platform",
+              "urn:anu:artifact-version:aru-p2t02:1:v1"
+            ],
+            "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0f-744a-b9f0-3c251a07238e",
+            "content_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
+            "score": 0.584722,
+            "lexical_score": 1.0,
+            "vector_score": 0.244949,
+            "snippet": "urn:anu:knowledge:aru-programme-handbook ARU-01 Programme Handbook Knowledge urn:anu:semantic:learning-artifact ARU-01 Software Engineering Programme Version 2.0 Competency: responsible AI systems {\"filename\": \"programme-handbook.pdf\", \"page_count\": 1, \"pilot\": \"P2-T02\", \"title\": \"ARU-01 programme-handbook.pdf\"}"
+          },
+          {
+            "ref": "urn:anu:artifact-version:aru-p2t02:1:v1",
+            "object_kind": "ARTIFACT",
+            "title": "ARU-01 programme-handbook.pdf",
+            "semantic_type": "urn:anu:semantic:learning-artifact",
+            "epistemic_type": "FACT",
+            "validation_state": "APPROVED",
+            "source_refs": [
+              "urn:aru:source:multimodal-learning-platform"
+            ],
+            "provenance_ref": "urn:anu:provenance:01a0d6ce-aca3-7e2b-bdbd-1ae2b351c2d6",
+            "content_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
+            "score": 0.562268,
+            "lexical_score": 1.0,
+            "vector_score": 0.204124,
+            "snippet": "urn:anu:artifact:aru-p2t02:1 programme-handbook.pdf urn:anu:semantic:learning-artifact urn:aru:source:multimodal-learning-platform ARU-01 Software Engineering Programme Version 2.0 Competency: responsible AI systems {\"filename\": \"programme-handbook.pdf\", \"page_count\": 1, \"pilot\": \"P2-T02\", \"title\": \"ARU-01 programme-ha"
+          },
+          {
+            "ref": "urn:anu:artifact-version:aru-p2t02:2:v1",
+            "object_kind": "ARTIFACT",
+            "title": "ARU-01 course-spec.docx",
+            "semantic_type": "urn:anu:semantic:learning-artifact",
+            "epistemic_type": "CLAIM",
+            "validation_state": "VALIDATED",
+            "source_refs": [
+              "urn:aru:source:multimodal-learning-platform"
+            ],
+            "provenance_ref": "urn:anu:provenance:01a0d6ce-acb5-778a-8075-dc3faa1f66f2",
+            "content_hash": "8bcbcad2890e636af5155e7351f75dfc807c618733e2d506737879929782b1da",
+            "score": 0.15,
+            "lexical_score": 0.333333,
+            "vector_score": 0.0,
+            "snippet": "urn:anu:artifact:aru-p2t02:2 course-spec.docx urn:anu:semantic:learning-artifact urn:aru:source:multimodal-learning-platform ARU-01 Course Specification Course: ANU Systems Studio Learning outcome: provenance-aware design. {\"filename\": \"course-spec.docx\", \"paragraph_count\": 3, \"pilot\": \"P2-T02\", \"table_count\": 0, \"titl"
+          },
+          {
+            "ref": "urn:anu:artifact-version:aru-p2t02:5:v1",
+            "object_kind": "ARTIFACT",
+            "title": "ARU-01 pilot-video.mp4",
+            "semantic_type": "urn:anu:semantic:learning-artifact",
+            "epistemic_type": "CLAIM",
+            "validation_state": "VALIDATED",
+            "source_refs": [
+              "urn:aru:source:multimodal-learning-platform"
+            ],
+            "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0a-7cc6-98c5-4df128602eb2",
+            "content_hash": "3f452ccf120d54c89d168b3db0ca0e46c7d8bc2732b7888efbfa9afba3c38100",
+            "score": 0.032409,
+            "lexical_score": 0.0,
+            "vector_score": 0.058926,
+            "snippet": "urn:anu:artifact:aru-p2t02:5 pilot-video.mp4 urn:anu:semantic:learning-artifact urn:aru:source:multimodal-learning-platform  {\"ffprobe\": {\"format\": {\"duration\": \"0.400000\", \"format_name\": \"mov,mp4,m4a,3gp,3g2,mj2\", \"size\": \"1866\"}, \"programs\": [], \"stream_groups\": [], \"streams\": [{\"codec_name\": \"h264\", \"codec_type\": \"v"
+          }
+        ],
+        "index_version": "anu-hash-vector-v1"
+      },
+      "capability_discovery": {
+        "query": {
+          "operation_id": "knowledge.retrieve",
+          "input_semantics": [
+            "urn:anu:semantic:retrieval-query"
+          ],
+          "output_semantics": [
+            "urn:anu:semantic:retrieval-result"
+          ],
+          "domain": "knowledge",
+          "capability_id": null,
+          "include_boxes": true,
+          "limit": 50
+        },
+        "hits": [
+          {
+            "capability_ref": "urn:anu:capability:knowledge-retrieval@1.0.0",
+            "capability_id": "urn:anu:capability:knowledge-retrieval",
+            "capability_version": "1.0.0",
+            "name": "Knowledge Retrieval",
+            "domain": "knowledge",
+            "owner_ref": "urn:anu:org:academic-affairs",
+            "matched_operations": [
+              "knowledge.retrieve"
+            ],
+            "box_refs": [
+              "urn:anu:box:retrieval:local@1.0.0",
+              "urn:anu:box:retrieval:alt@1.0.0"
+            ],
+            "match_reasons": [
+              "provides operation knowledge.retrieve",
+              "accepts requested input semantics",
+              "produces requested output semantics",
+              "domain=knowledge"
+            ]
+          }
+        ]
+      },
+      "object_store_root": "/tmp/anu-p2t02-p3-jvo6cvnc/objects",
+      "synthetic_data_only": true
+    },
+    "contract_schema_export": "exported 50 schemas to /mnt/data/anu_phase2_t02_work/contracts/schemas",
+    "independent_boundary_verifier": "....                                                                     [100%]",
+    "postgresql_offline_migration_compile": "ef);\n\nCREATE INDEX ix_university_memory_record_lifecycle_state ON university_memory_record (lifecycle_state);\n\nUPDATE alembic_version SET version_num='0003' WHERE alembic_version.version_num = '0002';\n\n-- Running upgrade 0003 -> 0004\n\nCREATE TABLE artifact_object_version (\n    version_id VARCHAR(255) NOT NULL, \n    artifact_id VARCHAR(255) NOT NULL, \n    filename VARCHAR(512) NOT NULL, \n    semantic_type VARCHAR(255) NOT NULL, \n    media_type VARCHAR(128) NOT NULL, \n    byte_size INTEGER NOT NULL, \n    content_hash VARCHAR(128) NOT NULL, \n    storage_ref VARCHAR(1024) NOT NULL, \n    source_ref VARCHAR(255) NOT NULL, \n    owner_ref VARCHAR(255) NOT NULL, \n    context_ref VARCHAR(255), \n    observed_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    recorded_time TIMESTAMP WITH TIME ZONE NOT NULL, \n    epistemic_type VARCHAR(32) NOT NULL, \n    validation_state VARCHAR(32) NOT NULL, \n    provenance_ref VARCHAR(255) NOT NULL, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    supersedes_ref VARCHAR(255), \n    extraction_status VARCHAR(32) NOT NULL, \n    extracted_text TEXT, \n    analyzer_ref VARCHAR(255) NOT NULL, \n    analyzer_version VARCHAR(64) NOT NULL, \n    metadata JSON NOT NULL, \n    PRIMARY KEY (version_id)\n);\n\nCREATE INDEX ix_artifact_object_version_artifact_id ON artifact_object_version (artifact_id);\n\nCREATE INDEX ix_artifact_object_version_semantic_type ON artifact_object_version (semantic_type);\n\nCREATE INDEX ix_artifact_object_version_media_type ON artifact_object_version (media_type);\n\nCREATE INDEX ix_artifact_object_version_content_hash ON artifact_object_version (content_hash);\n\nCREATE INDEX ix_artifact_object_version_storage_ref ON artifact_object_version (storage_ref);\n\nCREATE INDEX ix_artifact_object_version_source_ref ON artifact_object_version (source_ref);\n\nCREATE INDEX ix_artifact_object_version_owner_ref ON artifact_object_version (owner_ref);\n\nCREATE INDEX ix_artifact_object_version_context_ref ON artifact_object_version (context_ref);\n\nCREATE INDEX ix_artifact_object_version_observed_at ON artifact_object_version (observed_at);\n\nCREATE INDEX ix_artifact_object_version_recorded_time ON artifact_object_version (recorded_time);\n\nCREATE INDEX ix_artifact_object_version_epistemic_type ON artifact_object_version (epistemic_type);\n\nCREATE INDEX ix_artifact_object_version_validation_state ON artifact_object_version (validation_state);\n\nCREATE INDEX ix_artifact_object_version_provenance_ref ON artifact_object_version (provenance_ref);\n\nCREATE INDEX ix_artifact_object_version_lifecycle_state ON artifact_object_version (lifecycle_state);\n\nCREATE INDEX ix_artifact_object_version_supersedes_ref ON artifact_object_version (supersedes_ref);\n\nCREATE INDEX ix_artifact_object_version_extraction_status ON artifact_object_version (extraction_status);\n\nCREATE TABLE retrieval_projection (\n    row_id SERIAL NOT NULL, \n    projection_id VARCHAR(255) NOT NULL, \n    object_ref VARCHAR(255) NOT NULL, \n    object_kind VARCHAR(64) NOT NULL, \n    title VARCHAR(512) NOT NULL, \n    semantic_type VARCHAR(255), \n    epistemic_type VARCHAR(32), \n    validation_state VARCHAR(32), \n    source_refs JSON NOT NULL, \n    provenance_ref VARCHAR(255), \n    content_hash VARCHAR(128), \n    searchable_text TEXT NOT NULL, \n    vector_json JSON NOT NULL, \n    index_version VARCHAR(64) NOT NULL, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_retrieval_object_index_version UNIQUE (object_ref, index_version), \n    UNIQUE (projection_id)\n);\n\nCREATE INDEX ix_retrieval_projection_projection_id ON retrieval_projection (projection_id);\n\nCREATE INDEX ix_retrieval_projection_object_ref ON retrieval_projection (object_ref);\n\nCREATE INDEX ix_retrieval_projection_object_kind ON retrieval_projection (object_kind);\n\nCREATE INDEX ix_retrieval_projection_semantic_type ON retrieval_projection (semantic_type);\n\nCREATE INDEX ix_retrieval_projection_epistemic_type ON retrieval_projection (epistemic_type);\n\nCREATE INDEX ix_retrieval_projection_validation_state ON retrieval_projection (validation_state);\n\nCREATE INDEX ix_retrieval_projection_provenance_ref ON retrieval_projection (provenance_ref);\n\nCREATE INDEX ix_retrieval_projection_index_version ON retrieval_projection (index_version);\n\nCREATE INDEX ix_retrieval_projection_lifecycle_state ON retrieval_projection (lifecycle_state);\n\nCREATE INDEX ix_retrieval_projection_recorded_at ON retrieval_projection (recorded_at);\n\nCREATE TABLE capability_version (\n    row_id SERIAL NOT NULL, \n    capability_id VARCHAR(255) NOT NULL, \n    name VARCHAR(255) NOT NULL, \n    description TEXT NOT NULL, \n    owner_ref VARCHAR(255) NOT NULL, \n    domain VARCHAR(128) NOT NULL, \n    version VARCHAR(64) NOT NULL, \n    operations JSON NOT NULL, \n    requires_capabilities JSON NOT NULL, \n    data_scope JSON NOT NULL, \n    policy_refs JSON NOT NULL, \n    risk_class VARCHAR(32) NOT NULL, \n    effective_from TIMESTAMP WITH TIME ZONE NOT NULL, \n    effective_to TIMESTAMP WITH TIME ZONE, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    provenance_ref VARCHAR(255), \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_capability_id_version UNIQUE (capability_id, version)\n);\n\nCREATE INDEX ix_capability_version_capability_id ON capability_version (capability_id);\n\nCREATE INDEX ix_capability_version_owner_ref ON capability_version (owner_ref);\n\nCREATE INDEX ix_capability_version_domain ON capability_version (domain);\n\nCREATE INDEX ix_capability_version_version ON capability_version (version);\n\nCREATE INDEX ix_capability_version_effective_from ON capability_version (effective_from);\n\nCREATE INDEX ix_capability_version_effective_to ON capability_version (effective_to);\n\nCREATE INDEX ix_capability_version_lifecycle_state ON capability_version (lifecycle_state);\n\nCREATE INDEX ix_capability_version_provenance_ref ON capability_version (provenance_ref);\n\nCREATE INDEX ix_capability_version_recorded_at ON capability_version (recorded_at);\n\nCREATE TABLE smart_box_manifest_version (\n    row_id SERIAL NOT NULL, \n    box_id VARCHAR(255) NOT NULL, \n    capability_ref VARCHAR(320) NOT NULL, \n    box_version VARCHAR(64) NOT NULL, \n    provider_ref VARCHAR(255) NOT NULL, \n    runtime_type VARCHAR(128) NOT NULL, \n    operation_bindings JSON NOT NULL, \n    requires_capabilities JSON NOT NULL, \n    adapter_boundary VARCHAR(255) NOT NULL, \n    model_dependencies JSON NOT NULL, \n    data_classes JSON NOT NULL, \n    quality_slo JSON NOT NULL, \n    observability JSON NOT NULL, \n    effective_from TIMESTAMP WITH TIME ZONE NOT NULL, \n    effective_to TIMESTAMP WITH TIME ZONE, \n    lifecycle_state VARCHAR(32) DEFAULT 'ACTIVE' NOT NULL, \n    provenance_ref VARCHAR(255), \n    recorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n    PRIMARY KEY (row_id), \n    CONSTRAINT uq_smart_box_id_version UNIQUE (box_id, box_version)\n);\n\nCREATE INDEX ix_smart_box_manifest_version_box_id ON smart_box_manifest_version (box_id);\n\nCREATE INDEX ix_smart_box_manifest_version_capability_ref ON smart_box_manifest_version (capability_ref);\n\nCREATE INDEX ix_smart_box_manifest_version_box_version ON smart_box_manifest_version (box_version);\n\nCREATE INDEX ix_smart_box_manifest_version_provider_ref ON smart_box_manifest_version (provider_ref);\n\nCREATE INDEX ix_smart_box_manifest_version_effective_from ON smart_box_manifest_version (effective_from);\n\nCREATE INDEX ix_smart_box_manifest_version_effective_to ON smart_box_manifest_version (effective_to);\n\nCREATE INDEX ix_smart_box_manifest_version_lifecycle_state ON smart_box_manifest_version (lifecycle_state);\n\nCREATE INDEX ix_smart_box_manifest_version_provenance_ref ON smart_box_manifest_version (provenance_ref);\n\nCREATE INDEX ix_smart_box_manifest_version_recorded_at ON smart_box_manifest_version (recorded_at);\n\nUPDATE alembic_version SET version_num='0004' WHERE alembic_version.version_num = '0003';\n\nCOMMIT;\n\nINFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Generating static SQL\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\nINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Phase 1 Kernel baseline\nINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Phase 1 trust/authentication hardening\nINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Phase 2 Reality/Data/Memory foundation\nINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, P2-T02 multimodal ingestion/retrieval + P3 contract registry foundation",
+    "database_object_store_recovery_reference": {
+      "database_backup": {
+        "backend": "sqlite",
+        "backup_path": "/tmp/anu-p2t02-p3-jvo6cvnc/p2t02.db.backup",
+        "status": "PASS"
+      },
+      "database_restore": {
+        "backend": "sqlite",
+        "restored_database": "/tmp/anu-p2t02-p3-jvo6cvnc/p2t02-restored.db",
+        "status": "PASS"
+      },
+      "object_store_backup": "/tmp/anu-p2t02-p3-jvo6cvnc/object-store-backup",
+      "object_store_restore": "/tmp/anu-p2t02-p3-jvo6cvnc/object-store-restored",
+      "counts_after_restore": {
+        "artifacts": 5,
+        "knowledge": 1,
+        "memory": 6,
+        "retrieval": 12,
+        "capabilities": 1,
+        "boxes": 2
+      },
+      "artifact_integrity_after_restore": {
+        "version_id": "urn:anu:artifact-version:aru-p2t02:1:v1",
+        "content_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
+        "observed_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
+        "integrity_state": "PASS",
+        "storage_ref": "urn:anu:object:sha256:eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe"
+      },
+      "retrieval_after_restore": {
+        "query": "responsible AI systems",
+        "mode": "HYBRID",
+        "hits": [
+          {
+            "ref": "urn:anu:knowledge:aru-programme-handbook@1.0.0",
+            "object_kind": "KNOWLEDGE",
+            "title": "ARU-01 Programme Handbook Knowledge",
+            "semantic_type": "urn:anu:semantic:learning-artifact",
+            "epistemic_type": "FACT",
+            "validation_state": "APPROVED",
+            "source_refs": [
+              "urn:aru:source:multimodal-learning-platform",
+              "urn:anu:artifact-version:aru-p2t02:1:v1"
+            ],
+            "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0f-744a-b9f0-3c251a07238e",
+            "content_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
+            "score": 0.584722,
+            "lexical_score": 1.0,
+            "vector_score": 0.244949,
+            "snippet": "urn:anu:knowledge:aru-programme-handbook ARU-01 Programme Handbook Knowledge urn:anu:semantic:learning-artifact ARU-01 Software Engineering Programme Version 2.0 Competency: responsible AI systems {\"filename\": \"programme-handbook.pdf\", \"page_count\": 1, \"pilot\": \"P2-T02\", \"title\": \"ARU-01 programme-handbook.pdf\"}"
+          },
+          {
+            "ref": "urn:anu:artifact-version:aru-p2t02:1:v1",
+            "object_kind": "ARTIFACT",
+            "title": "ARU-01 programme-handbook.pdf",
+            "semantic_type": "urn:anu:semantic:learning-artifact",
+            "epistemic_type": "FACT",
+            "validation_state": "APPROVED",
+            "source_refs": [
+              "urn:aru:source:multimodal-learning-platform"
+            ],
+            "provenance_ref": "urn:anu:provenance:01a0d6ce-aca3-7e2b-bdbd-1ae2b351c2d6",
+            "content_hash": "eb6047b2fc3f59c69e53acb3d4af27e782cd6203e6335338281a691f1a3575fe",
+            "score": 0.562268,
+            "lexical_score": 1.0,
+            "vector_score": 0.204124,
+            "snippet": "urn:anu:artifact:aru-p2t02:1 programme-handbook.pdf urn:anu:semantic:learning-artifact urn:aru:source:multimodal-learning-platform ARU-01 Software Engineering Programme Version 2.0 Competency: responsible AI systems {\"filename\": \"programme-handbook.pdf\", \"page_count\": 1, \"pilot\": \"P2-T02\", \"title\": \"ARU-01 programme-ha"
+          },
+          {
+            "ref": "urn:anu:artifact-version:aru-p2t02:2:v1",
+            "object_kind": "ARTIFACT",
+            "title": "ARU-01 course-spec.docx",
+            "semantic_type": "urn:anu:semantic:learning-artifact",
+            "epistemic_type": "CLAIM",
+            "validation_state": "VALIDATED",
+            "source_refs": [
+              "urn:aru:source:multimodal-learning-platform"
+            ],
+            "provenance_ref": "urn:anu:provenance:01a0d6ce-acb5-778a-8075-dc3faa1f66f2",
+            "content_hash": "8bcbcad2890e636af5155e7351f75dfc807c618733e2d506737879929782b1da",
+            "score": 0.15,
+            "lexical_score": 0.333333,
+            "vector_score": 0.0,
+            "snippet": "urn:anu:artifact:aru-p2t02:2 course-spec.docx urn:anu:semantic:learning-artifact urn:aru:source:multimodal-learning-platform ARU-01 Course Specification Course: ANU Systems Studio Learning outcome: provenance-aware design. {\"filename\": \"course-spec.docx\", \"paragraph_count\": 3, \"pilot\": \"P2-T02\", \"table_count\": 0, \"titl"
+          },
+          {
+            "ref": "urn:anu:artifact-version:aru-p2t02:5:v1",
+            "object_kind": "ARTIFACT",
+            "title": "ARU-01 pilot-video.mp4",
+            "semantic_type": "urn:anu:semantic:learning-artifact",
+            "epistemic_type": "CLAIM",
+            "validation_state": "VALIDATED",
+            "source_refs": [
+              "urn:aru:source:multimodal-learning-platform"
+            ],
+            "provenance_ref": "urn:anu:provenance:01a0d6ce-ad0a-7cc6-98c5-4df128602eb2",
+            "content_hash": "3f452ccf120d54c89d168b3db0ca0e46c7d8bc2732b7888efbfa9afba3c38100",
+            "score": 0.032409,
+            "lexical_score": 0.0,
+            "vector_score": 0.058926,
+            "snippet": "urn:anu:artifact:aru-p2t02:5 pilot-video.mp4 urn:anu:semantic:learning-artifact urn:aru:source:multimodal-learning-platform  {\"ffprobe\": {\"format\": {\"duration\": \"0.400000\", \"format_name\": \"mov,mp4,m4a,3gp,3g2,mj2\", \"size\": \"1866\"}, \"programs\": [], \"stream_groups\": [], \"streams\": [{\"codec_name\": \"h264\", \"codec_type\": \"v"
+          }
+        ],
+        "index_version": "anu-hash-vector-v1"
+      },
+      "capability_discovery_after_restore": {
+        "query": {
+          "operation_id": "knowledge.retrieve",
+          "input_semantics": [],
+          "output_semantics": [],
+          "domain": null,
+          "capability_id": null,
+          "include_boxes": true,
+          "limit": 50
+        },
+        "hits": [
+          {
+            "capability_ref": "urn:anu:capability:knowledge-retrieval@1.0.0",
+            "capability_id": "urn:anu:capability:knowledge-retrieval",
+            "capability_version": "1.0.0",
+            "name": "Knowledge Retrieval",
+            "domain": "knowledge",
+            "owner_ref": "urn:anu:org:academic-affairs",
+            "matched_operations": [
+              "knowledge.retrieve"
+            ],
+            "box_refs": [
+              "urn:anu:box:retrieval:local@1.0.0",
+              "urn:anu:box:retrieval:alt@1.0.0"
+            ],
+            "match_reasons": [
+              "provides operation knowledge.retrieve"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

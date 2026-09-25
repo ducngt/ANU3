@@ -1,0 +1,70 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Operation Id"
+    },
+    "input_semantics": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Input Semantics",
+      "type": "array"
+    },
+    "output_semantics": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Output Semantics",
+      "type": "array"
+    },
+    "domain": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Domain"
+    },
+    "capability_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Capability Id"
+    },
+    "include_boxes": {
+      "default": true,
+      "title": "Include Boxes",
+      "type": "boolean"
+    },
+    "limit": {
+      "default": 50,
+      "maximum": 200,
+      "minimum": 1,
+      "title": "Limit",
+      "type": "integer"
+    }
+  },
+  "title": "CapabilityDiscoveryQuery",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.capability-discovery-query.v1"
+}

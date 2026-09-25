@@ -1,0 +1,159 @@
+{
+  "$defs": {
+    "EpistemicType": {
+      "enum": [
+        "FACT",
+        "EVIDENCE",
+        "CLAIM",
+        "INFERENCE",
+        "PREDICTION",
+        "RECOMMENDATION",
+        "DECISION"
+      ],
+      "title": "EpistemicType",
+      "type": "string"
+    },
+    "ExtractionStatus": {
+      "enum": [
+        "EXTRACTED",
+        "METADATA_ONLY",
+        "UNSUPPORTED",
+        "FAILED"
+      ],
+      "title": "ExtractionStatus",
+      "type": "string"
+    },
+    "LifecycleState": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUSPENDED",
+        "SUPERSEDED",
+        "REVOKED",
+        "DEPRECATED",
+        "RETIRED",
+        "ARCHIVED"
+      ],
+      "title": "LifecycleState",
+      "type": "string"
+    },
+    "ValidationState": {
+      "enum": [
+        "UNVALIDATED",
+        "VALIDATED",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED"
+      ],
+      "title": "ValidationState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "artifact_id": {
+      "title": "Artifact Id",
+      "type": "string"
+    },
+    "version_id": {
+      "title": "Version Id",
+      "type": "string"
+    },
+    "filename": {
+      "title": "Filename",
+      "type": "string"
+    },
+    "semantic_type": {
+      "title": "Semantic Type",
+      "type": "string"
+    },
+    "media_type": {
+      "title": "Media Type",
+      "type": "string"
+    },
+    "byte_size": {
+      "title": "Byte Size",
+      "type": "integer"
+    },
+    "content_hash": {
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "storage_ref": {
+      "title": "Storage Ref",
+      "type": "string"
+    },
+    "source_ref": {
+      "title": "Source Ref",
+      "type": "string"
+    },
+    "epistemic_type": {
+      "$ref": "#/$defs/EpistemicType"
+    },
+    "validation_state": {
+      "$ref": "#/$defs/ValidationState"
+    },
+    "provenance_ref": {
+      "title": "Provenance Ref",
+      "type": "string"
+    },
+    "extraction_status": {
+      "$ref": "#/$defs/ExtractionStatus"
+    },
+    "extracted_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extracted Text"
+    },
+    "analyzer_ref": {
+      "title": "Analyzer Ref",
+      "type": "string"
+    },
+    "analyzer_version": {
+      "title": "Analyzer Version",
+      "type": "string"
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "title": "Metadata",
+      "type": "object"
+    },
+    "recorded_time": {
+      "format": "date-time",
+      "title": "Recorded Time",
+      "type": "string"
+    },
+    "lifecycle_state": {
+      "$ref": "#/$defs/LifecycleState",
+      "default": "ACTIVE"
+    }
+  },
+  "required": [
+    "artifact_id",
+    "version_id",
+    "filename",
+    "semantic_type",
+    "media_type",
+    "byte_size",
+    "content_hash",
+    "storage_ref",
+    "source_ref",
+    "epistemic_type",
+    "validation_state",
+    "provenance_ref",
+    "extraction_status",
+    "analyzer_ref",
+    "analyzer_version",
+    "recorded_time"
+  ],
+  "title": "MultimodalArtifactIngestResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.multimodal-artifact-ingest-result.v1"
+}

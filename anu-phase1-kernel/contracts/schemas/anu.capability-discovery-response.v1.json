@@ -1,0 +1,152 @@
+{
+  "$defs": {
+    "CapabilityDiscoveryHit": {
+      "additionalProperties": false,
+      "properties": {
+        "capability_ref": {
+          "title": "Capability Ref",
+          "type": "string"
+        },
+        "capability_id": {
+          "title": "Capability Id",
+          "type": "string"
+        },
+        "capability_version": {
+          "title": "Capability Version",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "domain": {
+          "title": "Domain",
+          "type": "string"
+        },
+        "owner_ref": {
+          "title": "Owner Ref",
+          "type": "string"
+        },
+        "matched_operations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Matched Operations",
+          "type": "array"
+        },
+        "box_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Box Refs",
+          "type": "array"
+        },
+        "match_reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Match Reasons",
+          "type": "array"
+        }
+      },
+      "required": [
+        "capability_ref",
+        "capability_id",
+        "capability_version",
+        "name",
+        "domain",
+        "owner_ref"
+      ],
+      "title": "CapabilityDiscoveryHit",
+      "type": "object"
+    },
+    "CapabilityDiscoveryQuery": {
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Operation Id"
+        },
+        "input_semantics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Input Semantics",
+          "type": "array"
+        },
+        "output_semantics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Output Semantics",
+          "type": "array"
+        },
+        "domain": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Domain"
+        },
+        "capability_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capability Id"
+        },
+        "include_boxes": {
+          "default": true,
+          "title": "Include Boxes",
+          "type": "boolean"
+        },
+        "limit": {
+          "default": 50,
+          "maximum": 200,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "title": "CapabilityDiscoveryQuery",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "query": {
+      "$ref": "#/$defs/CapabilityDiscoveryQuery"
+    },
+    "hits": {
+      "items": {
+        "$ref": "#/$defs/CapabilityDiscoveryHit"
+      },
+      "title": "Hits",
+      "type": "array"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "title": "CapabilityDiscoveryResponse",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.capability-discovery-response.v1"
+}

@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "version_id": {
+      "title": "Version Id",
+      "type": "string"
+    },
+    "content_hash": {
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "observed_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Observed Hash"
+    },
+    "integrity_state": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "MISSING"
+      ],
+      "title": "Integrity State",
+      "type": "string"
+    },
+    "storage_ref": {
+      "title": "Storage Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version_id",
+    "content_hash",
+    "integrity_state",
+    "storage_ref"
+  ],
+  "title": "ArtifactIntegrityResult",
+  "type": "object",
+  "$id": "urn:anu:schema:anu.artifact-integrity-result.v1"
+}

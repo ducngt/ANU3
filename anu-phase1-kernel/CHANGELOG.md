@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.5.0 — P2-T02 multimodal memory + P3 capability contract foundation
+
+- Recorded P2-T01 Human G3 acceptance as the new Phase 2 baseline.
+- Added content-addressed immutable Object Store Adapter and real-byte multimodal ingestion.
+- Added PDF/DOCX deterministic extraction and image/audio/video media metadata analysis.
+- Added source lifecycle/effective-time validation at ingestion.
+- Added immutable artifact versions, supersede history and tamper verification.
+- Added Artifact -> Knowledge provenance materialization preserving Epistemic Type/Validation State.
+- Added University Memory retrieval projection and hybrid lexical/hash-vector reference retrieval.
+- Added Capability Contract, Capability Registry, Smart Box Manifest and semantic discovery.
+- Enforced `CAPABILITY != AUTHORITY` by excluding institutional authority from capability/box contracts.
+- Demonstrated provider replaceability with two Smart Box manifests for one Capability Contract.
+- Added database + object-store recovery verification.
+- Added Alembic revision `0004`.
+- Exported 50 executable JSON Schemas.
+- Full local verification and independent boundary audit pass; live PostgreSQL revision `0004` evidence remains the external CI gate before G3.
+
 ## 0.4.0 — Phase 2 Reality/Data/Memory foundation
 
 - Preserved the Human-accepted Phase 1 Tranche 03 baseline and added Phase 2 additively.

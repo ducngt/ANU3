@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from anu_kernel import contracts, reality_contracts
+from anu_kernel import contracts, reality_contracts, ingestion_contracts, capability_contracts
 
 MODELS = {
     "anu.identity.v1": contracts.IdentityContract,
@@ -45,6 +45,17 @@ MODELS = {
     "anu.search-result-item.v1": reality_contracts.SearchResultItem,
     "anu.search-response.v1": reality_contracts.SearchResponse,
     "anu.provenance-graph-result.v1": reality_contracts.ProvenanceGraphResult,
+    "anu.multimodal-artifact-ingest-request.v1": ingestion_contracts.MultimodalArtifactIngestRequest,
+    "anu.multimodal-artifact-ingest-result.v1": ingestion_contracts.MultimodalArtifactIngestResult,
+    "anu.artifact-integrity-result.v1": ingestion_contracts.ArtifactIntegrityResult,
+    "anu.knowledge-materialization-request.v1": ingestion_contracts.KnowledgeMaterializationRequest,
+    "anu.knowledge-materialization-result.v1": ingestion_contracts.KnowledgeMaterializationResult,
+    "anu.retrieval-query.v1": ingestion_contracts.RetrievalQuery,
+    "anu.retrieval-response.v1": ingestion_contracts.RetrievalResponse,
+    "anu.capability-contract.v1": capability_contracts.CapabilityContract,
+    "anu.smart-box-manifest.v1": capability_contracts.SmartBoxManifest,
+    "anu.capability-discovery-query.v1": capability_contracts.CapabilityDiscoveryQuery,
+    "anu.capability-discovery-response.v1": capability_contracts.CapabilityDiscoveryResponse,
 }
 
 out = Path(__file__).resolve().parents[1] / "contracts" / "schemas"
