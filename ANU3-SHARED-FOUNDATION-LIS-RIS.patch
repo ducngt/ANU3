@@ -1,0 +1,353 @@
+diff --git a/.github/workflows/anu-foundation-lab-verify.yml b/.github/workflows/anu-foundation-lab-verify.yml
+new file mode 100644
+index 0000000..74a2c48
+--- /dev/null
++++ b/.github/workflows/anu-foundation-lab-verify.yml
+@@ -0,0 +1,27 @@
++name: ANU shared foundation verification
++
++on:
++  push:
++    branches: [main]
++    paths:
++      - 'anu-phase1-kernel/scripts/foundation_data_lab.py'
++      - 'anu-phase1-kernel/scripts/foundation_data_lab.html'
++      - 'anu-phase1-kernel/tests/api/test_foundation_data_lab.py'
++      - '.github/workflows/anu-foundation-lab-verify.yml'
++  workflow_dispatch:
++
++jobs:
++  shared-data:
++    runs-on: ubuntu-latest
++    defaults:
++      run:
++        working-directory: anu-phase1-kernel
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-python@v5
++        with:
++          python-version: '3.12'
++      - name: Install kernel and test dependencies
++        run: python -m pip install -e '.[test]'
++      - name: Verify shared foundation, source authority boundary and LIS/RIS views
++        run: python -m pytest -q tests/api/test_foundation_data_lab.py
+diff --git a/anu-phase1-kernel/docs/FOUNDATION-SHARED-DATA-LAB.md b/anu-phase1-kernel/docs/FOUNDATION-SHARED-DATA-LAB.md
+new file mode 100644
+index 0000000..4d39af4
+--- /dev/null
++++ b/anu-phase1-kernel/docs/FOUNDATION-SHARED-DATA-LAB.md
+@@ -0,0 +1,27 @@
++# ANU shared foundational data — synthetic intake and LIS/RIS contract views
++
++The ANU Kernel already has Source Registry, Source Authority Mapping, versioned Data Contracts, Data Envelopes, temporal projection and provenance. This workbench exercises those **shared** primitives with one ANU-owned synthetic dataset and separate LIS/RIS consumer views. It is a data onboarding slice, not a new LIS or RIS database.
++
++## Codespaces
++
++Run from `/workspaces/ANU3`:
++
++```bash
++cd anu-phase1-kernel
++python3 -m pip install -e '.[test]'
++export ANU_FOUNDATION_LAB_DB="/workspaces/anu-foundation-data/foundation-lab.sqlite3"
++export ANU_FOUNDATION_LAB_TOKEN="$(python3 -c 'import secrets; print(secrets.token_urlsafe(32))')"
++printf 'Mã truy cập Foundation: %s\n' "$ANU_FOUNDATION_LAB_TOKEN"
++python3 -m uvicorn scripts.foundation_data_lab:app --app-dir . --host 0.0.0.0 --port 8000
++```
++
++Giữ cổng Codespaces `8000` ở chế độ **Private**, mở cổng trong browser và thêm `/foundation` vào địa chỉ. Nhập token in trong terminal; bấm khởi tạo, tạo programme/competency/organisation/policy synthetic, chọn LIS và RIS để so sánh. Database lưu ngoài Git repo tại đường dẫn đã cấu hình để có thể kiểm thử lại qua lần khởi động sau.
++
++## Ranh giới hiện hành
++
++- Mỗi record đi qua nguồn synthetic, Data Contract phiên bản 1.0.0, provenance và Data Envelope P2; chỉ là CLAIM/UNVALIDATED và **không có Source Authority Mapping**. Nhập mã/tên giả lập, không nhập PII hoặc văn bản/quyết định chính thức.
++- LIS thấy programme, competency, organisation, policy. RIS thấy programme, organisation, policy. Hai view truy xuất cùng database ANU và lọc theo `consumers` trong Data Contract. Đây là **preview dưới mã data steward**, chưa phải xác thực service LIS/RIS. Không dùng token này như consumer credential thực.
++- Để dùng dữ liệu tổ chức thật: Human/Data Steward xác định canonical meaning, System of Record từng entity/scope, chủ dữ liệu, quyền đọc/ghi của LIS/RIS, privacy/retention, tiêu chí chất lượng, hiệu lực/version; sau đó mới triển khai IdP, policy enforcement, adapter nguồn thực và Human G0–G2. Không tự chuyển bản nháp thành official fact.
++- Tệp/PDF/hình/âm thanh đã có ingestion P2 nhưng chưa được nối vào form này; input binary và trích xuất nội dung phải gắn với data contract và quyền nguồn trước khi consumer sử dụng.
++
++CI `ANU shared foundation verification` kiểm tra migration, ghi và đọc từ cùng SQLite qua LIS/RIS views, lọc consumer, ngăn record synthetic thành FACT, và không tạo thẩm quyền nguồn ngầm.
+diff --git a/anu-phase1-kernel/scripts/foundation_data_lab.html b/anu-phase1-kernel/scripts/foundation_data_lab.html
+new file mode 100644
+index 0000000..51f5dd1
+--- /dev/null
++++ b/anu-phase1-kernel/scripts/foundation_data_lab.html
+@@ -0,0 +1,5 @@
++<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ANU · Dữ liệu nền dùng chung</title><style>
++*{box-sizing:border-box}body{margin:0;background:#f4f7f3;color:#193b2a;font:14px system-ui,sans-serif}header{background:#173d2a;color:white;padding:20px max(20px,calc((100vw - 1100px)/2))}header b{font-size:24px;letter-spacing:.14em}main{max-width:1100px;margin:auto;padding:23px}.hero{padding:32px;border-radius:14px;background:#1c4933;color:white}h1{font-size:clamp(27px,4vw,42px);margin:8px 0}.hero p{line-height:1.6;color:#d1e7d2}.notice{padding:14px 17px;background:#e4f0e3;border-left:4px solid #69a773;margin:18px 0;line-height:1.6}.grid{display:grid;grid-template-columns:370px 1fr;gap:17px}.card{border:1px solid #dbe7dc;border-radius:10px;background:white;padding:19px;margin:0 0 17px}.card h2{margin:0 0 14px;font-size:18px}label{display:block;font-weight:700;margin:10px 0;font-size:12px}input,select,textarea{width:100%;border:1px solid #b6cbbb;border-radius:6px;padding:10px;margin-top:5px;font:inherit}textarea{min-height:66px}.check{display:flex;align-items:flex-start;gap:9px;line-height:1.5}.check input{width:auto;margin-top:4px}button{border:0;border-radius:6px;background:#286247;color:white;padding:10px 13px;font-weight:700;cursor:pointer;margin:3px 4px 3px 0}button.secondary{background:#e2eee1;color:#24533b}button:disabled{opacity:.5}button:focus-visible,input:focus-visible{outline:3px solid orange}small{color:#778b7a}#message{min-height:30px;line-height:1.5}.badge{display:inline-block;border-radius:20px;background:#ecf2df;padding:5px 8px;font-size:10px;font-weight:750;margin:3px}.row{border:1px solid #e1e9e0;border-radius:7px;padding:12px;margin:8px 0}.row strong{display:block}.row small{display:block;word-break:break-all;margin-top:6px;line-height:1.4}.empty{color:#86978a}.foot{font-size:11px;color:#738476;margin:20px 0}@media(max-width:760px){.grid{grid-template-columns:1fr}.hero{padding:20px}}
++</style></head><body><header><b>ANU ✳</b> &nbsp; UNIVERSITY DATA FOUNDATION</header><main><div class="hero"><small style="color:#c8ed9a">MỘT NGỮ NGHĨA · NHIỀU HỆ THỐNG</small><h1>Nhập một lần. Dùng đúng nguồn.</h1><p>ANU quản trị nguồn, Data Contract và provenance. LIS và RIS nhận cùng dữ liệu nền qua view đúng phạm vi, không đọc trực tiếp database của nhau.</p></div><p class="notice"><strong>Workbench synthetic:</strong> Chỉ nhập dữ liệu giả lập, không nhập thông tin cá nhân hoặc hồ sơ thực. Mỗi record được lưu trong SQLite của Codespaces dưới dạng CLAIM/UNVALIDATED, không trở thành bản ghi học thuật chính thức. Mã truy cập không được lưu trên trang GitHub Pages.</p><div class="grid"><div><section class="card"><h2>1 · Kết nối dữ liệu nền</h2><label>Mã truy cập từ terminal<input id="token" type="password" autocomplete="off" placeholder="Dán mã cho phiên này"></label><button id="bootstrap">Khởi tạo nguồn và Data Contract</button><p id="message" role="status" aria-live="polite"></p></section><section class="card"><h2>2 · Nhập record nền</h2><label>Loại dữ liệu<select id="kind"><option value="programme">Chương trình · LIS + RIS</option><option value="competency">Năng lực · LIS</option><option value="organisation">Đơn vị · LIS + RIS</option><option value="policy">Tham chiếu quy định · LIS + RIS</option></select></label><label>Mã giả lập<input id="code" maxlength="40" placeholder="SE-TEST-01"></label><label>Tên giả lập<input id="title" maxlength="160" placeholder="Chương trình thử nghiệm"></label><label>Mô tả<textarea id="description" maxlength="500"></textarea></label><label class="check"><input id="synthetic" type="checkbox">Tôi xác nhận đây là dữ liệu synthetic, không có PII hoặc quyết định chính thức.</label><button id="create">Lưu qua Data Contract</button></section></div><div><section class="card"><h2>3 · Cùng dữ liệu, hai consumer</h2><button id="lis" class="secondary">Xem LIS</button><button id="ris" class="secondary">Xem RIS</button><div id="results" class="empty">Khởi tạo, nhập record và chọn consumer để kiểm tra.</div></section><section class="card"><h2>Ranh giới chia sẻ</h2><p>Chương trình, đơn vị và tham chiếu quy định có contract cho LIS/RIS. Năng lực chỉ có contract cho LIS; RIS không nhận record đó. Mọi dữ liệu có ID ổn định, source, phiên bản, provenance và validation state.</p><p><strong>Production:</strong> chủ dữ liệu, nguồn có thẩm quyền theo scope, truy cập của từng consumer, retention và xử lý PII phải qua Human G0–G2 và IdP/policy enforcement trước khi nối hệ thật.</p></section></div></div><p class="foot">ANU · Data Contract → Data Envelope → Consumer projection · Chỉ dùng synthetic trong workbench</p></main><script>
++const $=s=>document.querySelector(s);let current='lis';const token=()=>$('#token').value.trim();function status(message){$('#message').textContent=message}async function call(path,options={}){if(!token())throw Error('Cần nhập mã truy cập');const response=await fetch(path,{...options,headers:{'X-ANU-Foundation-Token':token(),...(options.headers||{})}});const data=await response.json();if(!response.ok)throw Error(typeof data.detail==='string'?data.detail:'Lỗi HTTP '+response.status);return data}async function refresh(consumer){current=consumer;try{const data=await call('/foundation/views/'+consumer);const out=$('#results');out.replaceChildren();if(!data.items.length){out.textContent='Chưa có record cho '+consumer.toUpperCase();return}for(const item of data.items){const div=document.createElement('div');div.className='row';const title=document.createElement('strong');title.textContent=item.payload.title+' ('+item.payload.code+')';div.append(title);for(const line of ['Contract: '+item.contract_ref,'Source: '+item.source_ref,'Version: '+item.version_id,'Provenance: '+item.provenance_ref,'Trạng thái: '+item.epistemic_type+' / '+item.validation_state]){const node=document.createElement('small');node.textContent=line;div.append(node)}out.append(div)}status('Hiển thị '+data.items.length+' record được contract cho phép đối với '+consumer.toUpperCase())}catch(e){status(e.message)}}$('#bootstrap').onclick=async()=>{try{const data=await call('/foundation/bootstrap',{method:'POST'});status('Đã khởi tạo '+data.source+' · '+data.contracts.join(', '));await refresh(current)}catch(e){status(e.message)}};$('#create').onclick=async()=>{try{const body={kind:$('#kind').value,code:$('#code').value.trim(),title:$('#title').value.trim(),description:$('#description').value.trim(),synthetic_acknowledged:$('#synthetic').checked};const data=await call('/foundation/records',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});status('Đã ghi candidate '+data.version_id+' ('+data.status+')');await refresh(current)}catch(e){status(e.message)}};$('#lis').onclick=()=>refresh('lis');$('#ris').onclick=()=>refresh('ris');
++</script></body></html>
+diff --git a/anu-phase1-kernel/scripts/foundation_data_lab.py b/anu-phase1-kernel/scripts/foundation_data_lab.py
+new file mode 100644
+index 0000000..c52aeed
+--- /dev/null
++++ b/anu-phase1-kernel/scripts/foundation_data_lab.py
+@@ -0,0 +1,204 @@
++"""Opt-in shared foundational data intake, backed by ANU Phase 2 contracts.
++
++Synthetic-only reference boundary: this service does not approve institutional
++facts or authenticate an institutional data steward. It validates consumer
++views via versioned data contracts rather than direct cross-domain DB access.
++"""
++from __future__ import annotations
++
++import os
++import secrets
++import subprocess
++import sys
++import threading
++from datetime import datetime, timezone
++from pathlib import Path
++from uuid import uuid4
++
++from fastapi import FastAPI, Header, HTTPException
++from fastapi.responses import HTMLResponse
++from pydantic import BaseModel, Field
++from sqlalchemy import select
++from sqlalchemy.orm import sessionmaker
++
++from anu_kernel.contracts import EffectivePeriod, ProvenanceRecordContract
++from anu_kernel.db import make_engine
++from anu_kernel.reality_contracts import (
++    DataContractContract, DataEnvelopeContract, DataSourceRef, EpistemicType,
++    SourceRegistryContract, ValidationState,
++)
++from anu_kernel.reality_models import DataContractVersion, DataObjectVersion, SourceRegistry
++from anu_kernel.reality_repository import add_data_contract, add_data_object, add_source
++from anu_kernel.repository import add_provenance
++from anu_kernel.reality_services import project_data
++from anu_kernel.reality_contracts import DataProjectionRequest
++
++ROOT = Path(__file__).resolve().parents[1]
++SOURCE = "urn:anu:source:foundation-lab-synthetic"
++OWNER = "urn:anu:org:aru01-synthetic"
++ACTOR = "urn:anu:service:foundation-data-lab"
++CONTRACTS = {
++    "programme": ("urn:anu:data-contract:foundation-programme-lab", "urn:anu:semantic:programme", ["LIS", "RIS"]),
++    "competency": ("urn:anu:data-contract:foundation-competency-lab", "urn:anu:semantic:competency", ["LIS"]),
++    "organisation": ("urn:anu:data-contract:foundation-organisation-lab", "urn:anu:semantic:organisation", ["LIS", "RIS"]),
++    "policy": ("urn:anu:data-contract:foundation-policy-lab", "urn:anu:semantic:policy-reference", ["LIS", "RIS"]),
++}
++app = FastAPI(title="ANU foundation intake lab", docs_url=None, redoc_url=None, openapi_url=None)
++_db_lock = threading.Lock()
++_migrated_urls: set[str] = set()
++
++
++class Intake(BaseModel):
++    kind: str
++    code: str = Field(min_length=2, max_length=40, pattern=r"^[A-Za-z0-9._-]+$")
++    title: str = Field(min_length=3, max_length=160)
++    description: str = Field(default="", max_length=500)
++    synthetic_acknowledged: bool
++
++
++def _require_token(value: str | None) -> None:
++    expected = os.environ.get("ANU_FOUNDATION_LAB_TOKEN", "")
++    if len(expected) < 24:
++        raise HTTPException(503, "Set ANU_FOUNDATION_LAB_TOKEN (24+ characters)")
++    if not value or not secrets.compare_digest(value, expected):
++        raise HTTPException(401, "Invalid foundation lab token")
++
++
++def _url() -> str:
++    raw = os.environ.get("ANU_FOUNDATION_LAB_DB", "").strip()
++    if not raw or not Path(raw).is_absolute() or Path(raw).name != "foundation-lab.sqlite3":
++        raise HTTPException(503, "Set ANU_FOUNDATION_LAB_DB to an absolute foundation-lab.sqlite3 path")
++    path = Path(raw).resolve()
++    path.parent.mkdir(parents=True, exist_ok=True)
++    url = f"sqlite+pysqlite:///{path}"
++    with _db_lock:
++        if url not in _migrated_urls:
++            env = {**os.environ, "ANU_DATABASE_URL": url}
++            result = subprocess.run(
++                [sys.executable, "-m", "alembic", "-c", "alembic.ini", "upgrade", "head"],
++                cwd=ROOT, env=env, capture_output=True, text=True, timeout=90, check=False,
++            )
++            if result.returncode:
++                raise HTTPException(500, "Could not migrate foundation lab database")
++            _migrated_urls.add(url)
++    return url
++
++
++def _session():
++    engine = make_engine(_url())
++    return engine, sessionmaker(bind=engine, future=True)()
++
++
++def _bootstrap(session) -> None:
++    now = datetime.now(timezone.utc)
++    source_provenance = "urn:anu:provenance:foundation-lab-source"
++    if not session.get(SourceRegistry, SOURCE):
++        add_provenance(session, ProvenanceRecordContract(
++            provenance_id=source_provenance, entity_ref=SOURCE, actor_ref=ACTOR,
++            effective_time=now, recorded_time=now, source_refs=["urn:anu:fixture:aru01"],
++        ))
++        add_source(session, SourceRegistryContract(
++            source_id=SOURCE, name="ARU-01 synthetic foundation intake", source_kind="FIXTURE",
++            owner_ref=OWNER, synthetic_fixture=True, effective_period=EffectivePeriod(valid_from=now),
++            provenance_ref=source_provenance,
++        ))
++    for kind, (contract_id, semantic, consumers) in CONTRACTS.items():
++        if session.scalar(select(DataContractVersion).where(
++            DataContractVersion.contract_id == contract_id, DataContractVersion.version == "1.0.0",
++        )):
++            continue
++        add_data_contract(session, DataContractContract(
++            contract_id=contract_id, data_type="FOUNDATIONAL_SYNTHETIC_CANDIDATE",
++            semantic_definition=semantic,
++            schema={"type": "object", "required": ["code", "title"], "properties": {
++                "code": {"type": "string"}, "title": {"type": "string"}, "description": {"type": "string"}}},
++            owner=OWNER, authoritative_source=None, producers=[SOURCE],
++            consumers=[f"urn:anu:consumer:{consumer.lower()}" for consumer in consumers],
++            privacy_class="SYNTHETIC", access_policy="SYNTHETIC_LAB_ONLY",
++            quality_rules=[{"rule": "source-provenance-required"}],
++            version="1.0.0", provenance_ref=source_provenance,
++        ))
++
++
++@app.get("/foundation", response_class=HTMLResponse, include_in_schema=False)
++def page():
++    return Path(__file__).with_suffix(".html").read_text(encoding="utf-8")
++
++
++@app.post("/foundation/bootstrap")
++def bootstrap(x_anu_foundation_token: str | None = Header(default=None)):
++    _require_token(x_anu_foundation_token)
++    engine, session = _session()
++    try:
++        _bootstrap(session)
++        return {"source": SOURCE, "contracts": list(CONTRACTS), "mode": "SYNTHETIC_CANDIDATE"}
++    finally:
++        session.close(); engine.dispose()
++
++
++@app.post("/foundation/records")
++def create_record(body: Intake, x_anu_foundation_token: str | None = Header(default=None)):
++    _require_token(x_anu_foundation_token)
++    if body.kind not in CONTRACTS or body.synthetic_acknowledged is not True:
++        raise HTTPException(422, "Select a known foundational kind and confirm synthetic input")
++    engine, session = _session()
++    try:
++        if not session.get(SourceRegistry, SOURCE):
++            raise HTTPException(409, "Register synthetic foundation source and contracts first")
++        now = datetime.now(timezone.utc)
++        suffix = uuid4().hex
++        contract_id, semantic, _ = CONTRACTS[body.kind]
++        data_id = f"urn:anu:data:foundation-lab:{body.kind}:{suffix}"
++        version_id = f"urn:anu:data-version:foundation-lab:{suffix}"
++        provenance_ref = f"urn:anu:provenance:foundation-lab:{suffix}"
++        add_provenance(session, ProvenanceRecordContract(
++            provenance_id=provenance_ref, entity_ref=version_id, actor_ref=ACTOR,
++            source_refs=[SOURCE], output_refs=[version_id], effective_time=now, recorded_time=now,
++        ))
++        add_data_object(session, DataEnvelopeContract(
++            data_id=data_id, version_id=version_id, contract_ref=f"{contract_id}@1.0.0",
++            semantic_type=semantic, schema_version="1.0.0",
++            source=DataSourceRef(system_id=SOURCE, record_ref=f"fixture:{body.code}:{suffix}"),
++            owner_ref=OWNER, effective_period=EffectivePeriod(valid_from=now), recorded_time=now,
++            epistemic_type=EpistemicType.CLAIM, validation_state=ValidationState.UNVALIDATED,
++            provenance_ref=provenance_ref, synthetic_output=True,
++            payload={"code": body.code, "title": body.title, "description": body.description},
++        ))
++        return {"data_id": data_id, "version_id": version_id, "contract_ref": f"{contract_id}@1.0.0",
++                "provenance_ref": provenance_ref, "status": "SYNTHETIC_UNVALIDATED"}
++    finally:
++        session.close(); engine.dispose()
++
++
++@app.get("/foundation/views/{consumer}")
++def consumer_view(consumer: str, x_anu_foundation_token: str | None = Header(default=None)):
++    _require_token(x_anu_foundation_token)
++    if consumer not in {"lis", "ris"}:
++        raise HTTPException(404, "Unknown consumer")
++    engine, session = _session()
++    try:
++        rows = session.scalars(select(DataObjectVersion).where(
++            DataObjectVersion.source_system_id == SOURCE,
++            DataObjectVersion.synthetic_output.is_(True),
++            DataObjectVersion.lifecycle_state == "ACTIVE",
++        ).order_by(DataObjectVersion.recorded_time, DataObjectVersion.version_id)).all()
++        items = []
++        for row in rows:
++            cid, version = row.contract_ref.rsplit("@", 1)
++            contract = session.scalar(select(DataContractVersion).where(
++                DataContractVersion.contract_id == cid, DataContractVersion.version == version,
++                DataContractVersion.lifecycle_state == "ACTIVE",
++            ))
++            if contract is None or f"urn:anu:consumer:{consumer}" not in (contract.consumers or []):
++                continue
++            projection = project_data(session, DataProjectionRequest(
++                data_id=row.data_id, effective_at=datetime.now(timezone.utc),
++            ))
++            items.append({"data_id": row.data_id, "version_id": projection.version_id,
++                "semantic_type": projection.semantic_type, "payload": projection.payload,
++                "epistemic_type": projection.epistemic_type, "validation_state": projection.validation_state,
++                "source_ref": projection.source_ref, "provenance_ref": projection.provenance_ref,
++                "contract_ref": row.contract_ref, "privacy_class": contract.privacy_class})
++        return {"consumer": consumer.upper(), "mode": "SYNTHETIC_PREVIEW_ONLY", "items": items}
++    finally:
++        session.close(); engine.dispose()
+diff --git a/anu-phase1-kernel/tests/api/test_foundation_data_lab.py b/anu-phase1-kernel/tests/api/test_foundation_data_lab.py
+new file mode 100644
+index 0000000..cb8e64a
+--- /dev/null
++++ b/anu-phase1-kernel/tests/api/test_foundation_data_lab.py
+@@ -0,0 +1,60 @@
++from __future__ import annotations
++
++from fastapi.testclient import TestClient
++from sqlalchemy import select
++from sqlalchemy.orm import sessionmaker
++
++from anu_kernel.db import make_engine
++from anu_kernel.reality_models import DataObjectVersion, SourceAuthorityMapping
++from scripts.foundation_data_lab import app
++
++
++TOKEN = "synthetic-foundation-lab-token-very-long"
++HEADERS = {"X-ANU-Foundation-Token": TOKEN}
++
++
++def test_foundation_lab_requires_configured_token(monkeypatch, tmp_path):
++    monkeypatch.delenv("ANU_FOUNDATION_LAB_TOKEN", raising=False)
++    monkeypatch.setenv("ANU_FOUNDATION_LAB_DB", str(tmp_path / "foundation-lab.sqlite3"))
++    client = TestClient(app)
++    assert client.get("/foundation").status_code == 200
++    assert client.post("/foundation/bootstrap").status_code == 503
++    monkeypatch.setenv("ANU_FOUNDATION_LAB_TOKEN", TOKEN)
++    assert client.post("/foundation/bootstrap").status_code == 401
++
++
++def test_foundation_data_is_shared_by_contract_without_claiming_authority(monkeypatch, tmp_path):
++    path = tmp_path / "foundation-lab.sqlite3"
++    monkeypatch.setenv("ANU_FOUNDATION_LAB_TOKEN", TOKEN)
++    monkeypatch.setenv("ANU_FOUNDATION_LAB_DB", str(path))
++    client = TestClient(app)
++    assert client.post("/foundation/bootstrap", headers=HEADERS).status_code == 200
++    assert client.post("/foundation/bootstrap", headers=HEADERS).status_code == 200
++    assert client.post("/foundation/records", headers=HEADERS, json={
++        "kind": "programme", "code": "SE-TEST", "title": "Synthetic software engineering",
++        "synthetic_acknowledged": False,
++    }).status_code == 422
++    for kind, code in [("programme", "SE-TEST"), ("competency", "C-TEST"),
++                       ("organisation", "ORG-TEST"), ("policy", "POL-TEST")]:
++        response = client.post("/foundation/records", headers=HEADERS, json={
++            "kind": kind, "code": code, "title": f"Synthetic {kind}",
++            "synthetic_acknowledged": True,
++        })
++        assert response.status_code == 200, response.text
++        assert response.json()["status"] == "SYNTHETIC_UNVALIDATED"
++
++    lis = client.get("/foundation/views/lis", headers=HEADERS)
++    ris = client.get("/foundation/views/ris", headers=HEADERS)
++    assert lis.status_code == ris.status_code == 200
++    assert {item["payload"]["code"] for item in lis.json()["items"]} == {"SE-TEST", "C-TEST", "ORG-TEST", "POL-TEST"}
++    assert {item["payload"]["code"] for item in ris.json()["items"]} == {"SE-TEST", "ORG-TEST", "POL-TEST"}
++    assert client.get("/foundation/views/other", headers=HEADERS).status_code == 404
++    for item in lis.json()["items"]:
++        assert item["epistemic_type"] == "CLAIM"
++        assert item["validation_state"] == "UNVALIDATED"
++        assert item["provenance_ref"] and item["source_ref"] and item["contract_ref"]
++    engine = make_engine(f"sqlite+pysqlite:///{path}")
++    with sessionmaker(bind=engine, future=True)() as session:
++        assert session.scalars(select(SourceAuthorityMapping)).all() == []
++        assert all(row.synthetic_output and row.epistemic_type == "CLAIM" for row in session.scalars(select(DataObjectVersion)).all())
++    engine.dispose()
