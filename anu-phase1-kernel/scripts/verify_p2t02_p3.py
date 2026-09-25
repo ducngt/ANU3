@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -46,7 +47,7 @@ def migration_cycle(database_url: str) -> tuple[bool, str]:
         command.upgrade(cfg, "head")
         command.downgrade(cfg, "base")
         command.upgrade(cfg, "head")
-        return True, "upgrade -> downgrade -> upgrade PASS at revision 0004"
+        return True, "upgrade -> downgrade -> upgrade PASS through current Alembic head"
     except Exception as exc:
         return False, repr(exc)
     finally:
@@ -147,8 +148,39 @@ def main() -> int:
         details["aru01_multimodal_capability_pilot"] = pilot
 
         schemas = run([sys.executable, "scripts/export_schemas.py"])
-        checks["contract_schema_export"] = "PASS" if schemas.returncode == 0 and "exported 50 schemas" in schemas.stdout else "FAIL"
-        details["contract_schema_export"] = (schemas.stdout + schemas.stderr).strip()
+        schema_output = (schemas.stdout + schemas.stderr).strip()
+        exported_match = re.search(r"exported\s+(\d+)\s+schemas", schemas.stdout)
+        exported_count = int(exported_match.group(1)) if exported_match else 0
+        baseline_schema_files = {
+            "anu.artifact-integrity-result.v1.json",
+            "anu.capability-contract.v1.json",
+            "anu.capability-discovery-query.v1.json",
+            "anu.capability-discovery-response.v1.json",
+            "anu.data-contract.v1.json",
+            "anu.data-envelope.v1.json",
+            "anu.ingested-artifact.v1.json",
+            "anu.knowledge-object.v1.json",
+            "anu.memory-record.v1.json",
+            "anu.multimodal-artifact-ingest-request.v1.json",
+            "anu.multimodal-artifact-ingest-result.v1.json",
+            "anu.retrieval-query.v1.json",
+            "anu.retrieval-response.v1.json",
+            "anu.smart-box-manifest.v1.json",
+            "anu.source-authority-mapping.v1.json",
+            "anu.source-registry.v1.json",
+        }
+        missing_baseline_schemas = sorted(
+            name for name in baseline_schema_files if not (ROOT / "contracts" / "schemas" / name).is_file()
+        )
+        schema_ok = schemas.returncode == 0 and exported_count >= 50 and not missing_baseline_schemas
+        checks["contract_schema_export"] = "PASS" if schema_ok else "FAIL"
+        details["contract_schema_export"] = {
+            "command_output": schema_output,
+            "exported_count": exported_count,
+            "minimum_baseline_count": 50,
+            "missing_baseline_schemas": missing_baseline_schemas,
+            "compatibility_rule": "additive schemas are allowed; P2-T02/P3-01 baseline schemas must remain present",
+        }
 
         independent = run([sys.executable, "-m", "pytest", "tests/independent/test_p2t02_p3_boundaries.py", "-q"])
         checks["independent_boundary_verifier"] = "PASS" if independent.returncode == 0 else "FAIL"
@@ -176,7 +208,7 @@ def main() -> int:
         ),
         "checks": checks,
         "external_checks": {
-            "live_postgresql_revision_0004": "PENDING_EXTERNAL_CI",
+            "live_postgresql_baseline_0004_preserved": "PENDING_EXTERNAL_CI",
             "live_postgresql_multimodal_pilot": "PENDING_EXTERNAL_CI",
             "live_postgresql_db_object_store_recovery": "PENDING_EXTERNAL_CI",
             "independent_live_evidence_qualification": "PENDING_EXTERNAL_CI",
@@ -185,7 +217,7 @@ def main() -> int:
             "ARU-01 remains synthetic; no real learner PII is used.",
             "PDF and DOCX have deterministic text extraction; image/audio/video are ingested as immutable governed artifacts with media metadata. OCR, speech transcription and video semantic analysis remain provider adapters for later versioned upgrades.",
             "Vector retrieval is a provider-neutral deterministic hashing baseline, not a production embedding model; provider implementation is replaceable behind the retrieval boundary.",
-            "P3 scope is contract/registry/Smart Box manifest/discovery only. Connection Planner, Assembly runtime and Write Box Studio are intentionally not opened in this tranche.",
+            "This verifier qualifies the accepted P2-T02/P3-01 baseline. Later P3 runtime revisions may coexist and are verified by their own release gate.",
             "Connecting real SIS/LMS/HR or personal data requires a separate Human G2 privacy/retention/access decision.",
         ],
         "human_action": "None for verification. Publish the prepared CI activation package only because this session has no GitHub write connector; GitHub Actions then owns live PostgreSQL verification.",

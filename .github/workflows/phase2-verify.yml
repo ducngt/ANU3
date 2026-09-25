@@ -90,12 +90,18 @@ jobs:
       - name: Install PostgreSQL client tools
         shell: bash
         run: sudo apt-get update && sudo apt-get install -y postgresql-client
-      - name: Clean live migration to revision 0004
+      - name: Clean live migration through current head
         shell: bash
         run: cd "$ANU_PROJECT_DIR" && alembic upgrade head
-      - name: Assert live Alembic head
+      - name: Assert live Alembic current revision equals repository head
         shell: bash
-        run: cd "$ANU_PROJECT_DIR" && test "$(alembic current | awk '{print $1}')" = "0004"
+        run: |
+          cd "$ANU_PROJECT_DIR"
+          CURRENT="$(alembic current | awk 'NF {print $1}' | tail -1)"
+          HEAD="$(alembic heads | awk 'NF {print $1}' | tail -1)"
+          echo "current=$CURRENT head=$HEAD"
+          test -n "$CURRENT"
+          test "$CURRENT" = "$HEAD"
       - name: Create isolated restore database
         shell: bash
         run: createdb -h localhost -U postgres anu_p2t02_restore
@@ -162,7 +168,7 @@ jobs:
         run: |
           echo "## ANU P2-T02 + P3 Contract Foundation Evidence" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Revision 0004 clean migration on PostgreSQL 16: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Accepted revision 0004 baseline preserved under current PostgreSQL 16 head: PASS" >> "$GITHUB_STEP_SUMMARY"
           echo "- Multimodal PDF/DOCX/image/audio/video artifact ingestion: PASS" >> "$GITHUB_STEP_SUMMARY"
           echo "- Artifact integrity and provenance chain: PASS" >> "$GITHUB_STEP_SUMMARY"
           echo "- Knowledge materialization preserves epistemic type: PASS" >> "$GITHUB_STEP_SUMMARY"

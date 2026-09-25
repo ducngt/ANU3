@@ -5,6 +5,9 @@ import json
 import shutil
 from pathlib import Path
 
+from alembic.config import Config
+from alembic.runtime.migration import MigrationContext
+from alembic.script import ScriptDirectory
 from sqlalchemy import func, select
 from sqlalchemy.orm import sessionmaker
 
@@ -19,6 +22,27 @@ from anu_kernel.ingestion_services import retrieve, verify_artifact_integrity
 from anu_kernel.object_store import FileSystemObjectStore
 from anu_kernel.reality_models import KnowledgeObjectVersion, UniversityMemoryRecord
 from aru01_multimodal_capability_pilot import run_pilot
+
+ROOT = Path(__file__).resolve().parents[1]
+BASELINE_REVISION = "0004"
+
+
+def current_database_revision(database_url: str) -> str | None:
+    engine = make_engine(database_url)
+    with engine.connect() as connection:
+        return MigrationContext.configure(connection).get_current_revision()
+
+
+def baseline_revision_is_ancestor(current_revision: str | None) -> bool:
+    if not current_revision:
+        return False
+    cfg = Config(str(ROOT / "alembic.ini"))
+    script = ScriptDirectory.from_config(cfg)
+    try:
+        revisions = script.iterate_revisions(current_revision, "base")
+        return any(revision.revision == BASELINE_REVISION for revision in revisions)
+    except Exception:
+        return False
 
 
 def restored_evidence(database_url: str, object_store_root: Path) -> dict:
@@ -59,6 +83,8 @@ def main() -> int:
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
 
+    database_revision = current_database_revision(args.database_url)
+    baseline_preserved = baseline_revision_is_ancestor(database_revision)
     object_store = Path(args.object_store).resolve()
     restored_store = Path(args.restored_object_store).resolve()
     pilot = run_pilot(args.database_url, object_store)
@@ -69,6 +95,7 @@ def main() -> int:
     shutil.copytree(object_store, restored_store)
     restored = restored_evidence(args.restore_url, restored_store)
     checks = {
+        "baseline_revision_0004_in_history": baseline_preserved,
         "live_postgresql_multimodal_capability_pilot": pilot["pass"],
         "live_postgresql_backup": backup["status"] == "PASS",
         "live_postgresql_restore": restore["status"] == "PASS",
@@ -88,7 +115,9 @@ def main() -> int:
         "pilot": pilot,
         "restored": restored,
         "synthetic_data_only": True,
-        "database_revision": "0004",
+        "baseline_revision": BASELINE_REVISION,
+        "database_revision": database_revision,
+        "compatibility_rule": "accepted P2-T02/P3-01 baseline must remain valid under additive later Alembic heads",
     }
     Path(args.output).write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False, indent=2))
